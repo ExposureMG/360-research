@@ -1,0 +1,246 @@
+mnemonic,operands,class,setup_set,latency_cycles,register_reach,intrinsic,notes,description_from_doc
+lvebx,"vDst, RegA, RegB",Vector/Scalar Load,Upper,2,vr0-31 only,__lvebx,doc states element loads behave like lvx,Load Vector Element Byte Indexed
+lvehx,"vDst, RegA, RegB",Vector/Scalar Load,Upper,2,vr0-31 only,__lvehx,doc states element loads behave like lvx,Load Vector Element Halfword Indexed
+lvewx,"vDst, RegA, RegB",Vector/Scalar Load,Upper,2,vr0-31 (has 128 twin),__lvewx,doc states element loads behave like lvx,Load Vector Element Word Indexed
+lvewx128,"vDst, RegA, RegB",Vector/Scalar Load,Upper,2,vr0-127,__lvewx,doc states element loads behave like lvx,Load Vector Element Word Indexed
+lvlx,"vDst, RegA, RegB",Vector/Scalar Load,Upper,2,vr0-31 (has 128 twin),__lvlx,"loads up to next 16B boundary, left-aligned, rest zero",Load Vector Left Indexed
+lvlx128,"vDst, RegA, RegB",Vector/Scalar Load,Upper,2,vr0-127,__lvlx,,Load Vector Left Indexed
+lvlxl,"vDst, RegA, RegB",Vector/Scalar Load,Upper,2,vr0-31 (has 128 twin),__lvlx,,Load Vector Left Indexed
+lvlxl128,"vDst, RegA, RegB",Vector/Scalar Load,Upper,2,vr0-127,__lvlx,,Load Vector Left Indexed
+lvrx,"vDst, RegA, RegB",Vector/Scalar Load,Upper,2,vr0-31 (has 128 twin),__lvrx,"loads from previous 16B boundary, right-aligned; no-op if EA 16B-aligned",Load Vector Right Indexed
+lvrx128,"vDst, RegA, RegB",Vector/Scalar Load,Upper,2,vr0-127,__lvrx,,Load Vector Right Indexed
+lvrxl,"vDst, RegA, RegB",Vector/Scalar Load,Upper,2,vr0-31 (has 128 twin),__lvrx,,Load Vector Right Indexed
+lvrxl128,"vDst, RegA, RegB",Vector/Scalar Load,Upper,2,vr0-127,__lvrx,,Load Vector Right Indexed
+lvsl,"vDst, RegA, RegB",Vector/Scalar Load,Upper,2,vr0-31 only,__lvsl,,Load Vector for Shift Left
+lvsr,"vDst, RegA, RegB",Vector/Scalar Load,Upper,2,vr0-31 only,__lvsr,,Load Vector for Shift Right
+lvx,"vDst, RegA, RegB",Vector/Scalar Load,Upper,2,vr0-31 (has 128 twin),__lvx,,Load Vector Indexed
+lvx128,"vDst, RegA, RegB",Vector/Scalar Load,Upper,2,vr0-127,__lvx,,Load Vector Indexed
+lvxl,"vDst, RegA, RegB",Vector/Scalar Load,Upper,2,vr0-31 (has 128 twin),__lvx,identical to lvx on Xbox 360 (no cache hint),Load Vector Indexed Last
+lvxl128,"vDst, RegA, RegB",Vector/Scalar Load,Upper,2,vr0-127,__lvx,identical to lvx128 (no cache hint),Load Vector Indexed Last
+mfvscr,vDstvDst,Vector Simple,Lower,4,vr0-31 only,,,Move From Vector Status and Control Register
+mtvscr,vSrcvSrc,Vector Simple,Lower,4,vr0-31 only,,flushes pipelines,Move To Vector Status and Control Register
+stvebx,"vSrc, RegA, RegB",Vector/Scalar Store,Upper,n/a,vr0-31 only,__stvebx,,Store Vector Element Byte Indexed
+stvehx,"vSrc, RegA, RegB",Vector/Scalar Store,Upper,n/a,vr0-31 only,__stvehx,,Store Vector Element Halfword Indexed
+stvewx,"vSrc, RegA, RegB",Vector/Scalar Store,Upper,n/a,vr0-31 (has 128 twin),__stvewx,,Store Vector Element Word Indexed
+stvewx128,"vSrc, RegA, RegB",Vector/Scalar Store,Upper,n/a,vr0-127,__stvewx,,Store Vector Element Word Indexed
+stvlx,"vSrc, RegA, RegB",Vector/Scalar Store,Upper,n/a,vr0-31 (has 128 twin),__stvlx,stores left part up to next 16B boundary,Store Vector Left Indexed
+stvlx128,"vSrc, RegA, RegB",Vector/Scalar Store,Upper,n/a,vr0-127,__stvlx,,Store Vector Left Indexed
+stvlxl,"vSrc, RegA, RegB",Vector/Scalar Store,Upper,n/a,vr0-31 (has 128 twin),__stvlx,,Store Vector Left Indexed Last
+stvlxl128,"vSrc, RegA, RegB",Vector/Scalar Store,Upper,n/a,vr0-127,__stvlx,,Store Vector Left Indexed Last
+stvrx,"vSrc, RegA, RegB",Vector/Scalar Store,Upper,n/a,vr0-31 (has 128 twin),__stvrx,stores right part from previous 16B boundary; no-op if EA 16B-aligned,Store Vector Right Indexed
+stvrx128,"vSrc, RegA, RegB",Vector/Scalar Store,Upper,n/a,vr0-127,__stvrx,,Store Vector Right Indexed
+stvrxl,"vSrc, RegA, RegB",Vector/Scalar Store,Upper,n/a,vr0-31 (has 128 twin),__stvrx,,Store Vector Right Indexed Last
+stvrxl128,"vSrc, RegA, RegB",Vector/Scalar Store,Upper,n/a,vr0-127,__stvrx,,Store Vector Right Indexed Last
+stvx,"vSrc, RegA, RegB",Vector/Scalar Store,Upper,n/a,vr0-31 (has 128 twin),__stvx,,Store Vector Indexed
+stvx128,"vSrc, RegA, RegB",Vector/Scalar Store,Upper,n/a,vr0-127,__stvx,,Store Vector Indexed
+stvxl,"vSrc, RegA, RegB",Vector/Scalar Store,Upper,n/a,vr0-31 (has 128 twin),__stvx,,Store Vector Indexed Last
+stvxl128,"vSrc, RegA, RegB",Vector/Scalar Store,Upper,n/a,vr0-127,__stvx,,Store Vector Indexed Last
+vaddcuw,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vaddcuw,,Vector Add and Write Carry-Out Unsigned Word
+vaddfp,"vDst, vSrcA, vSrcB",Vector Float,Lower,12,vr0-31 (has 128 twin),__vaddfp,,Vector Add Single-Precision
+vaddfp128,"vDst, vSrcA, vSrcB",Vector Float,Lower,12,vr0-127,__vaddfp,,Vector Add Single-Precision
+vaddsbs,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vaddsbs,,Vector Add Signed Byte Saturate
+vaddshs,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vaddshs,,Vector Add Signed Halfword Saturate
+vaddsws,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vaddsws,,Vector Add Signed Word Saturate
+vaddubm,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vaddubm,,Vector Add Unsigned Byte Modulo
+vaddubs,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vaddubs,,Vector Add Unsigned Byte Saturate
+vadduhm,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vadduhm,,Vector Add Unsigned Halfword Modulo
+vadduhs,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vadduhs,,Vector Add Unsigned Halfword Saturate
+vadduwm,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vadduwm,,Vector Add Unsigned Word Modulo
+vadduws,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vadduwm,,Vector Add Unsigned Word Saturate
+vand,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 (has 128 twin),__vand,,Vector Logical AND
+vand128,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-127,__vand,,Vector Logical AND
+vandc,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 (has 128 twin),__vandc,,Vector Logical AND with Complement
+vandc128,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-127,__vandc,,Vector Logical AND with Complement
+vavgsb,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vavgsb,,Vector Average Signed Byte
+vavgsh,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vavgsh,,Vector Average Signed Halfword
+vavgsw,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vavgsw,,Vector Average Signed Word
+vavgub,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vavgub,,Vector Average Unsigned Byte
+vavguh,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vavguh,,Vector Average Unsigned Halfword
+vavguw,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vavguw,,Vector Average Unsigned Word
+vcfpsxws,"vDst, vSrcA, uImmed",Vector Float,Lower,12,vr0-31 (has 128 twin),__vctsxs,,Vector Convert From Single-Precision to Signed Fixed-Point Word Saturate
+vcfpsxws128,"vDst, vSrcA, uImmed",Vector Float,Lower,12,vr0-127,__vctsxs,,Vector Convert From Single-Precision to Signed Fixed-point Word Saturate
+vcfpuxws,"vDst, vSrcA, uImmed",Vector Float,Lower,12,vr0-31 (has 128 twin),__vctuxs,,Vector Convert From Single-Precision to Unsigned Fixed-Point Word Saturate
+vcfpuxws128,"vDst, vSrcA, uImmed",Vector Float,Lower,12,vr0-127,__vctuxs,,Vector Convert From Single-Precision to Unsigned Fixed-point Word Saturate
+vcfsx,"vDst, vSrcA, uImmed",Vector Float,Lower,12,vr0-31 (has 128 twin),__vcfsx,,Vector Convert from Signed Fixed-Point Word to Single-Precision
+vcfsx128,"vDst, vSrcA, uImmed",Vector Float,Lower,12,vr0-127,__vcfsx,,Vector Convert from Signed Fixed-point Word to Single-Precision
+vcfux,"vDst, vSrcA, uImmed",Vector Float,Lower,12,vr0-31 (has 128 twin),__vcfux,,Vector Convert from Unsigned Fixed-Point Word to Single-Precision
+vcfux128,"vDst, vSrcA, uImmed",Vector Float,Lower,12,vr0-127,__vcfux,,Vector Convert from Unsigned Fixed-point Word to Single-Precision
+vcmpbfp,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 (has 128 twin),__vcmpbfp,,Vector Compare Bounds Single-Precision
+vcmpbfp128,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-127,__vcmpbfp,,Vector Compare Bounds Single-Precision
+vcmpbfp128.,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-127,__vcmpbfpR,,Vector Compare Bounds Single-Precision & record CR6
+vcmpbfp.,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 (has 128 twin),__vcmpbfpR,,Vector Compare Bounds Single-Precision & record CR6
+vcmpeqfp,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 (has 128 twin),__vcmpeqfp,,Vector Compare Equal to Single-Precision
+vcmpeqfp128,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-127,__vcmpeqfp,,Vector Compare Equal to Single-Precision
+vcmpeqfp128.,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-127,__vcmpeqfpR,,Vector Compare Equal to Single-Precision & record CR6
+vcmpeqfp.,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 (has 128 twin),__vcmpeqfpR,,Vector Compare Equal to Single-Precision & record CR6
+vcmpequb,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vcmpequb,,Vector Compare Equal to Unsigned Byte
+vcmpequb.,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vcmpequbR,,Vector Compare Equal to Unsigned Byte & record CR6
+vcmpequh,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vcmpequh,,Vector Compare Equal to Unsigned Halfword
+vcmpequh.,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vcmpequhR,,Vector Compare Equal to Unsigned Halfword & record CR6
+vcmpequw,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 (has 128 twin),__vcmpequw,,Vector Compare Equal to Unsigned Word
+vcmpequw128,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-127,__vcmpequw,,Vector Compare Equal to Unsigned Word
+vcmpequw128.,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-127,__vcmpequwR,,Vector Compare Equal to Unsigned Word & record CR6
+vcmpequw.,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 (has 128 twin),__vcmpequwR,,Vector Compare Equal to Unsigned Word & record CR6
+vcmpgefp,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 (has 128 twin),__vcmpgefp,,Vector Compare Greater Than or Equal to Single-Precision
+vcmpgefp128,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-127,,latency table missing in doc; class inferred from sibling compares,Vector Compare Greater Than or Equal to Single-Precision
+vcmpgefp128.,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-127,__vcmpgefpR,,Vector Compare Greater Than or Equal to Single-Precision & record CR6
+vcmpgefp.,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 (has 128 twin),__vcmpgefpR,,Vector Compare Greater Than or Equal to Single-Precision & record CR6
+vcmpgtfp,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 (has 128 twin),__vcmpgtfp,,Vector Compare Greater Than Single-Precision
+vcmpgtfp128,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-127,__vcmpgtfp,,Vector Compare Greater Than Single-Precision
+vcmpgtfp128.,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-127,__vcmpgtfpR,,Vector Compare Greater Than Single-Precision & record CR6
+vcmpgtfp.,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 (has 128 twin),__vcmpgtfpR,,Vector Compare Greater Than Single-Precision & record CR6
+vcmpgtsb,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vcmpgtsb,,Vector Compare Greater Than Signed Byte
+vcmpgtsb.,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vcmpgtsbR,,Vector Compare Greater Than Signed Byte & record CR6
+vcmpgtsh,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vcmpgtsh,,Vector Compare Greater Than Signed Halfword
+vcmpgtsh.,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vcmpgtshR,,Vector Compare Greater Than Signed Halfword & record CR6
+vcmpgtsw,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vcmpgtsw,,Vector Compare Greater Than Signed Word
+vcmpgtsw.,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vcmpgtswR,,Vector Compare Greater Than Signed Word & record CR6
+vcmpgtub,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,,latency table missing in doc; class inferred from sibling compares,Vector Compare Greater Than Unsigned Byte
+vcmpgtub.,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vcmpgtubR,,Vector Compare Greater Than Unsigned Byte & record CR6
+vcmpgtuh,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vcmpgtuh,,Vector Compare Greater Than Unsigned Halfword
+vcmpgtuh.,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vcmpgtuhR,,Vector Compare Greater Than Unsigned Halfword & record CR6
+vcmpgtuw,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vcmpgtuw,,Vector Compare Greater Than Unsigned Word
+vcmpgtuw.,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vcmpgtuwR,,Vector Compare Greater Than Unsigned Word & record CR6
+vcsxwfp,"vDst, vSrcA, uImmed",Vector Float,Lower,12,vr0-31 (has 128 twin),__vcfsx,,Vector Convert from Signed Fixed-Point Word to Single-Precision
+vcsxwfp128,"vDst, vSrcA, uImmed",Vector Float,Lower,12,vr0-127,__vcfsx,,Vector Convert from Signed Fixed-point Word to Single-Precision
+vctsxs,"vDst, vSrcA, uImmed",Vector Float,Lower,12,vr0-31 (has 128 twin),__vctsxs,,Vector Convert From Single-Precision to Signed Fixed-Point Word Saturate
+vctsxs128,"vDst, vSrcA, uImmed",Vector Float,Lower,12,vr0-127,__vctsxs,,Vector Convert From Single-Precision to Signed Fixed-point Word Saturate
+vctuxs,"vDst, vSrcA, uImmed",Vector Float,Lower,12,vr0-31 (has 128 twin),__vctuxs,,Vector Convert From Single-Precision to Unsigned Fixed-Point Word Saturate
+vctuxs128,"vDst, vSrcA, uImmed",Vector Float,Lower,12,vr0-127,__vctuxs,,Vector Convert From Single-Precision to Unsigned Fixed-point Word Saturate
+vcuxwfp,"vDst, vSrcA, uImmed",Vector Float,Lower,12,vr0-31 (has 128 twin),__vcfux,,Vector Convert from Unsigned Fixed-Point Word to Single-Precision
+vcuxwfp128,"vDst, vSrcA, uImmed",Vector Float,Lower,12,vr0-127,__vcfux,,Vector Convert from Unsigned Fixed-point Word to Single-Precision
+vdot3fp,"vDst, vSrcA, vSrcB",Vector Dot-Product,Lower,14,vr0-31 only,__vmsum3fp,probably an alternative assembler spelling of vmsum3fp128/vmsum4fp128 (same intrinsic); no separate 32-register encoding known [inferred],Vector Multiply-Sum 3-way Single-Precision
+vdot4fp,"vDst, vSrcA, vSrcB",Vector Dot-Product,Lower,14,vr0-31 only,__vmsum4fp,probably an alternative assembler spelling of vmsum3fp128/vmsum4fp128 (same intrinsic); no separate 32-register encoding known [inferred],Vector Multiply-Sum 4-way Single-Precision
+vexptefp,"vDst, vSrcA",Vector Float,Lower,14,vr0-31 (has 128 twin),__vexptefp,SDK says 14; hardware (OpenXenos) measures 12,Vector 2 Raised to the Exponent Estimate Floating-Point
+vexptefp128,"vDst, vSrcA",Vector Float,Lower,14,vr0-127,__vexptefp,SDK says 14; hardware (OpenXenos) measures 12,Vector 2 Raised to the Exponent Estimate Floating-Point
+vlogefp,"vDst, vSrcA",Vector Float,Lower,14,vr0-31 (has 128 twin),__vlogefp,SDK says 14; hardware (OpenXenos) measures 12,Vector Log Base 2 Estimate Floating-Point
+vlogefp128,"vDst, vSrcA",Vector Float,Lower,14,vr0-127,__vlogefp,SDK says 14; hardware (OpenXenos) measures 12,Vector Log Base 2 Estimate Floating-Point
+vmaddcfp128,"vDst, vSrcA, vSrcB, vSrcC",Vector Float,Lower,12,vr0-127 (128-only op),,vDst must equal vSrcB (multiplicand); computes A*B+C,Vector Multiply-Add Single-Precision (vDst = vSrcB)
+vmaddfp,"vDst, mul1, mul2, addend",Vector Float,Lower,12,vr0-31 (has 128 twin),__vmaddfp,,Vector Multiply-Add Single-Precision
+vmaddfp128,"vDst, vSrcA, vSrcB, vSrcC",Vector Float,Lower,12,vr0-127,__vmaddfp,vDst must equal vSrcC (addend); destructive,Vector Multiply-Add Single-Precision (vDst = vSrcC)
+vmaxfp,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 (has 128 twin),__vmaxfp,,Vector Maximum Single-Precision
+vmaxfp128,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-127,__vmaxfp,,Vector Maximum Single-Precision
+vmaxsb,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vmaxsb,,Vector Maximum Signed Byte
+vmaxsh,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vmaxsh,,Vector Maximum Signed Halfword
+vmaxsw,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vmaxsw,,Vector Maximum Signed Word
+vmaxub,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vmaxub,,Vector Maximum Unsigned Byte
+vmaxuh,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vmaxuh,,Vector Maximum Unsigned Halfword
+vmaxuw,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vmaxuw,,Vector Maximum Unsigned Word
+vminfp,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 (has 128 twin),__vminfp,,Vector Minimum Single-Precision
+vminfp128,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-127,__vminfp,,Vector Minimum Single-Precision
+vminsb,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vminsb,,Vector Minimum Signed Byte
+vminsh,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vminsh,,Vector Minimum Signed Halfword
+vminsw,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vminsw,,Vector Minimum Signed Word
+vminub,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vminub,,Vector Minimum Unsigned Byte
+vminuh,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vminuh,,Vector Minimum Unsigned Halfword
+vminuw,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vminuw,,Vector Minimum Unsigned Word
+vmrghb,"vDst, vSrcA, vSrcB",Vector Permute,Upper,4,vr0-31 only,__vmrghb,,Vector Merge High Byte
+vmrghh,"vDst, vSrcA, vSrcB",Vector Permute,Upper,4,vr0-31 only,__vmrghh,,Vector Merge High Halfword
+vmrghw,"vDst, vSrcA, vSrcB",Vector Permute,Upper,4,vr0-31 (has 128 twin),__vmrghw,,Vector Merge High Word
+vmrghw128,"vDst, vSrcA, vSrcB",Vector Permute,Upper,4,vr0-127,__vmrghw,,Vector Merge High Word
+vmrglb,"vDst, vSrcA, vSrcB",Vector Permute,Upper,4,vr0-31 only,__vmrglb,,Vector Merge Low Byte
+vmrglh,"vDst, vSrcA, vSrcB",Vector Permute,Upper,4,vr0-31 only,__vmrglh,,Vector Merge Low Halfword
+vmrglw,"vDst, vSrcA, vSrcB",Vector Permute,Upper,4,vr0-31 (has 128 twin),__vmrglw,,Vector Merge Low Word
+vmrglw128,"vDst, vSrcA, vSrcB",Vector Permute,Upper,4,vr0-127,__vmrglw,,Vector Merge Low Word
+vmsum3fp128,"vDst, vSrcA, vSrcB",Vector Dot-Product,Lower,14,vr0-127 (128-only op),__vmsum3fp,"dot product, result splatted to all lanes; ignores W; ~1-bit errors; overflow gives NaN not Inf",Vector Multiply-Sum 3-way Single-Precision
+vmsum4fp128,"vDst, vSrcA, vSrcB",Vector Dot-Product,Lower,14,vr0-127 (128-only op),__vmsum4fp,"dot product, result splatted to all lanes; ~1-bit errors; overflow gives NaN not Inf",Vector Multiply-Sum 4-way Single-Precision
+vmulfp128,"vDst, vSrcA, vSrcB",Vector Float,Lower,12,vr0-127 (128-only op),__vmulfp,plain multiply (no addend); same latency as vmaddfp,Vector Multiply Single-Precision
+vnmsubfp,"vDst, mul1, mul2, subtrahend",Vector Float,Lower,12,vr0-31 (has 128 twin),__vnmsubfp,,Vector Negative Multiply-Subtract Single-Precision
+vnmsubfp128,"vDst, mul1, mul2, vSrcC",Vector Float,Lower,12,vr0-127,__vnmsubfp,"dst tied to the addend (vSrcC); hardware-confirmed D=-(A*B-D); page text ""same as mul2"" is wrong",Vector Negative Multiply-Subtract Single-Precision (vSrc as the subtrahend)
+vnor,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 (has 128 twin),__vnor,,Vector Logical NOR
+vnor128,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-127,__vnor,,Vector Logical NOR
+vor,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 (has 128 twin),__vor,,Vector Logical OR
+vor128,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-127,__vor,,Vector Logical OR
+vperm,"vDst, vSrcA, vSrcB, permControl",Vector Permute,Upper,4,vr0-31 (has 128 twin),__vperm,,Vector Permute
+vperm128,"vDst, vSrcA, vSrcB, permControl",Vector Permute,Upper,4,vr0-127,__vperm,control vector must be VR0-VR7 in this form,Vector Permute
+vpermwi128,"vDst, vSrcA, uImmed",Vector Permute,Upper,4,vr0-127 (128-only op),__vpermwi,"8-bit immediate, 2 bits per output word (X..W, MSB first)",Vector Permute Word Immediate
+vpkd3d128,"vDst, vSrcA, uDataType, uMask, uShift",Vector Permute,Upper,4,vr0-127 (128-only op),__vpkd3d,"dst is also insert target; imm: type 0-6, mask 0-3, shift 0-3; float source must be pre-biased 3.0+x*2^-22","Vector Pack D3Dtype, Rotate Left Immediate and Mask Insert"
+vpkpx,"vDst, vSrcA, vSrcB",Vector Permute,Upper,4,vr0-31 only,__vpkpx,,Vector Pack Pixel
+vpkshss,"vDst, vSrcA, vSrcB",Vector Permute,Upper,4,vr0-31 (has 128 twin),__vpkshss,,Vector Pack Signed Halfword Signed Saturate
+vpkshss128,"vDst, vSrcA, vSrcB",Vector Permute,Upper,4,vr0-127,__vpkshss,,Vector Pack Signed Halfword Signed Saturate
+vpkshus,"vDst, vSrcA, vSrcB",Vector Permute,Upper,4,vr0-31 (has 128 twin),__vpkshus,,Vector Pack Signed Halfword Unsigned Saturate
+vpkshus128,"vDst, vSrcA, vSrcB",Vector Permute,Upper,4,vr0-127,__vpkshus,,Vector Pack Signed Halfword Unsigned Saturate
+vpkswss,"vDst, vSrcA, vSrcB",Vector Permute,Upper,4,vr0-31 (has 128 twin),__vpkswss,,Vector Pack Signed Word Signed Saturate
+vpkswss128,"vDst, vSrcA, vSrcB",Vector Permute,Upper,4,vr0-127,__vpkswss,,Vector Pack Signed Word Signed Saturate
+vpkswus,"vDst, vSrcA, vSrcB",Vector Permute,Upper,4,vr0-31 (has 128 twin),__vpkswus,,Vector Pack Signed Word Unsigned Saturate
+vpkswus128,"vDst, vSrcA, vSrcB",Vector Permute,Upper,4,vr0-127,__vpkswus,,Vector Pack Signed Word Unsigned Saturate
+vpkuhum,"vDst, vSrcA, vSrcB",Vector Permute,Upper,4,vr0-31 (has 128 twin),__vpkuhum,,Vector Pack Unsigned Halfword Unsigned Modulo
+vpkuhum128,"vDst, vSrcA, vSrcB",Vector Permute,Upper,4,vr0-127,__vpkuhum,,Vector Pack Unsigned Halfword Unsigned Modulo
+vpkuhus,"vDst, vSrcA, vSrcB",Vector Permute,Upper,4,vr0-31 (has 128 twin),__vpkuhus,,Vector Pack Unsigned Halfword Unsigned Saturate
+vpkuhus128,"vDst, vSrcA, vSrcB",Vector Permute,Upper,4,vr0-127,__vpkuhus,,Vector Pack Unsigned Halfword Unsigned Saturate
+vpkuwum,"vDst, vSrcA, vSrcB",Vector Permute,Upper,4,vr0-31 (has 128 twin),__vpkuwum,,Vector Pack Unsigned Word Unsigned Modulo
+vpkuwum128,"vDst, vSrcA, vSrcB",Vector Permute,Upper,4,vr0-127,__vpkuwum,,Vector Pack Unsigned Word Unsigned Modulo
+vpkuwus,"vDst, vSrcA, vSrcB",Vector Permute,Upper,4,vr0-31 (has 128 twin),__vpkuwus,,Vector Pack Unsigned Word Unsigned Saturate
+vpkuwus128,"vDst, vSrcA, vSrcB",Vector Permute,Upper,4,vr0-127,__vpkuwus,,Vector Pack Unsigned Word Unsigned Saturate
+vrefp,"vDst, vSrcA",Vector Float,Lower,14,vr0-31 (has 128 twin),__vrefp,"hardware (OpenXenos): issues every ~2 cycles, not every cycle",Vector Reciprocal Estimate Single-Precision
+vrefp128,"vDst, vSrcA",Vector Float,Lower,14,vr0-127,__vrefp,"hardware (OpenXenos): issues every ~2 cycles, not every cycle",Vector Reciprocal Estimate Single-Precision
+vrfim,"vDst, vSrcA",Vector Float,Lower,12,vr0-31 (has 128 twin),__vrfim,,Vector Round to Single-Precision Integer toward −Infinity
+vrfim128,"vDst, vSrcA",Vector Float,Lower,12,vr0-127,__vrfim,,Vector Round to Single-Precision Integer toward Minus Infinity
+vrfin,"vDst, vSrcA",Vector Float,Lower,12,vr0-31 (has 128 twin),__vrfin,,Vector Round to Single-Precision Integer Nearest
+vrfin128,"vDst, vSrcA",Vector Float,Lower,12,vr0-127,__vrfin,,Vector Round to Single-Precision Integer to Nearest
+vrfip,"vDst, vSrcA",Vector Float,Lower,12,vr0-31 (has 128 twin),__vrfip,,Vector Round to Single-Precision Integer toward +Infinity
+vrfip128,"vDst, vSrcA",Vector Float,Lower,12,vr0-127,__vrfip,,Vector Round to Single-Precision Integer toward Plus Infinity
+vrfiz,"vDst, vSrcA",Vector Float,Lower,12,vr0-31 (has 128 twin),__vrfiz,,Vector Round to Single-Precision Integer toward Zero
+vrfiz128,"vDst, vSrcA",Vector Float,Lower,12,vr0-127,__vrfiz,,Vector Round to Single-Precision Integer toward Zero
+vrlb,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vrlb,,Vector Rotate Left Byte
+vrlh,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vrlh,,Vector Rotate Left Halfword
+vrlimi128,"vDst, vSrc, wMask, Rot",Vector Simple,Lower,4,vr0-127 (128-only op),__vrlimi,dst is also the insert target; 4-bit write mask + 2-bit rotate immediates; doc inconsistent on pipe (page: Vector Simple; white paper: Permute),Vector Rotate Left Immediate and Mask Insert
+vrlw,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 (has 128 twin),__vrlw,,Vector Rotate Left Word
+vrlw128,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-127,__vrlw,,Vector Rotate Left Word
+vrsqrtefp,"vDst, vSrc",Vector Float,Lower,14,vr0-31 (has 128 twin),__vrsqrtefp,"hardware (OpenXenos): issues every ~2 cycles, not every cycle",Vector Reciprocal Square Root Estimate Single-Precision
+vrsqrtefp128,"vDst, vSrc",Vector Float,Lower,14,vr0-127,__vrsqrtefp,"hardware (OpenXenos): issues every ~2 cycles, not every cycle",Vector Reciprocal Square Root Estimate Single-Precision
+vsel,"vDst, vSrcA, vSrcB, vSrcC",Vector Simple,Lower,4,vr0-31 (has 128 twin),__vsel,,Vector Select.
+vsel128,"vDst, vSrcA, vSrcB, vDst",Vector Simple,Lower,4,vr0-127,__vsel,vDst is also the control mask (destroyed),Vector Select.
+vsl,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vsl,,Vector Shift Left
+vslb,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vslb,,Vector Shift Left Byte
+vsldoi,"vDst, vSrcA, vSrcB, Shift",Vector Permute,Upper,4,vr0-31 (has 128 twin),__vsldoi,,Vector Shift Left Double by Octet Immediate
+vsldoi128,"vDst, vSrcA, vSrcB, Shift",Vector Permute,Upper,4,vr0-127,__vsldoi,,Vector Shift Left Double by Octet Immediate
+vslh,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vslh,,Vector Shift Left Halfword
+vslo,"vDst, vSrcA, vSrcB",Vector Permute,Upper,4,vr0-31 (has 128 twin),__vslo,,Vector Shift Left by Octet
+vslo128,"vDst, vSrcA, vSrcB",Vector Permute,Upper,4,vr0-127,__vslo,,Vector Shift Left Octet
+vslw,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 (has 128 twin),__vslw,,Vector Shift Left Word
+vslw128,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-127,__vslw,,Vector Shift Left Word
+vspltb,"vDst, vSrcA, uImmed",Vector Permute,Upper,4,vr0-31 only,__vspltb,,Vector Splat Byte
+vsplth,"vDst, vSrcA, uImmed",Vector Permute,Upper,4,vr0-31 only,__vsplth,,Vector Splat Halfword
+vspltisb,"vDst, sImmed",Vector Permute,Upper,4,vr0-31 only,__vspltisb,,Vector Splat Immediate Signed Byte
+vspltish,"vDst, sImmed",Vector Permute,Upper,4,vr0-31 only,__vspltish,,Vector Splat Immediate Signed Halfword
+vspltisw,"vDst, sImmed",Vector Permute,Upper,4,vr0-31 (has 128 twin),__vspltisw,,Vector Splat Immediate Signed Word
+vspltisw128,"vDst, sImmed",Vector Permute,Upper,4,vr0-127,__vspltisw,,Vector Splat Immediate Signed Word
+vspltw,"vDst, vSrcA, uImmed",Vector Permute,Upper,4,vr0-31 (has 128 twin),__vspltw,,Vector Splat Word
+vspltw128,"vDst, vSrcA, uImmed",Vector Permute,Upper,4,vr0-127,__vspltw,,Vector Splat Word
+vsr,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vsr,,Vector Shift Right
+vsrab,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vsrab,,Vector Shift Right Algebraic Byte
+vsrah,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vsrah,,Vector Shift Right Algebraic Halfword
+vsraw,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 (has 128 twin),__vsraw,,Vector Shift Right Algebraic Word
+vsraw128,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-127,__vsraw,,Vector Shift Right Algebraic Word
+vsrb,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vsrb,,Vector Shift Right Byte
+vsrh,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vsrh,,Vector Shift Right Halfword
+vsro,"vDst, vSrcA, vSrcB",Vector Permute,Upper,4,vr0-31 (has 128 twin),__vsro,,Vector Shift Right by Octet
+vsro128,"vDst, vSrcA, vSrcB",Vector Permute,Upper,4,vr0-127,__vsro,,Vector Shift Right Octet
+vsrw,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 (has 128 twin),__vsrw,,Vector Shift Right Word
+vsrw128,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-127,__vsrw,,Vector Shift Right Word
+vsubcuw,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,,,Vector Subtract and Write Carry-Out Unsigned Word
+vsubfp,"vDst, vSrcA, vSrcB",Vector Float,Lower,12,vr0-31 (has 128 twin),__vsubfp,,Vector Subtract Single-Precision
+vsubfp128,"vDst, vSrcA, vSrcB",Vector Float,Lower,12,vr0-127,__vsubfp,,Vector Subtract Single-Precision
+vsubsbs,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vsubsbs,,Vector Subtract Signed Byte Saturate
+vsubshs,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vsubshs,,Vector Subtract Signed Halfword Saturate
+vsubsws,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vsubsws,,Vector Subtract Signed Word Saturate
+vsububm,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vsububm,,Vector Subtract Unsigned Byte Modulo
+vsububs,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vsububs,,Vector Subtract Unsigned Byte Saturate
+vsubuhm,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vsubuhm,,Vector Subtract Unsigned Halfword Modulo
+vsubuhs,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vsubuhs,,Vector Subtract Unsigned Halfword Saturate
+vsubuwm,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vsubuwm,,Vector Subtract Unsigned Word Modulo
+vsubuws,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 only,__vsubuws,,Vector Subtract Unsigned Word Saturate
+vupkd3d128,"vDst, vSrcA, uDataType",Vector Permute,Upper,4,vr0-127 (128-only op),__vupkd3d,imm: type 0-6; source taken from low word(s),Vector Unpack D3Dtype
+vupkhpx,"vDst, vSrcA",Vector Permute,Upper,4,vr0-31 only,__vupkhpx,,Vector Unpack High Pixel
+vupkhsb,"vDst, vSrcA",Vector Permute,Upper,4,vr0-31 (has 128 twin),__vupkhsb,,Vector Unpack High Signed Byte
+vupkhsb128,"vDst, vSrcA",Vector Permute,Upper,4,vr0-127,__vupkhsb,,Vector Unpack High Signed Byte
+vupkhsh,"vDst, vSrcA",Vector Permute,Upper,4,vr0-31 (has 128 twin),__vupkhsh,,Vector Unpack High Signed Halfword
+vupkhsh128,"vDst, vSrcA",Vector Permute,Upper,4,vr0-127,__vupkhsh,,Vector Unpack High Signed Halfword
+vupklpx,"vDst, vSrcA",Vector Permute,Upper,4,vr0-31 only,__vupklpx,,Vector Unpack Low Pixel
+vupklsb,"vDst, vSrcA",Vector Permute,Upper,4,vr0-31 (has 128 twin),__vupklsb,,Vector Unpack Low Signed Byte
+vupklsb128,"vDst, vSrcA",Vector Permute,Upper,4,vr0-127,__vupklsb,,Vector Unpack Low Signed Byte
+vupklsh,"vDst, vSrcA",Vector Permute,Upper,4,vr0-31 (has 128 twin),__vupklsh,,Vector Unpack Low Signed Halfword
+vupklsh128,"vDst, vSrcA",Vector Permute,Upper,4,vr0-127,__vupklsh,,Vector Unpack Low Signed Halfword
+vxor,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-31 (has 128 twin),__vxor,,Vector Logical XOR
+vxor128,"vDst, vSrcA, vSrcB",Vector Simple,Lower,4,vr0-127,__vxor,,Vector Logical XOR
