@@ -30,9 +30,9 @@ void gpu_power_kill(void)
 }
 
 
-// ---- FUN_CODE_0036 @ CODE:0036 ----
+// ---- vreg_gpu_pwrgd_check @ CODE:0036 ----
 
-void FUN_CODE_0036(void)
+void vreg_gpu_pwrgd_check(void)
 
 {
   undefined1 uVar1;
@@ -83,9 +83,9 @@ void gpu_reset_done_read(void)
 }
 
 
-// ---- FUN_CODE_0052 @ CODE:0052 ----
+// ---- cpu_power_enable @ CODE:0052 ----
 
-void FUN_CODE_0052(void)
+void cpu_power_enable(void)
 
 {
   gpio_vreg_cpu_en = 1;
@@ -93,9 +93,9 @@ void FUN_CODE_0052(void)
 }
 
 
-// ---- FUN_CODE_0055 @ CODE:0055 ----
+// ---- cpu_power_kill @ CODE:0055 ----
 
-void FUN_CODE_0055(void)
+void cpu_power_kill(void)
 
 {
   gpio_vreg_cpu_en = 0;
@@ -103,9 +103,9 @@ void FUN_CODE_0055(void)
 }
 
 
-// ---- FUN_CODE_0058 @ CODE:0058 ----
+// ---- vreg_cpu_pwrgd_check @ CODE:0058 ----
 
-void FUN_CODE_0058(void)
+void vreg_cpu_pwrgd_check(void)
 
 {
   undefined1 uVar1;
@@ -2327,11 +2327,11 @@ void powerdown_sm_exec(void)
     return;
   case '\x06':
     g_vcpu_regulator_enabled = 0;
-    FUN_CODE_0055();
+    cpu_power_kill();
     DAT_INTMEM_9f = 3;
     return;
   case '\t':
-    FUN_CODE_23fd();
+    vreg_5vp0_sel_standby();
     vreg_3v3_enable();
     DAT_INTMEM_9f = 4;
     return;
@@ -2470,9 +2470,9 @@ void powerup_sm_exec(void)
       DAT_INTMEM_9c = 3;
       return;
     case 9:
-      FUN_CODE_0036();
+      vreg_gpu_pwrgd_check();
       if (cVar1 < '\0') {
-        FUN_CODE_0036();
+        vreg_gpu_pwrgd_check();
         g_vgpu_regulator_enabled = 1;
         DAT_INTMEM_9c = 4;
         return;
@@ -2491,7 +2491,7 @@ void powerup_sm_exec(void)
       DAT_INTMEM_9c = 5;
       return;
     case 0xf:
-      FUN_CODE_2406();
+      vreg_v5p0_vmem_pwrgd_check();
       g_v1p8_regulator_enabled = 1;
       g_shared_timer_cell = g_shared_timer_cell + -1;
       if (g_shared_timer_cell != '\0') {
@@ -2501,7 +2501,7 @@ void powerup_sm_exec(void)
       DAT_INTMEM_9c = 6;
       return;
     case 0x12:
-      FUN_CODE_23fa();
+      vreg_5vp0_sel_main();
       _4_4 = 1;
       DAT_INTMEM_9c = 7;
       return;
@@ -2510,13 +2510,13 @@ void powerup_sm_exec(void)
       DAT_INTMEM_9c = 8;
       return;
     case 0x18:
-      FUN_CODE_0052();
+      cpu_power_enable();
       DAT_INTMEM_9c = 9;
       return;
     case 0x1b:
-      FUN_CODE_0058();
+      vreg_cpu_pwrgd_check();
       if (cVar1 < '\0') {
-        FUN_CODE_0058();
+        vreg_cpu_pwrgd_check();
         g_vcpu_regulator_enabled = 1;
       }
       else {
@@ -4265,7 +4265,7 @@ void vreg_monitor_statuses(void)
     }
   }
   if (g_v1p8_regulator_enabled != '\0') {
-    FUN_CODE_2406();
+    vreg_v5p0_vmem_pwrgd_check();
     if (-1 < in_PSW) {
       g_rrod_power_problem = 1;
       g_rrod_errordisplay_code_a = 0xd;
@@ -4277,7 +4277,7 @@ void vreg_monitor_statuses(void)
     }
   }
   if (g_vcpu_regulator_enabled != '\0') {
-    FUN_CODE_0058();
+    vreg_cpu_pwrgd_check();
     if (-1 < in_PSW) {
       g_rrod_power_problem = 1;
       g_rrod_errordisplay_code_a = 2;
@@ -4289,7 +4289,7 @@ void vreg_monitor_statuses(void)
     }
   }
   if (g_vgpu_regulator_enabled != '\0') {
-    FUN_CODE_0036();
+    vreg_gpu_pwrgd_check();
     if (-1 < in_PSW) {
       g_rrod_power_problem = 1;
       g_rrod_errordisplay_code_a = 3;
@@ -4753,9 +4753,9 @@ void thermal_monitor_check_if_temps_available(void)
 }
 
 
-// ---- FUN_CODE_207d @ CODE:207d ----
+// ---- tiltsw_sm_go_state_0 @ CODE:207d ----
 
-void FUN_CODE_207d(void)
+void tiltsw_sm_go_state_0(void)
 
 {
   DAT_INTMEM_7f = 0;
@@ -4763,9 +4763,9 @@ void FUN_CODE_207d(void)
 }
 
 
-// ---- FUN_CODE_2082 @ CODE:2082 ----
+// ---- tiltsw_sm_go_state_1 @ CODE:2082 ----
 
-void FUN_CODE_2082(void)
+void tiltsw_sm_go_state_1(void)
 
 {
   DAT_INTMEM_7f = 1;
@@ -4773,9 +4773,9 @@ void FUN_CODE_2082(void)
 }
 
 
-// ---- FUN_CODE_2087 @ CODE:2087 ----
+// ---- tiltsw_sm_go_state_2 @ CODE:2087 ----
 
-void FUN_CODE_2087(void)
+void tiltsw_sm_go_state_2(void)
 
 {
   DAT_INTMEM_7f = 2;
@@ -4783,9 +4783,9 @@ void FUN_CODE_2087(void)
 }
 
 
-// ---- FUN_CODE_208c @ CODE:208c ----
+// ---- tiltsw_sm_go_state_3 @ CODE:208c ----
 
-void FUN_CODE_208c(void)
+void tiltsw_sm_go_state_3(void)
 
 {
   DAT_INTMEM_7f = 3;
@@ -4793,9 +4793,9 @@ void FUN_CODE_208c(void)
 }
 
 
-// ---- FUN_CODE_2092 @ CODE:2092 ----
+// ---- tiltsw_sm_exec_state_0 @ CODE:2092 ----
 
-void FUN_CODE_2092(void)
+void tiltsw_sm_exec_state_0(void)
 
 {
   char in_PSW;
@@ -4803,7 +4803,7 @@ void FUN_CODE_2092(void)
   DAT_INTMEM_65 = 4;
   tiltsw_read();
   if (in_PSW < '\0') {
-    FUN_CODE_2082();
+    tiltsw_sm_go_state_1();
     return;
   }
   DAT_INTMEM_7f = 0;
@@ -4811,9 +4811,9 @@ void FUN_CODE_2092(void)
 }
 
 
-// ---- FUN_CODE_209c @ CODE:209c ----
+// ---- tiltsw_sm_exec_state_1 @ CODE:209c ----
 
-void FUN_CODE_209c(void)
+void tiltsw_sm_exec_state_1(void)
 
 {
   char in_PSW;
@@ -4828,7 +4828,7 @@ void FUN_CODE_209c(void)
     _0_5 = 1;
     g_ipc_tiltsw_event_pending = 1;
     _8_3 = 1;
-    FUN_CODE_2087();
+    tiltsw_sm_go_state_2();
     return;
   }
   DAT_INTMEM_7f = 1;
@@ -4836,9 +4836,9 @@ void FUN_CODE_209c(void)
 }
 
 
-// ---- FUN_CODE_20ac @ CODE:20ac ----
+// ---- tiltsw_sm_exec_state_2 @ CODE:20ac ----
 
-void FUN_CODE_20ac(void)
+void tiltsw_sm_exec_state_2(void)
 
 {
   char in_PSW;
@@ -4846,7 +4846,7 @@ void FUN_CODE_20ac(void)
   DAT_INTMEM_65 = 0x19;
   tiltsw_read();
   if (-1 < in_PSW) {
-    FUN_CODE_208c();
+    tiltsw_sm_go_state_3();
     return;
   }
   DAT_INTMEM_7f = 2;
@@ -4854,9 +4854,9 @@ void FUN_CODE_20ac(void)
 }
 
 
-// ---- FUN_CODE_20b6 @ CODE:20b6 ----
+// ---- tiltsw_sm_exec_state_3 @ CODE:20b6 ----
 
-void FUN_CODE_20b6(void)
+void tiltsw_sm_exec_state_3(void)
 
 {
   char in_PSW;
@@ -4871,7 +4871,7 @@ void FUN_CODE_20b6(void)
     _0_5 = 0;
     g_ipc_tiltsw_event_pending = 1;
     _8_3 = 1;
-    FUN_CODE_207d();
+    tiltsw_sm_go_state_0();
     return;
   }
   DAT_INTMEM_7f = 3;
@@ -4887,16 +4887,16 @@ void tiltsw_sm_exec(void)
                     /* WARNING: Switch is manually overridden */
   switch(DAT_INTMEM_7f * '\x03') {
   case '\0':
-    FUN_CODE_2092();
+    tiltsw_sm_exec_state_0();
     return;
   case '\x03':
-    FUN_CODE_209c();
+    tiltsw_sm_exec_state_1();
     return;
   case '\x06':
-    FUN_CODE_20ac();
+    tiltsw_sm_exec_state_2();
     return;
   case '\t':
-    FUN_CODE_20b6();
+    tiltsw_sm_exec_state_3();
     return;
   }
 }
@@ -4912,7 +4912,7 @@ void tray_sm_exec_state_3(void)
   if ((_4_5 != '\0') && (_4_5 = '\0', g_tray_state == 0x62)) {
     DAT_INTMEM_35 = 4;
     tray_open_or_close();
-    FUN_CODE_217b();
+    tray_sm_go_state_4();
     return;
   }
   if (g_tray_intended_state == 0x65) {
@@ -4942,12 +4942,12 @@ void tray_sm_exec_state_3(void)
   if (g_tray_intended_state == 0x62) {
     g_tray_state = 100;
     tray_update_power_led_state();
-    FUN_CODE_2180();
+    tray_sm_go_state_5();
     return;
   }
   g_tray_state = 99;
   tray_update_power_led_state();
-  FUN_CODE_2180();
+  tray_sm_go_state_5();
   return;
 }
 
@@ -4972,7 +4972,7 @@ void tray_sm_exec_state_0(void)
   }
   DAT_INTMEM_35 = 2;
   tray_open_or_close();
-  FUN_CODE_216c();
+  tray_sm_go_state_1();
   return;
 }
 
@@ -5003,9 +5003,9 @@ void tray_sm_exec_state_1(void)
 }
 
 
-// ---- FUN_CODE_216c @ CODE:216c ----
+// ---- tray_sm_go_state_1 @ CODE:216c ----
 
-void FUN_CODE_216c(void)
+void tray_sm_go_state_1(void)
 
 {
   DAT_INTMEM_a9 = 1;
@@ -5033,9 +5033,9 @@ void tray_sm_go_state_3(void)
 }
 
 
-// ---- FUN_CODE_217b @ CODE:217b ----
+// ---- tray_sm_go_state_4 @ CODE:217b ----
 
-void FUN_CODE_217b(void)
+void tray_sm_go_state_4(void)
 
 {
   DAT_INTMEM_a9 = 4;
@@ -5043,9 +5043,9 @@ void FUN_CODE_217b(void)
 }
 
 
-// ---- FUN_CODE_2180 @ CODE:2180 ----
+// ---- tray_sm_go_state_5 @ CODE:2180 ----
 
-void FUN_CODE_2180(void)
+void tray_sm_go_state_5(void)
 
 {
   DAT_INTMEM_a9 = 5;
@@ -5529,9 +5529,9 @@ void vreg_5vp0_kill(void)
 }
 
 
-// ---- FUN_CODE_23fa @ CODE:23fa ----
+// ---- vreg_5vp0_sel_main @ CODE:23fa ----
 
-void FUN_CODE_23fa(void)
+void vreg_5vp0_sel_main(void)
 
 {
   gpio_vreg_v5p0_sel = 0;
@@ -5539,9 +5539,9 @@ void FUN_CODE_23fa(void)
 }
 
 
-// ---- FUN_CODE_23fd @ CODE:23fd ----
+// ---- vreg_5vp0_sel_standby @ CODE:23fd ----
 
-void FUN_CODE_23fd(void)
+void vreg_5vp0_sel_standby(void)
 
 {
   gpio_vreg_v5p0_sel = 1;
@@ -5569,9 +5569,9 @@ void vreg_v1p8_kill(void)
 }
 
 
-// ---- FUN_CODE_2406 @ CODE:2406 ----
+// ---- vreg_v5p0_vmem_pwrgd_check @ CODE:2406 ----
 
-void FUN_CODE_2406(void)
+void vreg_v5p0_vmem_pwrgd_check(void)
 
 {
   undefined1 uVar1;
