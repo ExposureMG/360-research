@@ -6227,8 +6227,8 @@ __int64 __fastcall sub_9558(int a1, unsigned int a2)
 }
 
 
-/* ========== [0x9738] sub_9738 (416 bytes) ========== */
-__int64 sub_9738()
+/* ========== [0x9738] HvpBlowFusesStage1 (416 bytes) ========== */
+__int64 HvpBlowFusesStage1()
 {
   __int64 v0; // r2
   __int64 SocMMIORegs; // r3
@@ -6318,8 +6318,8 @@ LABEL_15:
 }
 
 
-/* ========== [0x98d8] sub_98D8 (332 bytes) ========== */
-__int64 sub_98D8()
+/* ========== [0x98d8] HvpBlowFusesStage2 (332 bytes) ========== */
+__int64 HvpBlowFusesStage2()
 {
   __int64 v0; // r2
   __int64 SocMMIORegs; // r3
@@ -6365,8 +6365,8 @@ __int64 sub_98D8()
 }
 
 
-/* ========== [0x9a28] sub_9A28 (668 bytes) ========== */
-__int64 sub_9A28()
+/* ========== [0x9a28] HvpBlowFusesStage3 (668 bytes) ========== */
+__int64 HvpBlowFusesStage3()
 {
   __int64 v0; // r2
   __int64 SocMMIORegs; // r3
@@ -6493,8 +6493,8 @@ LABEL_19:
 }
 
 
-/* ========== [0x9cc8] sub_9CC8 (228 bytes) ========== */
-unsigned __int64 sub_9CC8()
+/* ========== [0x9cc8] HvpBlowFusesStage4 (228 bytes) ========== */
+unsigned __int64 HvpBlowFusesStage4()
 {
   __int64 v0; // r2
   __int64 SocMMIORegs; // r3
@@ -6541,9 +6541,9 @@ unsigned __int64 sub_9CC8()
 }
 
 
-/* ========== [0x9db0] sub_9DB0 (196 bytes) ========== */
+/* ========== [0x9db0] HvpBlowFusesStage5 (196 bytes) ========== */
 // write access to const memory has been detected, the output may be wrong!
-__int64 sub_9DB0()
+__int64 HvpBlowFusesStage5()
 {
   __int64 v0; // r2
   unsigned int v2; // r11
@@ -6575,8 +6575,8 @@ __int64 sub_9DB0()
 }
 
 
-/* ========== [0x9e78] sub_9E78 (492 bytes) ========== */
-__int64 __fastcall sub_9E78(int a1)
+/* ========== [0x9e78] HvpBlowFusesStage6 (492 bytes) ========== */
+__int64 __fastcall HvpBlowFusesStage6(int a1)
 {
   __int64 v1; // r2
   __int64 result; // r3
@@ -6667,8 +6667,8 @@ LABEL_23:
 }
 
 
-/* ========== [0xa068] sub_A068 (180 bytes) ========== */
-unsigned __int64 sub_A068()
+/* ========== [0xa068] HvpBlowFusesStage7 (180 bytes) ========== */
+unsigned __int64 HvpBlowFusesStage7()
 {
   __int64 SocMMIORegs; // r3
   __int16 *v1; // r11
@@ -6984,13 +6984,13 @@ __int64 __fastcall HvxBlowFuses(__int64 a1)
     LODWORD(v11) = -1;
     sub_9558(v11, (v1 >> 8) & 0xFFF);
   }
-  else if ( (v1 & 1) == 0 || (v11 = sub_9738(v11), v14 = v11, (_DWORD)v11 == 0) )
+  else if ( (v1 & 1) == 0 || (v11 = HvpBlowFusesStage1(v11), v14 = v11, (_DWORD)v11 == 0) )
   {
-    if ( (v1 & 2) == 0 || (v11 = sub_98D8(v11), v14 = v11, (_DWORD)v11 == 0) )
+    if ( (v1 & 2) == 0 || (v11 = HvpBlowFusesStage2(v11), v14 = v11, (_DWORD)v11 == 0) )
     {
-      if ( (v1 & 4) == 0 || (v11 = sub_9A28(v1), v14 = v11, (_DWORD)v11 == 0) )
+      if ( (v1 & 4) == 0 || (v11 = HvpBlowFusesStage3(v1), v14 = v11, (_DWORD)v11 == 0) )
       {
-        if ( (v1 & 8) == 0 || (v11 = sub_9CC8(v11), v14 = v11, (_DWORD)v11 == 0) )
+        if ( (v1 & 8) == 0 || (v11 = HvpBlowFusesStage4(v11), v14 = v11, (_DWORD)v11 == 0) )
         {
           if ( (v1 & 0x10) != 0 )
           {
@@ -7000,12 +7000,12 @@ __int64 __fastcall HvxBlowFuses(__int64 a1)
           {
             v14 = 16;
           }
-          else if ( (v1 & 0x40) == 0 || (v11 = sub_9DB0(v11), v14 = v11, (_DWORD)v11 == 0) )
+          else if ( (v1 & 0x40) == 0 || (v11 = HvpBlowFusesStage5(v11), v14 = v11, (_DWORD)v11 == 0) )
           {
-            if ( (v1 & 0x100000) == 0 || (v11 = sub_9E78(v1), v14 = v11, (_DWORD)v11 == 0) )
+            if ( (v1 & 0x100000) == 0 || (v11 = HvpBlowFusesStage6(v1), v14 = v11, (_DWORD)v11 == 0) )
             {
               if ( (v1 & 0x20000000) != 0 )
-                v14 = sub_A068(v11);
+                v14 = HvpBlowFusesStage7(v11);
             }
           }
         }
