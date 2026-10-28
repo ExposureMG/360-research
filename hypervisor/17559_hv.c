@@ -2505,8 +2505,8 @@ unsigned __int64 __fastcall HvpPhysicalToReal(unsigned int a1, unsigned int a2)
 }
 
 
-/* ========== [0x2a18] sub_2A18 (100 bytes) ========== */
-unsigned __int64 __fastcall sub_2A18(unsigned int a1, unsigned int a2)
+/* ========== [0x2a18] HvpPhysicalToRealExt (100 bytes) ========== */
+unsigned __int64 __fastcall HvpPhysicalToRealExt(unsigned int a1, unsigned int a2)
 {
   if ( a1 + 0x80000000 <= 0x1FFFFFFF && a2 <= -1610612736 - a1 )
     return jt1_jumper();
@@ -2977,8 +2977,8 @@ __int64 __fastcall HvpComputeKeyVaultHmacSha(int a1, __int64 a2, __int64 a3)
 }
 
 
-/* ========== [0x36a8] sub_36A8 (184 bytes) ========== */
-__int64 __fastcall sub_36A8(__int64 a1)
+/* ========== [0x36a8] HvpKeysExKeyVaultSeal (184 bytes) ========== */
+__int64 __fastcall HvpKeysExKeyVaultSeal(__int64 a1)
 {
   __int64 v1; // r2
   __int64 v3; // r30
@@ -3797,9 +3797,9 @@ __int64 __fastcall HvxKeysAesCbc(
     v19 = (_DWORD *)(v17 + 92448);
     HvpAquireSpinLock((_DWORD *)(v17 + 92448));
     LODWORD(v20) = a5;
-    v21 = sub_2A18(a4, v20);
+    v21 = HvpPhysicalToRealExt(a4, v20);
     LODWORD(v22) = a5;
-    v23 = sub_2A18(a6, v22);
+    v23 = HvpPhysicalToRealExt(a6, v22);
     HvpSetRMCIEx(0, v21, v23);
     sub_B388(v37, v38);
     if ( a8 != 0 )
@@ -4369,7 +4369,7 @@ __int64 __fastcall HvxKeysExSaveKeyVault(unsigned int a1, int a2)
   HvpSetRMCI(0);
   v4 = (__int64 *)HvpRelocatePhysicalToEncrypted(a1, 0x4000u);
   memcpy(v4, *(_QWORD *)(v5 + 91032));
-  sub_36A8(v4);
+  HvpKeysExKeyVaultSeal(v4);
   HvpRelocateEncryptedToPhysical(v4, 0x4000u, v6);
   HvpSetRMCI(1);
   return 0;
@@ -4507,8 +4507,8 @@ bool __fastcall sub_6760(__int64 a1)
 }
 
 
-/* ========== [0x6828] sub_6828 (176 bytes) ========== */
-__int64 __fastcall sub_6828(__int64 a1)
+/* ========== [0x6828] HvpSecuritySettingsSeal (176 bytes) ========== */
+__int64 __fastcall HvpSecuritySettingsSeal(__int64 a1)
 {
   __int64 v1; // r2
   __int64 v3; // r30
@@ -4557,7 +4557,7 @@ __int64 __fastcall HvxSecuritySaveSettings(unsigned int a1, int a2, __int64 a3)
   *(_QWORD *)(*(_QWORD *)(v4 + 26152) + 32LL) = a3;
   memcpy(v8, *(_QWORD *)(v4 + 26152));
   LODWORD(v10) = (_DWORD)v8;
-  sub_6828(v10);
+  HvpSecuritySettingsSeal(v10);
   HvpRelocateEncryptedToPhysical(v8, 0x400u, v11);
   HvpSetRMCI(1);
   return 0;
@@ -4892,8 +4892,8 @@ void nullsub_2()
 }
 
 
-/* ========== [0x73c0] sub_73C0 (212 bytes) ========== */
-__int64 __fastcall sub_73C0(int a1)
+/* ========== [0x73c0] HvpKeysFindZeroedSlot (212 bytes) ========== */
+__int64 __fastcall HvpKeysFindZeroedSlot(int a1)
 {
   __int64 v1; // r2
   __int64 v2; // r31
@@ -5146,7 +5146,7 @@ __int64 __fastcall HvxKeysGenerateRandomKey(unsigned int a1)
   if ( v5 == 0 )
     return -939524094;
   XeCryptRandom((uint8_t *)(*(unsigned __int16 *)(2LL * a1 + v1 + 69192) + *(_QWORD *)(v1 + 91072) + 24LL), v4);
-  sub_73C0(1);
+  HvpKeysFindZeroedSlot(1);
   return 0;
 }
 
@@ -11974,8 +11974,8 @@ __int64 __fastcall sub_23620(__int64 a1, __int64 a2, __int64 a3, __int64 a4, __i
 }
 
 
-/* ========== [0x23698] sub_23698 (128 bytes) ========== */
-unsigned __int64 __fastcall sub_23698(unsigned __int64 a1, unsigned __int8 a2, unsigned __int8 a3)
+/* ========== [0x23698] HvpHdcpCalculateAKsvSignature (128 bytes) ========== */
+unsigned __int64 __fastcall HvpHdcpCalculateAKsvSignature(unsigned __int64 a1, unsigned __int8 a2, unsigned __int8 a3)
 {
   return (unsigned __int8)(((a1 >> 17) & 0x80 | (a1 >> 25) & 0x7F)
                          + ((a1 >> 37) & 7 | (a1 >> 29) & 0xF8)
@@ -11988,8 +11988,8 @@ unsigned __int64 __fastcall sub_23698(unsigned __int64 a1, unsigned __int8 a2, u
 }
 
 
-/* ========== [0x23718] sub_23718 (124 bytes) ========== */
-unsigned __int64 __fastcall sub_23718(unsigned __int64 a1, __int16 a2, __int16 a3)
+/* ========== [0x23718] HvpHdcpCalculateBKsvSignature (124 bytes) ========== */
+unsigned __int64 __fastcall HvpHdcpCalculateBKsvSignature(unsigned __int64 a1, __int16 a2, __int16 a3)
 {
   return (unsigned __int8)((((a1 & 0x8000000000LL) != 0) | (a1 >> 31) & 0xFE)
                          + ((a1 >> 27) & 0x1F | (a1 >> 19) & 0xE0)
@@ -15102,8 +15102,8 @@ LABEL_49:
 }
 
 
-/* ========== [0x27778] sub_27778 (428 bytes) ========== */
-__int64 sub_27778()
+/* ========== [0x27778] HvpDvdAuthGetAuthPage (428 bytes) ========== */
+__int64 HvpDvdAuthGetAuthPage()
 {
   unsigned __int8 *v0; // r2
   unsigned __int8 *v1; // r31
@@ -15460,7 +15460,7 @@ __int64 __fastcall HvxDvdAuthGetAuthPage(__int64 a1)
   v37 = *(_DWORD *)(v1 + 0x10000);
   if ( (unsigned int)sub_25970(3) != 0 )
   {
-    v4 = sub_27778();
+    v4 = HvpDvdAuthGetAuthPage();
     v6 = v4;
     if ( (_DWORD)v4 != 0 )
     {
@@ -16633,7 +16633,7 @@ __int64 __fastcall HvxHdcpCalculateMi(__int64 a1, __int64 a2, __int64 a3)
 // attributes: thunk
 __int64 HvxHdcpCalculateAKsvSignature()
 {
-  return sub_23698();
+  return HvpHdcpCalculateAKsvSignature();
 }
 
 
@@ -16641,7 +16641,7 @@ __int64 HvxHdcpCalculateAKsvSignature()
 // attributes: thunk
 __int64 HvxHdcpCalculateBKsvSignature()
 {
-  return sub_23718();
+  return HvpHdcpCalculateBKsvSignature();
 }
 
 
@@ -16912,8 +16912,8 @@ __int64 __fastcall sub_29A68(
 }
 
 
-/* ========== [0x29b58] sub_29B58 (144 bytes) ========== */
-__int64 __fastcall sub_29B58(unsigned __int64 a1, __int64 a2)
+/* ========== [0x29b58] HvpImageDataLoadAesEcb (144 bytes) ========== */
+__int64 __fastcall HvpImageDataLoadAesEcb(unsigned __int64 a1, __int64 a2)
 {
   __int64 v4; // r5
   __int64 result; // r3
@@ -17383,7 +17383,7 @@ __int64 __fastcall HvxFinishImageDataLoad(uint32_t idx)
       HvpSetRMCI(0);
       LODWORD(v16) = v8;
       LODWORD(v17) = *(_DWORD *)(v8 + 28);
-      sub_29B58(v17, v16);
+      HvpImageDataLoadAesEcb(v17, v16);
       HvpSetRMCI(1);
       if ( (*(_BYTE *)(v8 + 53) & 2) != 0 )
       {
@@ -17499,8 +17499,8 @@ __int64 __fastcall HvxStartResolveImports(uint32_t idx, __int64 hv_sec_info_offs
 }
 
 
-/* ========== [0x2a740] sub_2A740 (144 bytes) ========== */
-unsigned __int64 __fastcall sub_2A740(int a1, unsigned int a2, unsigned __int64 a3)
+/* ========== [0x2a740] HvpResolveImportPageLookup (144 bytes) ========== */
+unsigned __int64 __fastcall HvpResolveImportPageLookup(int a1, unsigned int a2, unsigned __int64 a3)
 {
   __int64 v3; // r2
   unsigned __int64 result; // r3
@@ -17735,7 +17735,7 @@ LABEL_54:
                                              + (((unsigned __int64)v53[0] << 10) & 0x3FFFFFF03FFLL
                                               | 0x8000000000000000LL
                                               | (unsigned __int16)v41));
-          v46 = sub_2A740(idx, v44, v43);
+          v46 = HvpResolveImportPageLookup(idx, v44, v43);
           v47 = v46;
           if ( (unsigned int)v46 < v62 )
             goto LABEL_55;
@@ -18284,8 +18284,8 @@ __int64 __fastcall HvxImageTransformImageKey(
 }
 
 
-/* ========== [0x2b818] sub_2B818 (492 bytes) ========== */
-__int64 __fastcall sub_2B818(
+/* ========== [0x2b818] HvpImageXexHeaderParse (492 bytes) ========== */
+__int64 __fastcall HvpImageXexHeaderParse(
         __int64 a1,
         __int64 a2,
         __int64 a3,
@@ -18434,7 +18434,7 @@ __int64 __fastcall HvxImageXexHeader(uint32_t subfunc_idx, __int64 gather_phys_a
     {
       case 1u:
         LODWORD(v8) = gather_size;
-        v13 = sub_2B818(gather_phys_address, v8);
+        v13 = HvpImageXexHeaderParse(gather_phys_address, v8);
         break;
       case 2u:
         v13 = 0;
@@ -19710,8 +19710,8 @@ __int64 __fastcall sub_2D5F8(__int64 a1, int a2)
 }
 
 
-/* ========== [0x2d6d0] sub_2D6D0 (216 bytes) ========== */
-__int64 __fastcall sub_2D6D0(__int64 a1, __int64 a2, __int64 a3)
+/* ========== [0x2d6d0] HvpRevokeListDecrypt (216 bytes) ========== */
+__int64 __fastcall HvpRevokeListDecrypt(__int64 a1, __int64 a2, __int64 a3)
 {
   __int64 v3; // r2
   __int64 v5; // r29
@@ -20026,7 +20026,7 @@ __int64 __fastcall HvxRevokeLoad(unsigned int a1, __int64 a2, __int64 a3)
   v13 = v12;
   LODWORD(v14) = a2;
   if ( v8 != 0 )
-    v17 = sub_2D6D0(v12, v14);
+    v17 = HvpRevokeListDecrypt(v12, v14);
   else
     v17 = sub_2D520(v12, v14);
   v19 = v17;
@@ -20538,8 +20538,8 @@ _DWORD *sub_30000()
 }
 
 
-/* ========== [0x30050] sub_30050 (284 bytes) ========== */
-__int64 __fastcall sub_30050(int a1, __int64 a2)
+/* ========== [0x30050] HvpXexActivationVerifyOwnership (284 bytes) ========== */
+__int64 __fastcall HvpXexActivationVerifyOwnership(int a1, __int64 a2)
 {
   __int64 v2; // r2
   _DWORD *v4; // r29
@@ -20707,7 +20707,7 @@ __int64 __fastcall HvxXexActivationVerifyOwnership(__int64 a1)
 {
   __int64 v2; // [sp+50h] [-30h] BYREF
 
-  return sub_30050(a1, &v2);
+  return HvpXexActivationVerifyOwnership(a1, &v2);
 }
 
 
@@ -20750,8 +20750,8 @@ __int64 __fastcall sub_303F0(__int64 a1, __int64 a2, unsigned int *a3, __int64 a
 }
 
 
-/* ========== [0x30488] sub_30488 (644 bytes) ========== */
-__int64 __fastcall sub_30488(__int64 a1, __int64 a2, __int64 a3, __int64 a4)
+/* ========== [0x30488] HvpExpansionInstall (644 bytes) ========== */
+__int64 __fastcall HvpExpansionInstall(__int64 a1, __int64 a2, __int64 a3, __int64 a4)
 {
   _QWORD *v4; // r2
   unsigned int v6; // r11
@@ -20927,7 +20927,7 @@ __int64 __fastcall HvxExpansionInstall(unsigned int a1, unsigned int a2)
     sub_B4D8(v10 + 304, *(unsigned int *)(v10 + 8) - 304LL, 0, 0, 0, 0, v16, 20);
     if ( (unsigned int)sub_B480(v10 + 12, v16, 20) == 0 )
     {
-      v12 = sub_30488(v10);
+      v12 = HvpExpansionInstall(v10);
       goto LABEL_21;
     }
   }
