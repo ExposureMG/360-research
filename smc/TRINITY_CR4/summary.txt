@@ -1,0 +1,1 @@
+TRINITY_CR4.bin: 192 functions (135 named), 0 failed, 0 halt_baddata, 21 with warnings

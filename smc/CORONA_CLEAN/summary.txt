@@ -1,0 +1,1 @@
+CORONA_CLEAN.bin: 208 functions (126 named), 0 failed, 0 halt_baddata, 23 with warnings

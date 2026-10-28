@@ -1,0 +1,1 @@
+JASPER_CR4.bin: 217 functions (155 named), 0 failed, 0 halt_baddata, 22 with warnings

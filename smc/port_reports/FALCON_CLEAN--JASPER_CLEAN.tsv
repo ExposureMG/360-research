@@ -1,0 +1,179 @@
+src	src_name	dst	how
+0000	?	0000	exact
+0030	gpu_power_enable	0030	exact
+0033	gpu_power_kill	0033	exact
+0036	?	0036	exact
+0041	gpu_reset_assert	0041	exact
+0044	gpu_reset_deassert	0044	exact
+004f	gpu_reset_done_read	004f	exact
+0052	?	0052	exact
+0055	?	0055	exact
+0058	?	0058	exact
+0063	cpu_pwrgd_set	0063	exact
+0066	cpu_pwrgd_clear	0066	exact
+0069	cpu_reset_assert	0069	exact
+006c	cpu_reset_deassert		UNMATCHED
+006f	pcie_read_status	0078	fuzzy 0.73
+0076	checkstop_read	0093	exact
+0079	sb_pwrgd_set	0096	exact
+007c	sb_pwrgd_clear	0099	exact
+007f	?	009c	exact
+0082	?	009f	exact
+00a7	sb_reset_assert	00c4	exact
+00aa	sb_reset_deassert	00c7	exact
+00ad	sfcx_flash_reset	00ca	exact
+00ba	ana_clk_oe_set	00d7	exact
+00bd	ana_clk_oe_clear	00da	exact
+00c0	ana_reset_assert	00dd	exact
+00c3	ana_reset_deassert	00e0	exact
+00c6	tray_read_status_and_open_state	00e3	exact
+00ce	tray_open	00eb	exact
+00d1	tray_close	00ee	exact
+00d4	tray_open_or_close	00f1	exact
+00d7	pcie_compute_link_state_blink_code	2417	exact
+00ea	stubbedout_xenon_dbgled0_set	242a	callgraph
+00eb	stubbedout_xenon_dbgled0_clear	242b	callgraph
+00ec	stubbedout_xenon_dbgled1_set	242c	callgraph
+00ed	stubbedout_xenon_dbgled1_clear	242d	callgraph
+00ee	dbg_led_on	242e	exact
+00f1	dbg_led_off	2431	exact
+00f4	ipc_inbox_get_status	2434	exact
+012d	?	012d	exact
+0163	i2c_irq	0163	exact
+02ad	i2c_reset_buses	02ad	exact
+02fe	?	02fe	exact
+0496	?	0496	exact
+062f	argon_serialout_sm	062f	exact
+0648	usb_powerevent_check	0648	exact
+0775	mainloop	0775	fuzzy 0.98
+07ea	?	07ea	fuzzy 0.81
+080d	?	080d	fuzzy 0.90
+083e	ipc_handle_messages		UNMATCHED
+096b	ipc_handle_i2c		UNMATCHED
+0a7c	ipc_handle_get_smc_version_and_memcells		UNMATCHED
+0a9b	ipc_handle_copy_inbox_to_outbox		UNMATCHED
+0ab0	ipc_handle_read_debugbuffer_a		UNMATCHED
+0abd	ipc_handle_read_debugbuffer_b		UNMATCHED
+0aca	?		UNMATCHED
+0d43	ipc_handle_async_events	0d48	fuzzy 0.96
+0ea4	powerdown_sm_exec	0ea9	fuzzy 0.89
+106d	powerup_sm_exec	1072	fuzzy 0.90
+1122	hw_reset_statemachine_exec	1127	fuzzy 0.94
+1196	?	119b	fuzzy 0.90
+12c6	sysreset_watchdog_statemachine_exec	12d5	fuzzy 0.78
+135e	audclamp_sm_exec	136a	fuzzy 0.93
+1385	bindsw_sm_exec	1391	fuzzy 0.86
+13fc	dbgled_sm_exec	1408	fuzzy 0.92
+14a5	ext_pwr_on_sm_exec	14b1	fuzzy 0.95
+14ba	thermal_monitor_do_checks	14c6	fuzzy 0.87
+15b5	?	15c1	exact
+1626	temperature_calc_differences	1632	exact
+165e	?	166a	exact
+1726	?	1732	exact
+173d	?	1749	exact
+19e7	argon_sm_exec	19f3	fuzzy 0.94
+1a2e	hana_i2c_sm_exec	1a3a	fuzzy 0.83
+1bbe	ir_update	1bd9	fuzzy 0.87
+1c87	powerejectsw_sm_exec	1ca2	fuzzy 0.91
+1d0f	vreg_monitor_statuses	1d2a	exact
+1dbc	ipc_outbox_sm_exec	1dd7	fuzzy 0.88
+1dce	?	1de9	fuzzy 0.96
+2029	thermal_monitor_check_if_temps_available	2044	exact
+20ab	tiltsw_sm_exec		UNMATCHED
+221b	tray_sm_exec	2236	callgraph
+225c	tray_update_power_led_state	2277	exact
+22a7	ipc_inbox_sm_exec	22c2	fuzzy 0.88
+22b6	?	22d1	exact
+22be	?	22d9	exact
+2310	?	232b	exact
+231d	have_20ms_elapsed	2338	exact
+2334	watchdog_kick	234f	exact
+233e	dbgled_read	2359	exact
+2346	gpios_reset	2361	exact
+2383	?	239e	exact
+23b7	argon_disable	23d2	exact
+23ba	argon_enable	23d5	exact
+23bd	halt_execution	23d8	exact
+23c8	psu_enable_12v	23e3	exact
+23cb	psu_kill_12v	23e6	exact
+23ce	ana_12v_pwrgd_check	23e9	exact
+23d9	vreg_5vp0_enable	23f4	exact
+23dc	vreg_5vp0_kill	23f7	exact
+23df	?	23fa	exact
+23e2	?	23fd	exact
+23e5	vreg_v1p8_enable	2400	exact
+23e8	vreg_v1p8_kill	2403	exact
+23eb	?	2406	exact
+23f6	vreg_3v3_kill	2411	exact
+23f9	vreg_3v3_enable	2414	exact
+23fc	ipc_inbox_get_message_type	2439	exact
+2408	ipc_inbox_set_read_pointer	2445	exact
+240d	ipc_fifo_read	244a	exact
+2410	ipc_fifo_read_to_buffer	244d	exact
+2417	ipc_inbox_release	2454	exact
+241b	ipc_outbox_lock_and_clear	2458	exact
+242a	ipc_outbox_set_write_pointer	2467	exact
+242f	ipc_outbox_write	246c	exact
+2432	ipc_outbox_write_buffer	246f	exact
+2439	ipc_outbox_release	2476	exact
+243d	ipc_outbox_is_locked	247a	exact
+2442	smcconfig_init_defaults_and_read_page	247f	fuzzy 0.93
+24a5	smcconfig_load	24f7	fuzzy 0.95
+2592	audclamp_deassert	25e4	exact
+2595	audclamp_assert	25e7	exact
+2598	pwm2_set_pulse_width	25ea	exact
+259b	pwm1_set_pulse_width	25ed	exact
+259e	powersw_read	25f0	exact
+25a2	ejectsw_read	25f4	exact
+25a6	bindsw_read	25f8	exact
+25aa	tiltsw_read	25fc	exact
+25b4	avpack_read	2606	exact
+25ce	ext_pwr_on_debounce_counter_reset	2620	exact
+25d2	ext_pwr_on_read	2624	exact
+25d8	rtc_read	262a	exact
+25e6	rtc_set	2638	exact
+25f4	i2c_commandlist_run_ipc_transaction	2646	exact
+25fc	i2c_commandlist_run_hana_init	264e	exact
+2601	?		UNMATCHED
+2606	?		UNMATCHED
+260b	?		UNMATCHED
+2610	?		UNMATCHED
+2615	i2c_commandlist_run_temperature_update		UNMATCHED
+261a	?		UNMATCHED
+261f	i2c_execute_with_3_retries	2671	exact
+2627	i2c_try_continue_commandlist_execution	2679	exact
+264c	i2c_yield_to_async_operation	269e	exact
+265c	i2c_command_step		UNMATCHED
+2666	i2c_opcode_init		UNMATCHED
+2686	i2c_opcode_done		UNMATCHED
+268a	i2c_opcode_nop		UNMATCHED
+268e	i2c_opcode_hana_write		UNMATCHED
+26d6	i2c_opcode_hana_read		UNMATCHED
+26f9	?		UNMATCHED
+272c	?		UNMATCHED
+2755	?		UNMATCHED
+279d	?		UNMATCHED
+2813	?		UNMATCHED
+2836	?		UNMATCHED
+2850	?		UNMATCHED
+285d	?		UNMATCHED
+29c8	i2c_burn_cycles	2a38	exact
+29d8	i2c_read_bit	2a48	exact
+29dc	i2c_handover_bus	2a4c	exact
+29f2	?	2a62	exact
+2a0b	?	2a7b	exact
+2a15	argon_queue_message	2a85	fuzzy 0.95
+2a3e	?	2aae	fuzzy 0.93
+2a5b	?	2acb	exact
+2a75	?	2ae5	exact
+2ac4	ir_parse_waiting_data	2b34	exact
+2b41	?	2bb1	exact
+2b84	?	2bf4	exact
+2bfe	?	2c6e	exact
+2c97	?	2d07	exact
+2c9b	?	2d0b	callgraph
+2cb4	usb_powerevent_get_cause	2d24	exact
+2cb7	rtc_has_wakeup_passed	2d27	exact
+2cdc	zero_memory_range	2d4c	exact
+2ce8	init_intmem_values	2d58	exact
+2ced	?	2d5d	exact

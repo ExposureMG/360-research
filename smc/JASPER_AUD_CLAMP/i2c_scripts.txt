@@ -1,0 +1,106 @@
+# SMCaud: I2C commandlist (hana opcode set)
+dispatch at 0x26B7, script table 0x2959-0x2A37, opcode jump table 0x292B, pointer INTMEM 0x7A, start pointer INTMEM 0x79
+
+opcodes:
+  00 -> 0x26B8  init                             operands: 0
+  03 -> 0x26D8  end                              operands: 0
+  06 -> 0x26DC  nop                              operands: 0
+  09 -> 0x28E3  ipc_transact                     operands: 0
+  0B -> 0x26E0  write_hana                       operands: write
+  0E -> 0x2728  read_hana                        operands: 1
+  11 -> 0x274B  write_dev39                      operands: block
+  14 -> 0x277E  read_dev39                       operands: 2
+  17 -> 0x27A7  wait_dev39                       operands: 0
+  1A -> 0x27EF  update_temp_edram_gpu            operands: 0
+  1D -> 0x283C  update_temp_cpu                  operands: 0
+  20 -> 0x2865  update_temp_chassis              operands: 0
+  23 -> 0x2888  prepare_dev39_status_for_script  operands: 0
+  26 -> 0x28A2  check_dev39_ack                  operands: 0
+  29 -> 0x28AF  handshake_dev39                  operands: 0
+  2C -> 0x28DA  send_rrod_code                   operands: 0
+
+script +00 (0x2959)  started by: i2c_commandlist_run_ipc_transaction
+  +00 0x2959  00                         init
+  +01 0x295A  09                         ipc_transact
+  +02 0x295B  03                         end
+
+script +03 (0x295C)  started by: i2c_commandlist_run_hana_init
+  +03 0x295C  00                         init
+  +04 0x295D  0B E4 00 00 00 1B          write_hana 0xE4 = 1B 00 00 00
+  +0A 0x2963  0B E3 0F FF FF FF          write_hana 0xE3 = FF FF FF 0F
+  +10 0x2969  0B DB 00 00 00             write_hana 0xDB = -- 00 00 00  (4th byte from SMC config)
+  +15 0x296E  0B D5 00 00 00 75          write_hana 0xD5 = 75 00 00 00
+  +1B 0x2974  0B D9 00 00 00 88          write_hana 0xD9 = 88 00 00 00
+  +21 0x297A  0B D4 09 90 E0 0E          write_hana 0xD4 = 0E E0 90 09
+  +27 0x2980  0B DC 00 00 42 AA          write_hana 0xDC = AA 42 00 00
+  +2D 0x2986  0B DF 00 00 00 00          write_hana 0xDF = 00 00 00 00
+  +33 0x298C  03                         end
+
+script +34 (0x298D)  started by: FUN_CODE_2653
+  +34 0x298D  00                         init
+  +35 0x298E  0B D6 00 00 00 75          write_hana 0xD6 = 75 00 00 00
+  +3B 0x2994  0B D9 00 00 00 20          write_hana 0xD9 = 20 00 00 00
+  +41 0x299A  0B D3 89 83 20 17          write_hana 0xD3 = 17 20 83 89
+  +47 0x29A0  0B CE 88 E8 40 14          write_hana 0xCE = 14 40 E8 88
+  +4D 0x29A6  0B D3 09 83 20 17          write_hana 0xD3 = 17 20 83 09
+  +53 0x29AC  0B CE 08 E8 40 14          write_hana 0xCE = 14 40 E8 08
+  +59 0x29B2  0B E3 84 36 F6 66          write_hana 0xE3 = 66 F6 36 84
+  +5F 0x29B8  03                         end
+
+script +60 (0x29B9)  started by: FUN_CODE_2658
+  +60 0x29B9  00                         init
+  +61 0x29BA  0B E3 0F FF FF FF          write_hana 0xE3 = FF FF FF 0F
+  +67 0x29C0  0B D5 00 00 00 75          write_hana 0xD5 = 75 00 00 00
+  +6D 0x29C6  0B D9 00 00 00 88          write_hana 0xD9 = 88 00 00 00
+  +73 0x29CC  0B DF 00 00 00 00          write_hana 0xDF = 00 00 00 00
+  +79 0x29D2  03                         end
+
+script +7A (0x29D3)  started by: FUN_CODE_265d
+  +7A 0x29D3  06                         nop
+  +7B 0x29D4  06                         nop
+  +7C 0x29D5  00                         init
+  +7D 0x29D6  11 02 F3 0F 01             write_dev39 [F3 0F]
+  +82 0x29DB  11 02 F3 0A 01             write_dev39 [F3 0A]
+  +87 0x29E0  11 02 EC 90 01             write_dev39 [EC 90]
+  +8C 0x29E5  11 05 EC 00 90 00 00 00    write_dev39 [EC 00 90 00 00]  (no yield)
+  +94 0x29ED  23                         prepare_dev39_status_for_script
+  +95 0x29EE  11 05 F0 05 00 00 09 01    write_dev39 [F0 05 00 00 09]
+  +9D 0x29F6  11 02 F3 02 01             write_dev39 [F3 02]
+  +A2 0x29FB  17                         wait_dev39
+  +A3 0x29FC  14 01 F5                   read_dev39 01 F5
+  +A6 0x29FF  26                         check_dev39_ack
+  +A7 0x2A00  14 05 F4                   read_dev39 05 F4
+  +AA 0x2A03  29                         handshake_dev39
+  +AB 0x2A04  03                         end
+
+script +7B (0x29D4)  started by: i2c_command_step
+  +7B 0x29D4  06                         nop
+  ... continues into +7C
+
+script +7C (0x29D5)  started by: FUN_CODE_2662
+  +7C 0x29D5  00                         init
+  ... continues into +7D
+
+script +AC (0x2A05)  started by: i2c_commandlist_run_temperature_update
+  +AC 0x2A05  00                         init
+  +AD 0x2A06  0E E0                      read_hana E0
+  +AF 0x2A08  1A                         update_temp_edram_gpu
+  +B0 0x2A09  0E E1                      read_hana E1
+  +B2 0x2A0B  1D                         update_temp_cpu
+  +B3 0x2A0C  0E E2                      read_hana E2
+  +B5 0x2A0E  20                         update_temp_chassis
+  +B6 0x2A0F  03                         end
+
+script +B7 (0x2A10)  started by: FUN_CODE_266c
+  +B7 0x2A10  00                         init
+  +B8 0x2A11  11 02 F3 0F 01             write_dev39 [F3 0F]
+  +BD 0x2A16  11 02 F3 0A 01             write_dev39 [F3 0A]
+  +C2 0x2A1B  11 02 EC 90 01             write_dev39 [EC 90]
+  +C7 0x2A20  11 05 EC 00 60 00 00 00    write_dev39 [EC 00 60 00 00]  (no yield)
+  +CF 0x2A28  2C                         send_rrod_code
+  +D0 0x2A29  11 05 F0 00 00 00 09 01    write_dev39 [F0 00 00 00 09]
+  +D8 0x2A31  11 02 F3 06 01             write_dev39 [F3 06]
+  +DD 0x2A36  17                         wait_dev39
+  +DE 0x2A37  03                         end
+
+223/223 table bytes decoded

@@ -1,0 +1,1 @@
+SMCx.bin: 217 functions (144 named), 0 failed, 0 halt_baddata, 24 with warnings

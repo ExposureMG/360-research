@@ -1,0 +1,1 @@
+ZEPHYR_CLEAN.bin: 202 functions (148 named), 0 failed, 0 halt_baddata, 23 with warnings

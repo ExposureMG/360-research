@@ -1,0 +1,1 @@
+TRINITY_CLEAN.bin: 185 functions (136 named), 0 failed, 0 halt_baddata, 22 with warnings

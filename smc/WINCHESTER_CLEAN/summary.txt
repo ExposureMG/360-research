@@ -1,0 +1,1 @@
+WINCHESTER_CLEAN.bin: 214 functions (132 named), 0 failed, 0 halt_baddata, 23 with warnings

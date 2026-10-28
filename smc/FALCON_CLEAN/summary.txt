@@ -1,0 +1,1 @@
+FALCON_CLEAN.bin: 203 functions (153 named), 0 failed, 0 halt_baddata, 23 with warnings

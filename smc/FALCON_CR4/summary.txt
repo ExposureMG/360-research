@@ -1,0 +1,1 @@
+FALCON_CR4.bin: 212 functions (154 named), 0 failed, 0 halt_baddata, 23 with warnings

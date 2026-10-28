@@ -1,0 +1,108 @@
+Picked up JAVA_TOOL_OPTIONS:  -Djava.io.tmpdir=/home/e3xp0/Projects/smc_decomp/work/ghidra/ZEPHYR_CLEAN.tmp
+Picked up JAVA_TOOL_OPTIONS:  -Djava.io.tmpdir=/home/e3xp0/Projects/smc_decomp/work/ghidra/ZEPHYR_CLEAN.tmp
+Picked up JAVA_TOOL_OPTIONS:  -Djava.io.tmpdir=/home/e3xp0/Projects/smc_decomp/work/ghidra/ZEPHYR_CLEAN.tmp
+Picked up JAVA_TOOL_OPTIONS:  -Djava.io.tmpdir=/home/e3xp0/Projects/smc_decomp/work/ghidra/ZEPHYR_CLEAN.tmp
+openjdk version "27" 2026-09-15
+OpenJDK Runtime Environment (build 27)
+OpenJDK 64-Bit Server VM (build 27, mixed mode)
+INFO  Using log config file: jar:file:/opt/ghidra/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml (LoggingInitialization)  
+INFO  Using log file: /home/e3xp0/Projects/smc_decomp/work/ghidra_user/config/ghidra/ghidra_12.1.2_DEV/application.log (LoggingInitialization)  
+INFO  Loading user preferences: /home/e3xp0/Projects/smc_decomp/work/ghidra_user/config/ghidra/ghidra_12.1.2_DEV/preferences (Preferences)  
+INFO  Searching for classes... (ClassSearcher)  
+INFO  Class search complete (1565 ms) (ClassSearcher)  
+WARNING: Final field name in class ghidra.util.charset.CharsetInfo has been mutated reflectively by class com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$2 in unnamed module @25fb8912 (file:/opt/ghidra/Ghidra/Framework/Generic/lib/gson-2.13.2.jar)
+WARNING: Use --enable-final-field-mutation=ALL-UNNAMED to avoid a warning
+WARNING: Mutating final fields will be blocked in a future release unless final field mutation is enabled
+INFO  Initializing SSL Context (DefaultSSLContextInitializer)  
+INFO  Initializing Random Number Generator... (SecureRandomFactory)  
+INFO  Random Number Generator initialization complete: NativePRNGNonBlocking (SecureRandomFactory)  
+INFO  Trust manager disabled, cacerts have not been set (DefaultTrustManagerFactory)  
+INFO  Headless startup complete (6711 ms) (AnalyzeHeadless)  
+INFO  Class searcher loaded 210 extension points (114 false positives) (ClassSearcher)  
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::staticFieldOffset has been called by org.apache.felix.framework.util.SecureAction (file:/opt/ghidra/Ghidra/Features/Base/lib/org.apache.felix.framework-7.0.5.jar)
+WARNING: Please consider reporting this to the maintainers of class org.apache.felix.framework.util.SecureAction
+WARNING: sun.misc.Unsafe::staticFieldOffset will be removed in a future release
+INFO  HEADLESS Script Paths:
+    /opt/ghidra/Ghidra/Features/SystemEmulation/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/GnuDemangler/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/WildcardAssembler/ghidra_scripts
+    /opt/ghidra/Ghidra/Processors/DATA/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/DecompilerDependent/ghidra_scripts
+    /opt/ghidra/Ghidra/Processors/JVM/ghidra_scripts
+    /opt/ghidra/Ghidra/Debug/Debugger-rmi-trace/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/MicrosoftCodeAnalyzer/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/VersionTracking/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/PyGhidra/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/SwiftDemangler/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/Base/ghidra_scripts
+    /opt/ghidra/Ghidra/Processors/Atmel/ghidra_scripts
+    /opt/ghidra/Ghidra/Debug/Debugger/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/Decompiler/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/FunctionID/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/PDB/ghidra_scripts
+    /opt/ghidra/Ghidra/Processors/8051/ghidra_scripts
+    /opt/ghidra/Ghidra/Processors/PIC/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/FileFormats/ghidra_scripts
+    /home/e3xp0/Projects/smc_decomp/tools/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/BSim/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/BytePatterns/ghidra_scripts (HeadlessAnalyzer)  
+INFO  HEADLESS: execution starts (HeadlessAnalyzer)  
+INFO  Opening existing project: /home/e3xp0/Projects/smc_decomp/work/ghidra/ZEPHYR_CLEAN/smc (HeadlessAnalyzer)  
+INFO  Opening project: /home/e3xp0/Projects/smc_decomp/work/ghidra/ZEPHYR_CLEAN/smc (HeadlessProject)  
+INFO  REPORT: Processing input files:  (HeadlessAnalyzer)  
+INFO       project: /home/e3xp0/Projects/smc_decomp/work/ghidra/ZEPHYR_CLEAN/smc (HeadlessAnalyzer)  
+INFO  IMPORTING: file:///home/e3xp0/Projects/smc_decomp/work/bins/ZEPHYR_CLEAN.bin (HeadlessAnalyzer)  
+INFO  Successfully applied "-loader-baseAddr" to "Base Address" (old: "null", new: "0") (ProgramLoader)  
+INFO  Using Loader: Raw Binary (ProgramLoader)  
+INFO  Using Language/Compiler: 8051:BE:16:default:default (ProgramLoader)  
+INFO  Using Library Search Path: [., /bin, /lib, /lib64, /lib/x86_64-linux-gnu, /lib/aarch64-linux-gnu, /usr/bin, /usr/lib, /usr/X11R6/bin, /usr/X11R6/lib, /usr/java/packages/lib, /usr/lib64] (ProgramLoader)  
+INFO  IMPORTING: Loaded 0 additional files (HeadlessAnalyzer)  
+INFO  /ZEPHYR_CLEAN.bin: file deleted (e3xp0) (LocalFileSystem)  
+INFO  Deleted local file ZEPHYR_CLEAN.bin (GhidraFileData)  
+WARN  REPORT: Removed conflicting program file from project: /ZEPHYR_CLEAN.bin (HeadlessAnalyzer)  
+INFO  REPORT: Execute script: SmcApply.java '/home/e3xp0/Projects/smc_decomp/work/annot/ported/ZEPHYR_CLEAN.tsv,/home/e3xp0/Projects/smc_decomp/work/annot/docs/ZEPHYR_CLEAN.tsv,/home/e3xp0/Projects/smc_decomp/work/annot/ipc/ZEPHYR_CLEAN.tsv,/home/e3xp0/Projects/smc_decomp/work/annot/i2c/ZEPHYR_CLEAN.tsv'  (HeadlessAnalyzer)  
+INFO  SCRIPT: /home/e3xp0/Projects/smc_decomp/tools/ghidra_scripts/SmcApply.java (HeadlessAnalyzer)  
+INFO  SmcApply.java> SmcApply: 9 data ranges, 76 flow overrides, 315 functions, 382 labels, 587 comments (0 superseded names dropped) (GhidraScript)  
+INFO  ANALYZING all memory and code: file:///home/e3xp0/Projects/smc_decomp/work/bins/ZEPHYR_CLEAN.bin (HeadlessAnalyzer)  
+INFO  Packed database cache: /home/e3xp0/Projects/smc_decomp/work/ghidra_user/cache/ghidra/packed-db-cache (PackedDatabaseCache)  
+INFO  Applied data type archive: generic_clib (ApplyDataArchiveAnalyzer)  
+INFO  -----------------------------------------------------
+    ASCII Strings                              0.543 secs
+    Apply Data Archives                        0.806 secs
+    Basic Constant Reference Analyzer          0.831 secs
+    Call Convention ID                         0.011 secs
+    Call-Fixup Installer                       0.009 secs
+    Create Function                            0.003 secs
+    Demangler GNU                              0.408 secs
+    Disassemble Entry Points                   0.153 secs
+    Disassemble Entry Points - One Time        0.187 secs
+    Embedded Media                             0.030 secs
+    External Entry References                  0.001 secs
+    Function ID                                0.045 secs
+    Non-Returning Functions - Discovered       0.039 secs
+    Shared Return Calls                        0.053 secs
+    Stack                                      0.336 secs
+    Subroutine References                      0.040 secs
+-----------------------------------------------------
+     Total Time   3 secs
+-----------------------------------------------------
+ (AutoAnalysisManager)  
+INFO  REPORT: Analysis succeeded for file: file:///home/e3xp0/Projects/smc_decomp/work/bins/ZEPHYR_CLEAN.bin (HeadlessAnalyzer)  
+INFO  REPORT: Execute script: SmcSwitches.java  (HeadlessAnalyzer)  
+INFO  SCRIPT: /home/e3xp0/Projects/smc_decomp/tools/ghidra_scripts/SmcSwitches.java (HeadlessAnalyzer)  
+INFO  SmcSwitches.java> SmcSwitches: bytecode table CODE:286f-CODE:2923 moved to an uninitialized block (GhidraScript)  
+INFO  SmcSwitches.java> SmcSwitches: CODE:25a0 in i2c_try_continue_commandlist_execution -> tail call to i2c_command_step (GhidraScript)  
+INFO  SmcSwitches.java> SmcSwitches: 21 jump tables recovered, 0 skipped (GhidraScript)  
+INFO  REPORT: Execute script: SmcDecompile.java '/home/e3xp0/Projects/smc_decomp/out/ZEPHYR_CLEAN'  (HeadlessAnalyzer)  
+INFO  SCRIPT: /home/e3xp0/Projects/smc_decomp/tools/ghidra_scripts/SmcDecompile.java (HeadlessAnalyzer)  
+WARN  Decompiling CODE:25c4: Unable to read bytes at CODE:286f (DecompileCallback)  
+INFO  ZEPHYR_CLEAN.bin: 202 functions (148 named), 0 failed, 0 halt_baddata, 23 with warnings (GhidraScript)  
+INFO  REPORT: Execute script: SmcExport.java '/home/e3xp0/Projects/smc_decomp/out/ZEPHYR_CLEAN'  (HeadlessAnalyzer)  
+INFO  SCRIPT: /home/e3xp0/Projects/smc_decomp/tools/ghidra_scripts/SmcExport.java (HeadlessAnalyzer)  
+INFO  SmcExport.java> SmcExport: wrote /home/e3xp0/Projects/smc_decomp/out/ZEPHYR_CLEAN (GhidraScript)  
+INFO  ANALYZING changes made by post scripts: file:///home/e3xp0/Projects/smc_decomp/work/bins/ZEPHYR_CLEAN.bin (HeadlessAnalyzer)  
+INFO  REPORT: Post-analysis succeeded for file: file:///home/e3xp0/Projects/smc_decomp/work/bins/ZEPHYR_CLEAN.bin (HeadlessAnalyzer)  
+INFO  /ZEPHYR_CLEAN.bin: file created (e3xp0) (LocalFileSystem)  
+INFO  REPORT: Save succeeded for: /ZEPHYR_CLEAN.bin (smc:/ZEPHYR_CLEAN.bin) (HeadlessAnalyzer)  
+INFO  REPORT: Import succeeded (HeadlessAnalyzer)  

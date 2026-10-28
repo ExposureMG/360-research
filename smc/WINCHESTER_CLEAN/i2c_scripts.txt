@@ -1,0 +1,109 @@
+# WINCHESTER_CLEAN: I2C commandlist (winchester opcode set)
+dispatch at 0x295D, script table 0x2BC4-0x2C75, opcode jump table 0x2B8F, pointer INTMEM 0x7A, start pointer INTMEM 0x79
+
+opcodes:
+  00 -> 0x295E  init                             operands: 0
+  03 -> 0x2994  end                              operands: 0
+  06 -> 0x2998  nop                              operands: 0
+  09 -> 0x2B47  ipc_transact                     operands: 0
+  0B -> 0x299C  write_ksb_zero                   operands: 1
+  0E -> 0x29AC  write_ksb                        operands: write_ksb
+  11 -> 0x29ED  read_ksb                         operands: 1
+  14 -> 0x2A10  read_ksb_E0                      operands: 0
+  17 -> 0x2A15  read_ksb_E1                      operands: 0
+  1A -> 0x2A1A  read_ksb_E2                      operands: 0
+  1D -> 0x2A1F  read_ksb_E9                      operands: 0
+  20 -> 0x2A24  update_temp_edram                operands: 0
+  23 -> 0x2A53  update_temp_cpu                  operands: 0
+  26 -> 0x2A82  update_temp_gpu                  operands: 0
+  29 -> 0x2AB1  update_temp_chassis              operands: 0
+  2C -> 0x2AD8  read_dev48_status_for_script     operands: 0
+  2F -> 0x2B06  handshake_dev48                  operands: 0
+  32 -> 0x2B31  send_rrod_code_dev30             operands: 0
+
+script +00 (0x2BC4)  started by: FUN_CODE_28da
+  +00 0x2BC4  00                         init
+  +01 0x2BC5  09                         ipc_transact
+  +02 0x2BC6  03                         end
+
+script +03 (0x2BC7)  started by: i2c_commandlist_run_hana_init
+  +03 0x2BC7  00                         init
+  +04 0x2BC8  0E E3 00 08 00 00          write_ksb 0xE3 = 00 00 08 00
+  +0A 0x2BCE  0E D0 88 24 40 80          write_ksb 0xD0 = 80 40 24 88
+  +10 0x2BD4  0E D1 00 FF 00 FF          write_ksb 0xD1 = FF 00 FF 00
+  +16 0x2BDA  0E CE 1C 78 90 E7          write_ksb 0xCE = E7 90 78 1C
+  +1C 0x2BE0  0E D3 1B 01 55 95          write_ksb 0xD3 = 95 55 01 1B
+  +22 0x2BE6  0B DF                      write_ksb_zero DF
+  +24 0x2BE8  0E D2 02 D9 00 00          write_ksb 0xD2 = 00 00 D9 02
+  +2A 0x2BEE  03                         end
+
+script +2B (0x2BEF)  started by: i2c_runscript_init_clock_regs
+  +2B 0x2BEF  00                         init
+  +2C 0x2BF0  0E CD 00 00 00 62          write_ksb 0xCD = 62 00 00 00
+  +32 0x2BF6  0E CF C0 44 AC C0          write_ksb 0xCF = C0 AC 44 C0
+  +38 0x2BFC  0E CF 40 44 AC C0          write_ksb 0xCF = C0 AC 44 40
+  +3E 0x2C02  0E CD 00 00 00 72          write_ksb 0xCD = 72 00 00 00
+  +44 0x2C08  0E CD 00 00 00 32          write_ksb 0xCD = 32 00 00 00
+  +4A 0x2C0E  0E CD 00 00 00 32          write_ksb 0xCD = 32 00 00 00
+  +50 0x2C14  0E CD 00 00 00 32          write_ksb 0xCD = 32 00 00 00
+  +56 0x2C1A  0E DB 01 E0 01 E0          write_ksb 0xDB = E0 01 E0 01
+  +5C 0x2C20  0E DC 00 00 01 E0          write_ksb 0xDC = E0 01 00 00
+  +62 0x2C26  0E DB 01 F0 01 F0          write_ksb 0xDB = F0 01 F0 01
+  +68 0x2C2C  0E DC 00 00 01 F0          write_ksb 0xDC = F0 01 00 00
+  +6E 0x2C32  0B D9                      write_ksb_zero D9
+  +70 0x2C34  03                         end
+
+script +71 (0x2C35)  started by: FUN_CODE_28ee
+  +71 0x2C35  00                         init
+  +72 0x2C36  0E D9 00 03 80 00          write_ksb 0xD9 = 00 80 03 00
+  +78 0x2C3C  0E DC 00 00 01 E2          write_ksb 0xDC = E2 01 00 00
+  +7E 0x2C42  0E DB 01 E2 01 E2          write_ksb 0xDB = E2 01 E2 01
+  +84 0x2C48  0E CD 00 00 00 67          write_ksb 0xCD = 67 00 00 00
+  +8A 0x2C4E  0B DF                      write_ksb_zero DF
+  +8C 0x2C50  03                         end
+
+script +8D (0x2C51)  started by: FUN_CODE_28f3
+  +8D 0x2C51  00                         init
+  +8E 0x2C52  0B E3                      write_ksb_zero E3
+  +90 0x2C54  0E E3 80 21 70 05          write_ksb 0xE3 = 05 70 21 80
+  +96 0x2C5A  03                         end
+
+script +97 (0x2C5B)  started by: i2c_commandlist_run_temperature_update
+  +97 0x2C5B  00                         init
+  +98 0x2C5C  0E E3 00 08 00 00          write_ksb 0xE3 = 00 00 08 00
+  +9E 0x2C62  03                         end
+
+script +9F (0x2C63)  started by: FUN_CODE_28fd
+  +9F 0x2C63  06                         nop
+  +A0 0x2C64  06                         nop
+  +A1 0x2C65  00                         init
+  +A2 0x2C66  2C                         read_dev48_status_for_script
+  +A3 0x2C67  2F                         handshake_dev48
+  +A4 0x2C68  03                         end
+
+script +A0 (0x2C64)  started by: i2c_command_step
+  +A0 0x2C64  06                         nop
+  ... continues into +A1
+
+script +A1 (0x2C65)  started by: FUN_CODE_2902
+  +A1 0x2C65  00                         init
+  ... continues into +A2
+
+script +A5 (0x2C69)  started by: FUN_CODE_2907
+  +A5 0x2C69  00                         init
+  +A6 0x2C6A  14                         read_ksb_E0
+  +A7 0x2C6B  20                         update_temp_edram
+  +A8 0x2C6C  17                         read_ksb_E1
+  +A9 0x2C6D  23                         update_temp_cpu
+  +AA 0x2C6E  1A                         read_ksb_E2
+  +AB 0x2C6F  26                         update_temp_gpu
+  +AC 0x2C70  1D                         read_ksb_E9
+  +AD 0x2C71  29                         update_temp_chassis
+  +AE 0x2C72  03                         end
+
+script +AF (0x2C73)  started by: FUN_CODE_290c
+  +AF 0x2C73  00                         init
+  +B0 0x2C74  32                         send_rrod_code_dev30
+  +B1 0x2C75  03                         end
+
+178/178 table bytes decoded

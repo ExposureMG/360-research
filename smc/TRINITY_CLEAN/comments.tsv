@@ -1,0 +1,445 @@
+addr	type	text
+50	EOL	/CPU_RESET_N\nis active low
+c6	EOL	sets bit 2 of this SFR\n(maybe an "unexpected IRQ" flag?)
+12d	EOL	disable IRQs
+145	EOL	state 0
+149	EOL	state 2 handles writes
+14b	EOL	state 3 probably handles reads
+151	EOL	state 6 handles reads
+169	EOL	reenable IRQs and exit
+1aa	EOL	if no more bytes to write,\nthen we're done here
+1ac	EOL	decrement number of I2C bytes\nsince the message buffer is\nread right-to-left
+1ae	EOL	if the write was triggered by IPC,\nthen use the IPC inbox as the source\nbuffer for the write
+1b3	EOL	and add the index into it
+1b6	EOL	write data on buffer out to I2C
+1ba	EOL	dump IPC inbox contents to I2C bus
+246	EOL	following this path resets\nto state 0, so might be an\nerror path...
+27b	EOL	set I2C pins to inputs
+281	EOL	HDMI DDC set to input
+284	EOL	same with DDC data\nmakes sense, because\nDDC is I2C based!!
+287	EOL	enable pullups on I2C bus\n(required if you want the\nI2C bus to function at all)
+28d	EOL	pull I2C SDA/SCL high
+291	EOL	weird - now the I2C pins\nare being set as outputs?
+297	EOL	SFR accesses that are probably\nhanding GPIOs over to the I2C driver
+2a7	EOL	seems the default case is\n"do lots of convoluted argon shit"
+2cb	EOL	if not 1, jump up
+2ce	EOL	IR number of bits?\nhas to be in expected ranges below
+2d0	EOL	cache this SFR register's value\n(could be IR data)
+2d7	EOL	if high bits not %0001, exit
+35d	EOL	jump if less than 0xB6
+362	EOL	jump if greater than 0xD1
+364	EOL	if condition met, advance IRQ state
+38e	EOL	jump if less than 0xB5
+427	EOL	if r2 is less than 12, get out
+429	EOL	happiest of happy paths:\ndata is released to other\nIR code handlers
+47d	EOL	port 0: set bits 2/3 (argon bus)\nto pullups?
+483	EOL	set argon bus to output
+48b	EOL	drive the bus low
+4b7	EOL	something must happen\nin that amount of time
+4ba	EOL	or else we discard the message
+4be	EOL	if either of these bits clear,\nthen stay in this state\nbut do nothing else
+4c9	EOL	if this flag is clear, jump down
+4cc	EOL	otherwise, keep waiting
+5a2	EOL	read number of bits left
+5a4	EOL	and after decrementing the memory\ncell, write the next bit if there\nare still bits remaining
+5a7	EOL	otherwise go idle
+5b7	EOL	read the bit buffer
+5b9	EOL	rotate it left once
+5ba	EOL	store updated value
+5bc	EOL	whatever ended up in the carry field\n(bit 7 before rotation)\nis the next bit to be written
+5f5	EOL	state 0 - reset argon bus
+5f7	EOL	state 1 - wait until flag set\nthen commandeer the bus
+603	EOL	state 7 - actually write data
+7e3	EOL	none of this init code\nreally seems to power\nanything up or down
+80b	EOL	whatever logic below is doing\nexecutes every 8 or so minutes
+810	EOL	if this was already checked,\njump down
+816	EOL	seems to be argon-related\ncould just be a controller keepalive?
+820	EOL	DDC lock delay, I think
+82a	EOL	if we decremented the value and\nit's still not zero (or it was\nzero already), clear this flag
+82c	EOL	monitors powergood signals\nand RRoDs if something bad happens
+83c	EOL	read external powerup pin???
+854	EOL	thermal monitoring\nand fan speed updating
+857	EOL	dbg led statemachine\ncan probably kill this
+85a	EOL	power event monitor;\nchecks button presses and\nacts on them
+875	EOL	argon/rf/ring of light stuff
+878	EOL	wait a certain number of ms\nbefore running the next tick\nof above logic
+8a2	EOL	clear 0x9A~0xB9
+8e6	EOL	IPC 0x01: get power-up cause (handshake, stops reset watchdog); reply [1]=cause [2]=0 [3]=boot tries [4]=config load error
+8eb	EOL	IPC 0x04: get RTC; reply [1..5]=RTC ms (LE) [6]=flags (b0 time set, b1 wake enabled) [7..10]=wake time
+8f0	EOL	IPC 0x07: get temperatures; reply CPU/GPU/eDRAM/chassis (frac,deg) [1..8], [9]=fan target speed
+8f6	EOL	IPC 0x0A: get DVD tray state; reply [1]=0x60 open/0x62 closed/0x63 opening/0x64 closing/0x65 error
+8fc	EOL	IPC 0x0F: get A/V pack; reply [1]=bitfield (b0/b1 DDC, b2-4 AV_MODE, b6 HDMI)
+902	EOL	IPC 0x16: get IR address; reply [1]=address (0x00-0x0F)
+908	EOL	IPC 0x17: get tilt switch; reply [1]=b0 tilt
+90e	EOL	IPC 0x11: I2C transaction (async, see i2c.md)
+914	EOL	IPC 0x12: get SMC version; reply [1..3]=type/major/minor (=bytes 0x100-0x102) [4..5]=persistent memcells
+91a	EOL	IPC 0x13: copy inbox to outbox (echo)
+920	EOL	IPC 0x1E: read 12 bytes of debug buffer A
+926	EOL	IPC 0x20: read 12 bytes of debug buffer B
+92c	EOL	unknown getter: reply is just the command id
+b2e	EOL	reply [6] = INTMEM 0x35: not in ipc.md
+b61	EOL	IPC 0x82: power off (01 00|34 delay) / reset (04 30 hard|31 soft delay flags) / cancel (04 33)
+b66	EOL	IPC 0x85: set RTC; [1..5]=RTC ms (LE), sets 'time set', disables wake alarm
+b6c	EOL	IPC 0x9B: set RTC wake time; [1..4]=wake ms (bits 39..8), [5] b0=power on at wake
+b72	EOL	IPC 0x88: set thermal modes; [1] b1=force thermal protection (RRoD 0030)
+b78	EOL	IPC 0x89: set fan 1 speed override; [1]=speed, b7=enable
+b7e	EOL	IPC 0x8B: open/close DVD tray; [1]=0x60 open/0x62 close/0x66 toggle
+b84	EOL	IPC 0x98: flag: schedule soft reset if tray not closed
+b8a	EOL	IPC 0x8C: power LED blink overrides; [1]=override+1, [2] b0=RoL boot animation
+b90	EOL	IPC 0x99: Ring of Light override; [1] b0=enable, [2]=LEDs (green<<4|red)
+b96	EOL	IPC 0x95: set IR address; [1]&0x0F
+b9c	EOL	IPC 0x90: send Argon command; [1..2]=Argon bytes
+ba2	EOL	IPC 0x9A: raise system error (RRoD); [1]=[2]=code (4x2 bits), [3]=flags
+ba8	EOL	IPC 0x9C: set persistent memcells; [1]=cell A [2]=cell B
+bae	EOL	IPC 0x9D: write 12 bytes to debug buffer A
+bb4	EOL	IPC 0x9F: write 12 bytes to debug buffer B
+bba	EOL	unknown setter: ignored
+de9	EOL	no async events before GetPowerUpCause (0x01): clear all pending
+dff	EOL	async power events (0x31/0x11/0x20/0x42) pending?
+e04	EOL	async 0x61 pending?
+e0a	EOL	async 0x40 pending?
+e10	EOL	async 0x13 pending?
+e16	EOL	async 0x14 pending?
+e1c	EOL	async 0x44 pending?
+e22	EOL	async 0x23 pending?
+e28	EOL	async 0x70 pending?
+e2e	EOL	async 0x6x pending?
+e58	EOL	async 0x31: soft reset acknowledged; [2]=0x04
+e69	EOL	async 0x11: power switch pushed
+e7a	EOL	async 0x20: IR remote power button
+e8b	EOL	async 0x42: /EXT_PWR_ON_N (kiosk pin) event
+e9e	EOL	async 0x61: eject pushed while tray closed
+eac	EOL	async 0x40: A/V pack changed; [2]=new value
+ec0	EOL	async 0x13: bind (sync) button pushed
+ed6	EOL	async 0x14: tilt switch changed; [2]=b0 new state
+ef2	EOL	async 0x44: Argon event; [2..3]=Argon data
+f26	EOL	async 0x23: IR remote event
+f49	EOL	async 0x70: overheat/thermal protection tripped (slims; not in ipc.md); no payload
+f58	EOL	mostly for tray events\nasync 0x6x: DVD tray state update; [1]=0x60/0x62/0x63/0x64/0x65
+f71	EOL	state 0 - wait for power down\n(023h.4 / 023h.5 must be set)
+f74	EOL	state 1 - shut down clocks
+f77	EOL	state 2 - kill CPU power
+f7a	EOL	state 3 - kill 3v3 and\nset 5v to standby rail?
+f7d	EOL	state 4 - kill 1v8
+f80	EOL	state 5 - kill 5v
+f83	EOL	state 6 - power GPU down,\nother things
+f86	EOL	state 7 - kill 12v and check stuff
+f89	EOL	state 8 - wait for counters
+f8c	EOL	state 9 - wait for another counter
+f8f	EOL	state 10 - end
+f92	EOL	if either of these are set,\nstart the power down sequence\n(023h.4/023h.5 both seem to\nbe RROD errors)
+f9a	EOL	if 0x63 or 0x64,\ncontinue waiting
+f9d	EOL	go state 0
+fa2	EOL	go state 0
+102e	EOL	go state 7 to power off
+1044	EOL	if this bit is still set\nthen block execution\nuntil it's clear
+1051	EOL	turn off ring of light
+1053	EOL	cooldown time of sorts\n= 500 ms
+1056	EOL	go state 8
+1058	EOL	note that this 3D counter\nis shared with other\nstatemachines
+105b	EOL	read what SMC IPC dropped off here\nfrom a poweroff/reset request
+105f	EOL	if nonzero, go to state 9
+1063	EOL	tick this timer down
+1066	EOL	if this bit not set,\ngo to "done" state
+1069	EOL	else go to state 10
+106e	EOL	turn off this state machine
+1070	EOL	and return
+11ce	EOL	reset all the things
+11de	EOL	advance to step 1
+11f8	EOL	very long NOP sled\nwhile we wait for stuff\nto reset
+124e	EOL	exec this statemachine\nif 21.7 is set
+12ae	EOL	enable ring of light
+14b1	EOL	all that logic to debounce this...
+16bb	EOL	fans at max speed by default
+1700	EOL	skip if intended speed is\nless than 0x33
+1747	EOL	read current temp frac
+1748	EOL	read last temp frac
+174c	EOL	difference between them\ngoes in r4
+174d	EOL	move pointers up
+174f	EOL	same thing - compute difference\nbetween major temperature values\nand store that in r5
+1755	EOL	decrement only r0,\nwe're not reading the previous\ntemperature again in this function
+1756	EOL	underflow flag goes in f0
+175a	EOL	skip if no underflow
+1766	EOL	read current temp frac (again)
+176a	EOL	read current major temp (again)
+176b	EOL	calc difference between that and\ntarget temperature
+176c	EOL	store in r7
+1874	EOL	turns all LEDs off
+189d	EOL	skip if this bit set
+18a3	EOL	set bootanim flag in the byte\nwe're about to write
+18b2	EOL	base argon command - 0x80
+1917	EOL	mutex? idk
+1919	EOL	idle if this bit not set
+191f	EOL	if set, go to state 1\nwhich is an idle state
+1932	EOL	typically set when some\nring of light related stuff\nhas to happen
+1935	EOL	so if that bit's set\nthen run this logic
+1993	EOL	argon command 0x04\n= SYNC
+19c4	EOL	if it is, go to state 4,\nwhich updates LEDs
+19ca	EOL	otherwise, send command 0x90 to the\nargon (another undocumented state)
+19de	EOL	read error code to be displayed
+19e0	EOL	AND mask it\n(remember the error code is\n4x2 bits)
+19e9	EOL	if both of these bits of the\nerror code were 0, then send\n0xD1 (fast blink all red lights)
+19ed	EOL	guess this blinks two lights
+19fb	EOL	guess this blinks three lights
+19fd	EOL	argon command 0xCx\nstarts slow-blinking red LEDs\n0xC0 clears them
+1a20	EOL	this bit should not be true
+1ae9	EOL	read last argon state
+1aec	EOL	odd - function never sets\ncarry, only clears it...
+1af0	EOL	looks like we short circuit\nto state 1 if either of these\nbits are set
+1af6	EOL	if this bit set then a\nwireless controller powered\nthe system up
+1b17	EOL	state 0 loops through normal stuff
+1b1a	EOL	state 1 waits until some\ncondition is met\nthen goes back to state 0
+1b23	EOL	update red LEDs
+1b26	EOL	update green LEDs
+1b35	EOL	state 0
+1b38	EOL	state 1
+1b3b	EOL	state 2
+1b3e	EOL	state 3
+1b41	EOL	state 4
+1b44	EOL	state 5
+1b47	EOL	state 6
+1b4a	EOL	state 7
+1b4d	EOL	state 8
+1b52	EOL	HANA must be active\n(brought out of reset)
+1b55	EOL	if not, release the mutex and\nwait for the next pass
+1b57	EOL	if no async operation waiting from\nIPC, skip all this
+1b5a	EOL	do I2C related crap
+1bdc	EOL	execution likely ends up here\nwhen a IPC to I2C write\n(expecting no response) succeeds
+1bf5	EOL	default = error
+1bfa	EOL	guess F0 has to be clear\nfor the command to have succeeded
+1c15	EOL	RRoD 0010 = no HANA
+1ce7	EOL	check if command is waiting,\nand parse it if so\n(will populate r2/r3/r4)
+1cec	EOL	if no command was waiting\n(or function returned zero)\nthen get out
+1d39	EOL	code ends up here if an IR\nbutton has been pressed
+1d3b	EOL	IR power button
+1d44	EOL	IR eject button
+1d4d	EOL	only handle certain poweron events\nif this flag is set (in which case\nthe system is likely in standby)
+1d50	EOL	mystery button that behaves like\na normal power button press.\nlikely an explicit power off\ncommand
+1d5b	EOL	start/windows button
+1d64	EOL	X (guide) button
+1d6d	EOL	mystery button\n(explicit power on)
+1e5a	EOL	check 12v power good signal
+1e62	EOL	check 5v powergood\n(somehow only checked if\n1v8 is enabled)
+1e6a	EOL	check CPU powergood signal
+1e72	EOL	check GPU powergood signal
+1e8d	EOL	RRoD 0001
+1e9a	EOL	RRoD 0031??
+1ec1	EOL	RRoD 0002
+1ee9	EOL	likely also locks mutex\nso CPU can't go peeking at it
+1f1b	EOL	normal state - just handle events
+1f1e	EOL	idle until setter command\nis no longer blocking
+1f21	EOL	wait for outbox mutex to unlock\n(probably it got locked by the\nCPU or something else)
+1f30	EOL	state 0 - check if a bit is set\nif so go to state 1
+1f33	EOL	state 1 - wait for something that\npowers the system on to happen
+1f36	EOL	state 2 - if powerup sequence\nprematurely aborted, stop,\notherwise wait for powerup to\ncomplete and then start\nthe watchdog
+1f3f	EOL	state 5 - wait for reset to\nbe acknowledged then start\npowering things down
+1f42	EOL	state 6 - wait for poweroff\nto complete, reset things, then\ngo back to state 0
+1f65	EOL	check USB powerup cause
+1f68	EOL	if present jump down
+1f6d	EOL	check all this shit
+1f70	EOL	and jump if a condition is met
+1f72	EOL	otherwise do nothing
+1f75	EOL	undocumented
+1f7a	EOL	queue tray eject
+1f7d	EOL	eject switch
+1f82	EOL	queue tray eject
+1f85	EOL	IR remote eject button
+1f8a	EOL	power switch
+1f8f	EOL	IR remote power button
+1f94	EOL	IR remote X button
+1f99	EOL	IR remote Windows button
+1f9e	EOL	Kiosk/debug pin
+1fa3	EOL	Wireless controller
+1fa8	EOL	great, more spaghetti code
+1fb0	EOL	RTC wakeup
+1fb5	EOL	clear all these bits
+1fc7	EOL	since the system is powering on,\nwe now allow certain IR button\npresses to fall through to IPC\ninstead of treating them like\npower-up events
+1fd2	EOL	if this bit is set,\nabandon the reset
+1fd5	EOL	otherwise, start powering up
+1fda	EOL	and go to state 2
+1fe0	EOL	wait for powerdown sequence\nto finish before doing this
+1fe3	EOL	reset a few things
+1fe6	EOL	start 0x1196 statemachine
+1fed	EOL	bit must be clear before\nstarting the bulk of this\nstatemachine's logic
+1ff3	EOL	else go state 1
+1ff5	EOL	abort if either of\nthese bits are set
+1ffb	EOL	if watchdog is stopped\ndo whatever this is
+2081	EOL	if whatever this bit is set,\nabandon the reset
+2084	EOL	same goes with this guy
+2087	EOL	wait for powerup sequence\nto complete
+208a	EOL	setup reset watchdog
+208f	EOL	go to state 3
+20ce	EOL	go to state 4\n(if we aren't already there)
+2112	EOL	start a statemachine we\njust stopped??????
+2122	EOL	undocumented
+2129	EOL	undocumented
+214d	EOL	if reset statemachine still doing\nits thing, keep waiting
+2150	EOL	otherwise, start the\npowerdown statemachine
+2158	EOL	kill all statemachines
+215e	EOL	this has no effect\nsee 1fcc as to why
+217f	EOL	if thermal protection tripped\nthen stop updating the temperatures\n(eventually falls through to\nerror case below)
+21a7	EOL	RRoD 0030 regardless of what\ncaused us to end up here
+22eb	EOL	tray should be closing
+2312	EOL	tray open
+2380	EOL	ignore if tray state is closed
+23a3	EOL	open or close the tray
+23b9	EOL	run if tray is open
+23bb	EOL	fall through if tray is closed
+23d5	EOL	is a message waiting?
+23d8	EOL	if not, keep idling
+23da	EOL	apparently message type\nshould be 0x80 or above
+2406	EOL	clear IRQ busy flag\nand bit 2 (not sure what yet)
+240a	EOL	no interrupts while we do this
+245f	EOL	enable 1ms IRQ?
+2462	EOL	enable interrupts
+246d	EOL	if a was >= 0x15 to begin with,\njump down
+2471	EOL	no IRQs please
+2476	EOL	stupid useless opcode of idiot
+2477	EOL	move ms counter back
+2479	EOL	and update it in ram
+247b	EOL	set carry because 20 ms have passed
+247c	EOL	IRQs back on
+248a	EOL	set DBG_LED0 as input
+248d	EOL	read it
+248f	EOL	if it's 1, inhibit SMC config\nload errors (??? why?)
+2492	EOL	DDR port 0?
+2495	EOL	DDR port 1?
+2498	EOL	DDR port 2?
+24a1	EOL	set pin mode config port 0
+24a4	EOL	set pin mode config port 1
+24aa	EOL	set pin mode config port 3
+24ad	EOL	set pin mode config port 4
+24b0	EOL	set port 0 bits
+24b3	EOL	set port 1 bits
+24b9	EOL	set port 3 bits
+24bf	EOL	then explicitly set DDRs
+2510	EOL	disable interrupts
+2516	EOL	turn off watchdog?
+2519	EOL	and loop forever.\nthis code may also be forcing\na SMC hard reset via the watchdog...
+2543	EOL	active low
+2546	EOL	active low
+2565	EOL	/VREG_GPU_EN_N = 1 (disable)
+2587	EOL	toggles open/close state
+259a	EOL	=0x10, start of message
+259c	EOL	read the message type
+259e	EOL	if >= 0x80 set carry
+25b5	EOL	lock mutex
+25b7	EOL	set outbox pointer 0x10
+25b9	EOL	write 16 zero bytes\nwhich clears it
+25d2	EOL	function guessed, but\nbit 4 being 0 is what matters
+25db	EOL	load SMC config defaults\nin case we can't load from flash
+25e3	EOL	memory config register\ntrying to check what flash size\nwe have...
+25e5	EOL	flash size is in bits 4/5\nso move those bits into place
+25eb	EOL	a = (a & 3) * 3\nto setup index into table below
+2606	EOL	SFCX command 2\nread 256-byte page at\ngiven logical address\n(bits 0-7 ignored here)
+2661	EOL	bit 0 absolutely has to be 0
+2664	EOL	same with bits 4,5,7
+2671	EOL	set pointer up to +0x0C
+2674	EOL	read 4 bytes at that offset
+2677	EOL	is the 3rd byte of the read = 4?
+267f	EOL	read first four bytes\nto set up for checksum below
+2682	EOL	these should be the expected checksum
+2686	EOL	checksum end address (inclusive)
+2688	EOL	read start location
+268b	EOL	read four bytes
+2762	EOL	NOT of CY\nreturns 1 if pushed, 0 otherwise
+2766	EOL	NOT of CY\nreturns 1 if pushed, 0 otherwise
+2777	EOL	weird - this is reading\nANA_VRST_OK
+277b	EOL	bits 2~4 of output are\nthe AV_MODE pins\n(if all 1, nothing is plugged\ninto the AV port)
+2787	EOL	HDMI_DDC_CLK
+278b	EOL	HDMI DDC data
+2794	EOL	number of ticks it's been active for
+2796	EOL	and whether it *is* active
+2798	EOL	(cy set if it is, line's active low)
+27b6	EOL	I2C script +00: init; ipc_transact; end
+27be	EOL	I2C script +03: init; write_hana 0xE4 = 1F 00 00 00; write_hana 0xE3 = FF FF FF 0F; write_hana 0xDB = -- 00 00 00  (4th byte from SMC config); write_hana 0xD5 = 75 00 00 00; write_hana 0xD9 = 88 00 00 00; write_hana 0xD4 = 0E E0 90 09; write_hana 0xDC = AA 42 00 00; write_hana 0xDF = 00 00 00 00; end
+27c3	EOL	I2C script +34: init; write_hana 0xD6 = 75 00 00 00; write_hana 0xD9 = 20 00 00 00; write_hana 0xD3 = 17 20 83 89; write_hana 0xCE = 14 40 E8 88; write_hana 0xD3 = 17 20 83 09; write_hana 0xCE = 14 40 E8 08; write_hana 0xE3 = 66 F6 36 84; end
+27c8	EOL	I2C script +60: init; write_hana 0xE3 = FF FF FF 0F; write_hana 0xD5 = 75 00 00 00; write_hana 0xD9 = 88 00 00 00; write_hana 0xDF = 00 00 00 00; end
+27cd	EOL	I2C script +7A: nop; nop; init; write_dev39 [F3 0F]; write_dev39 [F3 0A]; write_dev39 [EC 90]; write_dev39 [EC 00 90 00 00]  (no yield); prepare_dev39_status_for_script; write_dev39 [F0 05 00 00 09]; write_dev39 [F3 02]; wait_dev39; read_dev39 01 F5; check_dev39_ack; read_dev39 05 F4; handshake_dev39; end
+27d2	EOL	I2C script +7C: init; continue at +7D
+27d7	EOL	-> 0x2995\nI2C script +AC: init; read_hana E0; update_temp_edram_gpu; read_hana E1; update_temp_cpu; read_hana E2; update_temp_chassis; end
+27dc	EOL	-> 29a0\nI2C script +B7: init; write_dev39 [F3 0F]; write_dev39 [F3 0A]; write_dev39 [EC 90]; write_dev39 [EC 00 60 00 00]  (no yield); send_rrod_code; write_dev39 [F0 00 00 00 09]; write_dev39 [F3 06]; wait_dev39; end
+27e9	EOL	if I2C transfer still in progress,\nthen go back to idling
+27ee	EOL	seems the I2C controller will\nreset this SFR flag for us
+27fa	EOL	if this is clear,\ncontinue I2C statemachine execution\nfrom where we left off
+2800	EOL	error flag
+2812	EOL	reset I2C irq handler state
+2815	EOL	seems this will trigger an IRQ\nvery shortly
+2817	EOL	clear bit 3 from this IRQ mask thing
+2a34	EOL	I2C script +7B: nop; continue at +7C
+2acf	EOL	i2c +00: init
+2ad0	EOL	i2c +01: ipc_transact
+2ad1	EOL	i2c +02: end
+2ad2	EOL	i2c +03: init
+2ad3	EOL	i2c +04: write_hana 0xE4 = 1F 00 00 00
+2ad9	EOL	i2c +0A: write_hana 0xE3 = FF FF FF 0F
+2adf	EOL	i2c +10: write_hana 0xDB = -- 00 00 00  (4th byte from SMC config)
+2ae4	EOL	i2c +15: write_hana 0xD5 = 75 00 00 00
+2aea	EOL	i2c +1B: write_hana 0xD9 = 88 00 00 00
+2af0	EOL	i2c +21: write_hana 0xD4 = 0E E0 90 09
+2af6	EOL	i2c +27: write_hana 0xDC = AA 42 00 00
+2afc	EOL	i2c +2D: write_hana 0xDF = 00 00 00 00
+2b02	EOL	i2c +33: end
+2b03	EOL	i2c +34: init
+2b04	EOL	i2c +35: write_hana 0xD6 = 75 00 00 00
+2b0a	EOL	i2c +3B: write_hana 0xD9 = 20 00 00 00
+2b10	EOL	i2c +41: write_hana 0xD3 = 17 20 83 89
+2b16	EOL	i2c +47: write_hana 0xCE = 14 40 E8 88
+2b1c	EOL	i2c +4D: write_hana 0xD3 = 17 20 83 09
+2b22	EOL	i2c +53: write_hana 0xCE = 14 40 E8 08
+2b28	EOL	i2c +59: write_hana 0xE3 = 66 F6 36 84
+2b2e	EOL	i2c +5F: end
+2b2f	EOL	i2c +60: init
+2b30	EOL	i2c +61: write_hana 0xE3 = FF FF FF 0F
+2b36	EOL	i2c +67: write_hana 0xD5 = 75 00 00 00
+2b3c	EOL	i2c +6D: write_hana 0xD9 = 88 00 00 00
+2b42	EOL	i2c +73: write_hana 0xDF = 00 00 00 00
+2b48	EOL	i2c +79: end
+2b49	EOL	i2c +7A: nop
+2b4a	EOL	i2c +7B: nop
+2b4b	EOL	i2c +7C: init
+2b4c	EOL	i2c +7D: write_dev39 [F3 0F]
+2b51	EOL	i2c +82: write_dev39 [F3 0A]
+2b56	EOL	i2c +87: write_dev39 [EC 90]
+2b5b	EOL	i2c +8C: write_dev39 [EC 00 90 00 00]  (no yield)
+2b63	EOL	i2c +94: prepare_dev39_status_for_script
+2b64	EOL	i2c +95: write_dev39 [F0 05 00 00 09]
+2b6c	EOL	i2c +9D: write_dev39 [F3 02]
+2b71	EOL	i2c +A2: wait_dev39
+2b72	EOL	i2c +A3: read_dev39 01 F5
+2b75	EOL	i2c +A6: check_dev39_ack
+2b76	EOL	i2c +A7: read_dev39 05 F4
+2b79	EOL	i2c +AA: handshake_dev39
+2b7a	EOL	i2c +AB: end
+2b7b	EOL	i2c +AC: init
+2b7c	EOL	i2c +AD: read_hana E0
+2b7e	EOL	i2c +AF: update_temp_edram_gpu
+2b7f	EOL	i2c +B0: read_hana E1
+2b81	EOL	i2c +B2: update_temp_cpu
+2b82	EOL	i2c +B3: read_hana E2
+2b84	EOL	i2c +B5: update_temp_chassis
+2b85	EOL	i2c +B6: end
+2b86	EOL	i2c +B7: init
+2b87	EOL	i2c +B8: write_dev39 [F3 0F]
+2b8c	EOL	i2c +BD: write_dev39 [F3 0A]
+2b91	EOL	i2c +C2: write_dev39 [EC 90]
+2b96	EOL	i2c +C7: write_dev39 [EC 00 60 00 00]  (no yield)
+2b9e	EOL	i2c +CF: send_rrod_code
+2b9f	EOL	i2c +D0: write_dev39 [F0 00 00 00 09]
+2ba7	EOL	i2c +D8: write_dev39 [F3 06]
+2bac	EOL	i2c +DD: wait_dev39
+2bad	EOL	i2c +DE: end
+2bc5	EOL	this guy is set to 3 when we\nreset the bus - might be an\nenable/uninhibit to write 0?
+2bfb	EOL	message to be written
+2c02	EOL	write A places
+2c0f	EOL	read state bits back\n(they may have been updated\nby another function)
+2c11	EOL	for red LEDs A = 1011xxxx
+2c25	EOL	if this set return false
+2c2b	EOL	seems like this is the happy path
+2ec8	EOL	first byte = destination address
+2ecb	EOL	second byte = data to write
+2ed0	EOL	loop until 0 hit
+8d0	PRE	IPC command dispatcher: command bit 7 set = setter (no reply), clear = getter (reply in outbox, [0] = command id)
+b61	PRE	IPC setter commands (bit 7 set): no reply
+e35	PRE	async event: outbox[0] = 0x83, release outbox, CY=1 (event sent)
+2acf	PLATE	bytecode table (raw bytes; block left uninitialized so\nthe decompiler switches on the opcode byte instead of folding the table):\n2acf: 00 09 03 00 0b e4 00 00 00 1f 0b e3 0f ff ff ff\n2adf: 0b db 00 00 00 0b d5 00 00 00 75 0b d9 00 00 00\n2aef: 88 0b d4 09 90 e0 0e 0b dc 00 00 42 aa 0b df 00\n2aff: 00 00 00 03 00 0b d6 00 00 00 75 0b d9 00 00 00\n2b0f: 20 0b d3 89 83 20 17 0b ce 88 e8 40 14 0b d3 09\n2b1f: 83 20 17 0b ce 08 e8 40 14 0b e3 84 36 f6 66 03\n2b2f: 00 0b e3 0f ff ff ff 0b d5 00 00 00 75 0b d9 00\n2b3f: 00 00 88 0b df 00 00 00 00 03 06 06 00 11 02 f3\n2b4f: 0f 01 11 02 f3 0a 01 11 02 ec 90 01 11 05 ec 00\n2b5f: 90 00 00 00 23 11 05 f0 05 00 00 09 01 11 02 f3\n2b6f: 02 01 17 14 01 f5 26 14 05 f4 29 03 00 0e e0 1a\n2b7f: 0e e1 1d 0e e2 20 03 00 11 02 f3 0f 01 11 02 f3\n2b8f: 0a 01 11 02 ec 90 01 11 05 ec 00 60 00 00 00 2c\n2b9f: 11 05 f0 00 00 00 09 01 11 02 f3 06 01 17 03

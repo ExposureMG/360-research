@@ -1,0 +1,1 @@
+CORONA_CR4.bin: 215 functions (124 named), 0 failed, 0 halt_baddata, 23 with warnings

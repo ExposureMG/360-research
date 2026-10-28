@@ -1,0 +1,109 @@
+Picked up JAVA_TOOL_OPTIONS:  -Djava.io.tmpdir=/home/e3xp0/Projects/smc_decomp/work/ghidra/SMCx.tmp
+Picked up JAVA_TOOL_OPTIONS:  -Djava.io.tmpdir=/home/e3xp0/Projects/smc_decomp/work/ghidra/SMCx.tmp
+Picked up JAVA_TOOL_OPTIONS:  -Djava.io.tmpdir=/home/e3xp0/Projects/smc_decomp/work/ghidra/SMCx.tmp
+Picked up JAVA_TOOL_OPTIONS:  -Djava.io.tmpdir=/home/e3xp0/Projects/smc_decomp/work/ghidra/SMCx.tmp
+openjdk version "27" 2026-09-15
+OpenJDK Runtime Environment (build 27)
+OpenJDK 64-Bit Server VM (build 27, mixed mode)
+INFO  Using log config file: jar:file:/opt/ghidra/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml (LoggingInitialization)  
+INFO  Using log file: /home/e3xp0/Projects/smc_decomp/work/ghidra_user/config/ghidra/ghidra_12.1.2_DEV/application.log (LoggingInitialization)  
+INFO  Loading user preferences: /home/e3xp0/Projects/smc_decomp/work/ghidra_user/config/ghidra/ghidra_12.1.2_DEV/preferences (Preferences)  
+INFO  Searching for classes... (ClassSearcher)  
+INFO  Class search complete (1663 ms) (ClassSearcher)  
+WARNING: Final field name in class ghidra.util.charset.CharsetInfo has been mutated reflectively by class com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$2 in unnamed module @25fb8912 (file:/opt/ghidra/Ghidra/Framework/Generic/lib/gson-2.13.2.jar)
+WARNING: Use --enable-final-field-mutation=ALL-UNNAMED to avoid a warning
+WARNING: Mutating final fields will be blocked in a future release unless final field mutation is enabled
+INFO  Initializing SSL Context (DefaultSSLContextInitializer)  
+INFO  Initializing Random Number Generator... (SecureRandomFactory)  
+INFO  Random Number Generator initialization complete: NativePRNGNonBlocking (SecureRandomFactory)  
+INFO  Trust manager disabled, cacerts have not been set (DefaultTrustManagerFactory)  
+INFO  Headless startup complete (6376 ms) (AnalyzeHeadless)  
+INFO  Class searcher loaded 210 extension points (114 false positives) (ClassSearcher)  
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::staticFieldOffset has been called by org.apache.felix.framework.util.SecureAction (file:/opt/ghidra/Ghidra/Features/Base/lib/org.apache.felix.framework-7.0.5.jar)
+WARNING: Please consider reporting this to the maintainers of class org.apache.felix.framework.util.SecureAction
+WARNING: sun.misc.Unsafe::staticFieldOffset will be removed in a future release
+INFO  HEADLESS Script Paths:
+    /opt/ghidra/Ghidra/Features/SystemEmulation/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/GnuDemangler/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/WildcardAssembler/ghidra_scripts
+    /opt/ghidra/Ghidra/Processors/DATA/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/DecompilerDependent/ghidra_scripts
+    /opt/ghidra/Ghidra/Processors/JVM/ghidra_scripts
+    /opt/ghidra/Ghidra/Debug/Debugger-rmi-trace/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/MicrosoftCodeAnalyzer/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/VersionTracking/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/PyGhidra/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/SwiftDemangler/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/Base/ghidra_scripts
+    /opt/ghidra/Ghidra/Processors/Atmel/ghidra_scripts
+    /opt/ghidra/Ghidra/Debug/Debugger/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/Decompiler/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/FunctionID/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/PDB/ghidra_scripts
+    /opt/ghidra/Ghidra/Processors/8051/ghidra_scripts
+    /opt/ghidra/Ghidra/Processors/PIC/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/FileFormats/ghidra_scripts
+    /home/e3xp0/Projects/smc_decomp/tools/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/BSim/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/BytePatterns/ghidra_scripts (HeadlessAnalyzer)  
+INFO  HEADLESS: execution starts (HeadlessAnalyzer)  
+INFO  Opening existing project: /home/e3xp0/Projects/smc_decomp/work/ghidra/SMCx/smc (HeadlessAnalyzer)  
+INFO  Opening project: /home/e3xp0/Projects/smc_decomp/work/ghidra/SMCx/smc (HeadlessProject)  
+INFO  REPORT: Processing input files:  (HeadlessAnalyzer)  
+INFO       project: /home/e3xp0/Projects/smc_decomp/work/ghidra/SMCx/smc (HeadlessAnalyzer)  
+INFO  IMPORTING: file:///home/e3xp0/Projects/smc_decomp/work/bins/SMCx.bin (HeadlessAnalyzer)  
+INFO  Successfully applied "-loader-baseAddr" to "Base Address" (old: "null", new: "0") (ProgramLoader)  
+INFO  Using Loader: Raw Binary (ProgramLoader)  
+INFO  Using Language/Compiler: 8051:BE:16:default:default (ProgramLoader)  
+INFO  Using Library Search Path: [., /bin, /lib, /lib64, /lib/x86_64-linux-gnu, /lib/aarch64-linux-gnu, /usr/bin, /usr/lib, /usr/X11R6/bin, /usr/X11R6/lib, /usr/java/packages/lib, /usr/lib64] (ProgramLoader)  
+INFO  IMPORTING: Loaded 0 additional files (HeadlessAnalyzer)  
+INFO  /SMCx.bin: file deleted (e3xp0) (LocalFileSystem)  
+INFO  Deleted local file SMCx.bin (GhidraFileData)  
+WARN  REPORT: Removed conflicting program file from project: /SMCx.bin (HeadlessAnalyzer)  
+INFO  REPORT: Execute script: SmcApply.java '/home/e3xp0/Projects/smc_decomp/work/annot/ported/SMCx.tsv,/home/e3xp0/Projects/smc_decomp/work/annot/docs/SMCx.tsv,/home/e3xp0/Projects/smc_decomp/work/annot/ipc/SMCx.tsv,/home/e3xp0/Projects/smc_decomp/work/annot/i2c/SMCx.tsv'  (HeadlessAnalyzer)  
+INFO  SCRIPT: /home/e3xp0/Projects/smc_decomp/tools/ghidra_scripts/SmcApply.java (HeadlessAnalyzer)  
+INFO  SmcApply.java> SmcApply: 6 data ranges, 63 flow overrides, 326 functions, 384 labels, 557 comments (0 superseded names dropped) (GhidraScript)  
+INFO  ANALYZING all memory and code: file:///home/e3xp0/Projects/smc_decomp/work/bins/SMCx.bin (HeadlessAnalyzer)  
+INFO  Packed database cache: /home/e3xp0/Projects/smc_decomp/work/ghidra_user/cache/ghidra/packed-db-cache (PackedDatabaseCache)  
+INFO  Applied data type archive: generic_clib (ApplyDataArchiveAnalyzer)  
+INFO  -----------------------------------------------------
+    ASCII Strings                              0.509 secs
+    Apply Data Archives                        0.900 secs
+    Basic Constant Reference Analyzer          1.039 secs
+    Call Convention ID                         0.011 secs
+    Call-Fixup Installer                       0.011 secs
+    Create Function                            0.017 secs
+    Demangler GNU                              0.364 secs
+    Disassemble Entry Points                   0.169 secs
+    Disassemble Entry Points - One Time        0.221 secs
+    Embedded Media                             0.028 secs
+    External Entry References                  0.000 secs
+    Function ID                                0.039 secs
+    Non-Returning Functions - Discovered       0.065 secs
+    Shared Return Calls                        0.071 secs
+    Stack                                      0.365 secs
+    Subroutine References                      0.030 secs
+-----------------------------------------------------
+     Total Time   3 secs
+-----------------------------------------------------
+ (AutoAnalysisManager)  
+INFO  REPORT: Analysis succeeded for file: file:///home/e3xp0/Projects/smc_decomp/work/bins/SMCx.bin (HeadlessAnalyzer)  
+INFO  REPORT: Execute script: SmcSwitches.java  (HeadlessAnalyzer)  
+INFO  SCRIPT: /home/e3xp0/Projects/smc_decomp/tools/ghidra_scripts/SmcSwitches.java (HeadlessAnalyzer)  
+INFO  SmcSwitches.java> SmcSwitches: bytecode table CODE:283e-CODE:28a2 moved to an uninitialized block (GhidraScript)  
+INFO  SmcSwitches.java> SmcSwitches: CODE:25a9 in i2c_try_continue_commandlist_execution -> tail call to i2c_command_step (GhidraScript)  
+INFO  SmcSwitches.java> SmcSwitches: CODE:2926: resume-offset, 6 entry points (GhidraScript)  
+INFO  SmcSwitches.java> SmcSwitches: 22 jump tables recovered, 0 skipped (GhidraScript)  
+INFO  REPORT: Execute script: SmcDecompile.java '/home/e3xp0/Projects/smc_decomp/out/SMCx'  (HeadlessAnalyzer)  
+INFO  SCRIPT: /home/e3xp0/Projects/smc_decomp/tools/ghidra_scripts/SmcDecompile.java (HeadlessAnalyzer)  
+WARN  Decompiling CODE:25d6: Unable to read bytes at CODE:283e (DecompileCallback)  
+INFO  SMCx.bin: 217 functions (144 named), 0 failed, 0 halt_baddata, 24 with warnings (GhidraScript)  
+INFO  REPORT: Execute script: SmcExport.java '/home/e3xp0/Projects/smc_decomp/out/SMCx'  (HeadlessAnalyzer)  
+INFO  SCRIPT: /home/e3xp0/Projects/smc_decomp/tools/ghidra_scripts/SmcExport.java (HeadlessAnalyzer)  
+INFO  SmcExport.java> SmcExport: wrote /home/e3xp0/Projects/smc_decomp/out/SMCx (GhidraScript)  
+INFO  ANALYZING changes made by post scripts: file:///home/e3xp0/Projects/smc_decomp/work/bins/SMCx.bin (HeadlessAnalyzer)  
+INFO  REPORT: Post-analysis succeeded for file: file:///home/e3xp0/Projects/smc_decomp/work/bins/SMCx.bin (HeadlessAnalyzer)  
+INFO  /SMCx.bin: file created (e3xp0) (LocalFileSystem)  
+INFO  REPORT: Save succeeded for: /SMCx.bin (smc:/SMCx.bin) (HeadlessAnalyzer)  
+INFO  REPORT: Import succeeded (HeadlessAnalyzer)  

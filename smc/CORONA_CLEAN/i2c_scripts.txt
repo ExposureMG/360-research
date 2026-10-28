@@ -1,0 +1,142 @@
+# CORONA_CLEAN: I2C commandlist (corona opcode set)
+dispatch at 0x29E1, script table 0x2D66-0x2E48, opcode jump table 0x2D25, pointer INTMEM 0x7A, start pointer INTMEM 0x79
+
+opcodes:
+  00 -> 0x29E2  init                             operands: 0
+  03 -> 0x2A18  end                              operands: 0
+  06 -> 0x2A1C  nop                              operands: 0
+  09 -> 0x2CDD  ipc_transact                     operands: 0
+  0B -> 0x2A20  write_ksb_zero                   operands: 1
+  0E -> 0x2A30  write_ksb                        operands: write_ksb
+  11 -> 0x2A71  read_ksb                         operands: 1
+  14 -> 0x2A94  write_dev4d                      operands: 2
+  17 -> 0x2A99  write_dev4e                      operands: 2
+  1A -> 0x2ADA  goto                             operands: 1
+  1D -> 0x2AD0  goto_if_ext_sensors              operands: 1
+  20 -> 0x2AE7  read_temp_edram                  operands: 0
+  23 -> 0x2AFA  read_temp_cpu                    operands: 0
+  26 -> 0x2B0E  read_temp_gpu                    operands: 0
+  29 -> 0x2B22  read_temp_chassis                operands: 0
+  2C -> 0x2B36  update_temp_edram                operands: 0
+  2F -> 0x2B86  update_temp_cpu                  operands: 0
+  32 -> 0x2BD6  update_temp_gpu                  operands: 0
+  35 -> 0x2C26  update_temp_chassis              operands: 0
+  38 -> 0x2C6E  read_dev48_status_for_script     operands: 0
+  3B -> 0x2C9C  handshake_dev48                  operands: 0
+  3E -> 0x2CC7  send_rrod_code_dev30             operands: 0
+
+script +00 (0x2D66)  started by: FUN_CODE_295e
+  +00 0x2D66  00                         init
+  +01 0x2D67  09                         ipc_transact
+  +02 0x2D68  03                         end
+
+script +03 (0x2D69)  started by: i2c_commandlist_run_hana_init
+  +03 0x2D69  00                         init
+  +04 0x2D6A  0E E3 00 08 00 00          write_ksb 0xE3 = 00 00 08 00
+  +0A 0x2D70  1D 0E                      goto_if_ext_sensors +0E
+  +0C 0x2D72  1A 23                      goto +23
+
+script +44 (0x2DAA)  started by: i2c_runscript_init_clock_regs
+  +44 0x2DAA  00                         init
+  +45 0x2DAB  0E CD 00 00 00 62          write_ksb 0xCD = 62 00 00 00
+  +4B 0x2DB1  0E CF C0 44 AC C0          write_ksb 0xCF = C0 AC 44 C0
+  +51 0x2DB7  0E CF 40 44 AC C0          write_ksb 0xCF = C0 AC 44 40
+  +57 0x2DBD  0E CD 00 00 00 72          write_ksb 0xCD = 72 00 00 00
+  +5D 0x2DC3  0E CD 00 00 00 32          write_ksb 0xCD = 32 00 00 00
+  +63 0x2DC9  0E CD 00 00 00 32          write_ksb 0xCD = 32 00 00 00
+  +69 0x2DCF  0E CD 00 00 00 32          write_ksb 0xCD = 32 00 00 00
+  +6F 0x2DD5  0E DB 01 E0 01 E0          write_ksb 0xDB = E0 01 E0 01
+  +75 0x2DDB  0E DC 00 00 01 E0          write_ksb 0xDC = E0 01 00 00
+  +7B 0x2DE1  0E DB 01 F0 01 F0          write_ksb 0xDB = F0 01 F0 01
+  +81 0x2DE7  0E DC 00 00 01 F0          write_ksb 0xDC = F0 01 00 00
+  +87 0x2DED  0B D9                      write_ksb_zero D9
+  +89 0x2DEF  03                         end
+
+script +8A (0x2DF0)  started by: FUN_CODE_2972
+  +8A 0x2DF0  00                         init
+  +8B 0x2DF1  0E D9 00 03 80 00          write_ksb 0xD9 = 00 80 03 00
+  +91 0x2DF7  0E DC 00 00 01 E2          write_ksb 0xDC = E2 01 00 00
+  +97 0x2DFD  0E DB 01 E2 01 E2          write_ksb 0xDB = E2 01 E2 01
+  +9D 0x2E03  0E CD 00 00 00 67          write_ksb 0xCD = 67 00 00 00
+  +A3 0x2E09  0B DF                      write_ksb_zero DF
+  +A5 0x2E0B  03                         end
+
+script +A6 (0x2E0C)  started by: FUN_CODE_2977
+  +A6 0x2E0C  00                         init
+  +A7 0x2E0D  1D B2                      goto_if_ext_sensors +B2
+  +A9 0x2E0F  0B E3                      write_ksb_zero E3
+  +AB 0x2E11  0E E3 80 21 70 05          write_ksb 0xE3 = 05 70 21 80
+  +B1 0x2E17  03                         end
+
+script +B9 (0x2E1F)  started by: i2c_commandlist_run_temperature_update
+  +B9 0x2E1F  00                         init
+  +BA 0x2E20  1D C3                      goto_if_ext_sensors +C3
+  +BC 0x2E22  0E E3 00 08 00 00          write_ksb 0xE3 = 00 00 08 00
+  +C2 0x2E28  03                         end
+
+script +D0 (0x2E36)  started by: FUN_CODE_2981
+  +D0 0x2E36  06                         nop
+  +D1 0x2E37  06                         nop
+  +D2 0x2E38  00                         init
+  +D3 0x2E39  38                         read_dev48_status_for_script
+  +D4 0x2E3A  3B                         handshake_dev48
+  +D5 0x2E3B  03                         end
+
+script +D1 (0x2E37)  started by: i2c_opcode_exec
+  +D1 0x2E37  06                         nop
+  ... continues into +D2
+
+script +D2 (0x2E38)  started by: FUN_CODE_2986
+  +D2 0x2E38  00                         init
+  ... continues into +D3
+
+script +D6 (0x2E3C)  started by: FUN_CODE_298b
+  +D6 0x2E3C  00                         init
+  +D7 0x2E3D  20                         read_temp_edram
+  +D8 0x2E3E  2C                         update_temp_edram
+  +D9 0x2E3F  23                         read_temp_cpu
+  +DA 0x2E40  2F                         update_temp_cpu
+  +DB 0x2E41  26                         read_temp_gpu
+  +DC 0x2E42  32                         update_temp_gpu
+  +DD 0x2E43  29                         read_temp_chassis
+  +DE 0x2E44  35                         update_temp_chassis
+  +DF 0x2E45  03                         end
+
+script +E0 (0x2E46)  started by: FUN_CODE_2990
+  +E0 0x2E46  00                         init
+  +E1 0x2E47  3E                         send_rrod_code_dev30
+  +E2 0x2E48  03                         end
+
+script +0E (0x2D74)  reached by goto/branch
+  +0E 0x2D74  14 09 44                   write_dev4d 09 44
+  +11 0x2D77  17 09 44                   write_dev4e 09 44
+  +14 0x2D7A  14 0A 74                   write_dev4d 0A 74
+  +17 0x2D7D  17 0A 14                   write_dev4e 0A 14
+  +1A 0x2D80  14 0B 07                   write_dev4d 0B 07
+  +1D 0x2D83  17 0B 07                   write_dev4e 0B 07
+  +20 0x2D86  17 0C 08                   write_dev4e 0C 08
+  +23 0x2D89  0E D0 88 24 40 80          write_ksb 0xD0 = 80 40 24 88
+  +29 0x2D8F  0E D1 00 FF 00 FF          write_ksb 0xD1 = FF 00 FF 00
+  +2F 0x2D95  0E CE 1C 78 90 E7          write_ksb 0xCE = E7 90 78 1C
+  +35 0x2D9B  0E D3 1B 01 55 95          write_ksb 0xD3 = 95 55 01 1B
+  +3B 0x2DA1  0B DF                      write_ksb_zero DF
+  +3D 0x2DA3  0E D2 02 D9 00 00          write_ksb 0xD2 = 00 00 D9 02
+  +43 0x2DA9  03                         end
+
+script +23 (0x2D89)  reached by goto/branch
+  +23 0x2D89  0E D0 88 24 40 80          write_ksb 0xD0 = 80 40 24 88
+  ... continues into +29
+
+script +B2 (0x2E18)  reached by goto/branch
+  +B2 0x2E18  14 09 04                   write_dev4d 09 04
+  +B5 0x2E1B  17 09 04                   write_dev4e 09 04
+  +B8 0x2E1E  03                         end
+
+script +C3 (0x2E29)  reached by goto/branch
+  +C3 0x2E29  14 FC 00                   write_dev4d FC 00
+  +C6 0x2E2C  17 FC 00                   write_dev4e FC 00
+  +C9 0x2E2F  14 09 44                   write_dev4d 09 44
+  +CC 0x2E32  17 09 44                   write_dev4e 09 44
+  +CF 0x2E35  03                         end
+
+227/227 table bytes decoded

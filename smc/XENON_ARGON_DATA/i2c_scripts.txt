@@ -1,0 +1,82 @@
+# SMCx: I2C commandlist (xenon opcode set)
+dispatch at 0x25DF, script table 0x283E-0x28A2, opcode jump table 0x2815, pointer INTMEM 0x6B, start pointer INTMEM 0x6A
+
+opcodes:
+  00 -> 0x25E0  init                             operands: 0
+  03 -> 0x260D  end                              operands: 0
+  06 -> 0x27CD  ipc_transact                     operands: 0
+  08 -> 0x2611  write_ana                        operands: write
+  0B -> 0x266F  read_ana                         operands: 1
+  0E -> 0x2692  update_temp_edram_gpu            operands: 0
+  11 -> 0x26DF  update_temp_cpu                  operands: 0
+  14 -> 0x2708  update_temp_chassis              operands: 0
+  17 -> 0x272B  write_clockgen                   operands: 2
+  1A -> 0x2752  read_clockgen                    operands: 1
+  1D -> 0x2775  branch_on_clockgen_status        operands: 0
+  20 -> 0x278E  read_dev48_status                operands: 0
+  23 -> 0x27A7  store_dev48_status               operands: 0
+  26 -> 0x27B7  send_rrod_code_dev30             operands: 0
+
+script +00 (0x283E)  started by: FUN_CODE_2542
+  +00 0x283E  00                         init
+  +01 0x283F  06                         ipc_transact
+  +02 0x2840  03                         end
+
+script +03 (0x2841)  started by: i2c_commandlist_run_hana_init
+  +03 0x2841  00                         init
+  +04 0x2842  08 E4 00 00 00 1B          write_ana 0xE4 = 1B 00 00 00
+  +0A 0x2848  08 E3 0F FF FF FF          write_ana 0xE3 = FF FF FF 0F
+  +10 0x284E  08 DB 00 00 00             write_ana 0xDB = -- 00 00 00  (4th byte from SMC config)
+  +15 0x2853  08 D5 00 00 00 0F          write_ana 0xD5 = 0F 00 00 00
+  +1B 0x2859  08 D9 00 01 EE 00          write_ana 0xD9 = 00 EE 01 00
+  +21 0x285F  08 DC 00 00 42 AA          write_ana 0xDC = AA 42 00 00
+  +27 0x2865  03                         end
+
+script +28 (0x2866)  started by: FUN_CODE_255b
+  +28 0x2866  00                         init
+  +29 0x2867  08 D9 00 01 EE 60          write_ana 0xD9 = 60 EE 01 00
+  +2F 0x286D  08 E3 84 36 F6 66          write_ana 0xE3 = 66 F6 36 84
+  +35 0x2873  03                         end
+
+script +36 (0x2874)  started by: FUN_CODE_2560
+  +36 0x2874  00                         init
+  +37 0x2875  08 E3 0F FF FF FF          write_ana 0xE3 = FF FF FF 0F
+  +3D 0x287B  08 D9 00 01 EE 00          write_ana 0xD9 = 00 EE 01 00
+  +43 0x2881  03                         end
+
+script +44 (0x2882)  started by: FUN_CODE_2565
+  +44 0x2882  00                         init
+  +45 0x2883  1A 06                      read_clockgen 06
+  +47 0x2885  1D                         branch_on_clockgen_status -> +48, +4C
+
+script +53 (0x2891)  started by: FUN_CODE_2572, i2c_commandlist_run_temperature_update
+  +53 0x2891  00                         init
+  +54 0x2892  20                         read_dev48_status
+  +55 0x2893  23                         store_dev48_status
+  +56 0x2894  03                         end
+
+script +57 (0x2895)  started by: FUN_CODE_257a
+  +57 0x2895  00                         init
+  +58 0x2896  0B E0                      read_ana E0
+  +5A 0x2898  0E                         update_temp_edram_gpu
+  +5B 0x2899  0B E1                      read_ana E1
+  +5D 0x289B  11                         update_temp_cpu
+  +5E 0x289C  0B E2                      read_ana E2
+  +60 0x289E  14                         update_temp_chassis
+  +61 0x289F  03                         end
+
+script +62 (0x28A0)  started by: FUN_CODE_257f
+  +62 0x28A0  00                         init
+  +63 0x28A1  26                         send_rrod_code_dev30
+  +64 0x28A2  03                         end
+
+script +48 (0x2886)  reached by goto/branch
+  +48 0x2886  17 02 FF                   write_clockgen 02 FF
+  +4B 0x2889  03                         end
+
+script +4C (0x288A)  reached by goto/branch
+  +4C 0x288A  17 04 F8                   write_clockgen 04 F8
+  +4F 0x288D  17 01 83                   write_clockgen 01 83
+  +52 0x2890  03                         end
+
+101/101 table bytes decoded

@@ -1,0 +1,108 @@
+Picked up JAVA_TOOL_OPTIONS:  -Djava.io.tmpdir=/home/e3xp0/Projects/smc_decomp/work/ghidra/JASPER_CR4.tmp
+Picked up JAVA_TOOL_OPTIONS:  -Djava.io.tmpdir=/home/e3xp0/Projects/smc_decomp/work/ghidra/JASPER_CR4.tmp
+Picked up JAVA_TOOL_OPTIONS:  -Djava.io.tmpdir=/home/e3xp0/Projects/smc_decomp/work/ghidra/JASPER_CR4.tmp
+Picked up JAVA_TOOL_OPTIONS:  -Djava.io.tmpdir=/home/e3xp0/Projects/smc_decomp/work/ghidra/JASPER_CR4.tmp
+openjdk version "27" 2026-09-15
+OpenJDK Runtime Environment (build 27)
+OpenJDK 64-Bit Server VM (build 27, mixed mode)
+INFO  Using log config file: jar:file:/opt/ghidra/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml (LoggingInitialization)  
+INFO  Using log file: /home/e3xp0/Projects/smc_decomp/work/ghidra_user/config/ghidra/ghidra_12.1.2_DEV/application.log (LoggingInitialization)  
+INFO  Loading user preferences: /home/e3xp0/Projects/smc_decomp/work/ghidra_user/config/ghidra/ghidra_12.1.2_DEV/preferences (Preferences)  
+INFO  Searching for classes... (ClassSearcher)  
+INFO  Class search complete (1699 ms) (ClassSearcher)  
+WARNING: Final field name in class ghidra.util.charset.CharsetInfo has been mutated reflectively by class com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$2 in unnamed module @25fb8912 (file:/opt/ghidra/Ghidra/Framework/Generic/lib/gson-2.13.2.jar)
+WARNING: Use --enable-final-field-mutation=ALL-UNNAMED to avoid a warning
+WARNING: Mutating final fields will be blocked in a future release unless final field mutation is enabled
+INFO  Initializing SSL Context (DefaultSSLContextInitializer)  
+INFO  Initializing Random Number Generator... (SecureRandomFactory)  
+INFO  Random Number Generator initialization complete: NativePRNGNonBlocking (SecureRandomFactory)  
+INFO  Trust manager disabled, cacerts have not been set (DefaultTrustManagerFactory)  
+INFO  Headless startup complete (7931 ms) (AnalyzeHeadless)  
+INFO  Class searcher loaded 210 extension points (114 false positives) (ClassSearcher)  
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::staticFieldOffset has been called by org.apache.felix.framework.util.SecureAction (file:/opt/ghidra/Ghidra/Features/Base/lib/org.apache.felix.framework-7.0.5.jar)
+WARNING: Please consider reporting this to the maintainers of class org.apache.felix.framework.util.SecureAction
+WARNING: sun.misc.Unsafe::staticFieldOffset will be removed in a future release
+INFO  HEADLESS Script Paths:
+    /opt/ghidra/Ghidra/Features/SystemEmulation/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/GnuDemangler/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/WildcardAssembler/ghidra_scripts
+    /opt/ghidra/Ghidra/Processors/DATA/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/DecompilerDependent/ghidra_scripts
+    /opt/ghidra/Ghidra/Processors/JVM/ghidra_scripts
+    /opt/ghidra/Ghidra/Debug/Debugger-rmi-trace/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/MicrosoftCodeAnalyzer/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/VersionTracking/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/PyGhidra/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/SwiftDemangler/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/Base/ghidra_scripts
+    /opt/ghidra/Ghidra/Processors/Atmel/ghidra_scripts
+    /opt/ghidra/Ghidra/Debug/Debugger/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/Decompiler/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/FunctionID/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/PDB/ghidra_scripts
+    /opt/ghidra/Ghidra/Processors/8051/ghidra_scripts
+    /opt/ghidra/Ghidra/Processors/PIC/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/FileFormats/ghidra_scripts
+    /home/e3xp0/Projects/smc_decomp/tools/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/BSim/ghidra_scripts
+    /opt/ghidra/Ghidra/Features/BytePatterns/ghidra_scripts (HeadlessAnalyzer)  
+INFO  HEADLESS: execution starts (HeadlessAnalyzer)  
+INFO  Opening existing project: /home/e3xp0/Projects/smc_decomp/work/ghidra/JASPER_CR4/smc (HeadlessAnalyzer)  
+INFO  Opening project: /home/e3xp0/Projects/smc_decomp/work/ghidra/JASPER_CR4/smc (HeadlessProject)  
+INFO  REPORT: Processing input files:  (HeadlessAnalyzer)  
+INFO       project: /home/e3xp0/Projects/smc_decomp/work/ghidra/JASPER_CR4/smc (HeadlessAnalyzer)  
+INFO  IMPORTING: file:///home/e3xp0/Projects/smc_decomp/work/bins/JASPER_CR4.bin (HeadlessAnalyzer)  
+INFO  Successfully applied "-loader-baseAddr" to "Base Address" (old: "null", new: "0") (ProgramLoader)  
+INFO  Using Loader: Raw Binary (ProgramLoader)  
+INFO  Using Language/Compiler: 8051:BE:16:default:default (ProgramLoader)  
+INFO  Using Library Search Path: [., /bin, /lib, /lib64, /lib/x86_64-linux-gnu, /lib/aarch64-linux-gnu, /usr/bin, /usr/lib, /usr/X11R6/bin, /usr/X11R6/lib, /usr/java/packages/lib, /usr/lib64] (ProgramLoader)  
+INFO  IMPORTING: Loaded 0 additional files (HeadlessAnalyzer)  
+INFO  /JASPER_CR4.bin: file deleted (e3xp0) (LocalFileSystem)  
+INFO  Deleted local file JASPER_CR4.bin (GhidraFileData)  
+WARN  REPORT: Removed conflicting program file from project: /JASPER_CR4.bin (HeadlessAnalyzer)  
+INFO  REPORT: Execute script: SmcApply.java '/home/e3xp0/Projects/smc_decomp/work/annot/ported/JASPER_CR4.tsv,/home/e3xp0/Projects/smc_decomp/work/annot/docs/JASPER_CR4.tsv,/home/e3xp0/Projects/smc_decomp/work/annot/ipc/JASPER_CR4.tsv,/home/e3xp0/Projects/smc_decomp/work/annot/i2c/JASPER_CR4.tsv'  (HeadlessAnalyzer)  
+INFO  SCRIPT: /home/e3xp0/Projects/smc_decomp/tools/ghidra_scripts/SmcApply.java (HeadlessAnalyzer)  
+INFO  SmcApply.java> SmcApply: 7 data ranges, 77 flow overrides, 326 functions, 390 labels, 595 comments (0 superseded names dropped) (GhidraScript)  
+INFO  ANALYZING all memory and code: file:///home/e3xp0/Projects/smc_decomp/work/bins/JASPER_CR4.bin (HeadlessAnalyzer)  
+INFO  Packed database cache: /home/e3xp0/Projects/smc_decomp/work/ghidra_user/cache/ghidra/packed-db-cache (PackedDatabaseCache)  
+INFO  Applied data type archive: generic_clib (ApplyDataArchiveAnalyzer)  
+INFO  -----------------------------------------------------
+    ASCII Strings                              0.897 secs
+    Apply Data Archives                        1.226 secs
+    Basic Constant Reference Analyzer          1.400 secs
+    Call Convention ID                         0.020 secs
+    Call-Fixup Installer                       0.020 secs
+    Create Function                            0.012 secs
+    Demangler GNU                              0.624 secs
+    Disassemble Entry Points                   0.187 secs
+    Disassemble Entry Points - One Time        0.311 secs
+    Embedded Media                             0.035 secs
+    External Entry References                  0.000 secs
+    Function ID                                0.050 secs
+    Non-Returning Functions - Discovered       0.082 secs
+    Shared Return Calls                        0.099 secs
+    Stack                                      0.450 secs
+    Subroutine References                      0.044 secs
+-----------------------------------------------------
+     Total Time   5 secs
+-----------------------------------------------------
+ (AutoAnalysisManager)  
+INFO  REPORT: Analysis succeeded for file: file:///home/e3xp0/Projects/smc_decomp/work/bins/JASPER_CR4.bin (HeadlessAnalyzer)  
+INFO  REPORT: Execute script: SmcSwitches.java  (HeadlessAnalyzer)  
+INFO  SCRIPT: /home/e3xp0/Projects/smc_decomp/tools/ghidra_scripts/SmcSwitches.java (HeadlessAnalyzer)  
+INFO  SmcSwitches.java> SmcSwitches: bytecode table CODE:2959-CODE:2a37 moved to an uninitialized block (GhidraScript)  
+INFO  SmcSwitches.java> SmcSwitches: CODE:268a in i2c_try_continue_commandlist_execution -> tail call to i2c_command_step (GhidraScript)  
+INFO  SmcSwitches.java> SmcSwitches: 21 jump tables recovered, 0 skipped (GhidraScript)  
+INFO  REPORT: Execute script: SmcDecompile.java '/home/e3xp0/Projects/smc_decomp/out/JASPER_CR4'  (HeadlessAnalyzer)  
+INFO  SCRIPT: /home/e3xp0/Projects/smc_decomp/tools/ghidra_scripts/SmcDecompile.java (HeadlessAnalyzer)  
+WARN  Decompiling CODE:26ae: Unable to read bytes at CODE:2959 (DecompileCallback)  
+INFO  JASPER_CR4.bin: 217 functions (155 named), 0 failed, 0 halt_baddata, 22 with warnings (GhidraScript)  
+INFO  REPORT: Execute script: SmcExport.java '/home/e3xp0/Projects/smc_decomp/out/JASPER_CR4'  (HeadlessAnalyzer)  
+INFO  SCRIPT: /home/e3xp0/Projects/smc_decomp/tools/ghidra_scripts/SmcExport.java (HeadlessAnalyzer)  
+INFO  SmcExport.java> SmcExport: wrote /home/e3xp0/Projects/smc_decomp/out/JASPER_CR4 (GhidraScript)  
+INFO  ANALYZING changes made by post scripts: file:///home/e3xp0/Projects/smc_decomp/work/bins/JASPER_CR4.bin (HeadlessAnalyzer)  
+INFO  REPORT: Post-analysis succeeded for file: file:///home/e3xp0/Projects/smc_decomp/work/bins/JASPER_CR4.bin (HeadlessAnalyzer)  
+INFO  /JASPER_CR4.bin: file created (e3xp0) (LocalFileSystem)  
+INFO  REPORT: Save succeeded for: /JASPER_CR4.bin (smc:/JASPER_CR4.bin) (HeadlessAnalyzer)  
+INFO  REPORT: Import succeeded (HeadlessAnalyzer)  
