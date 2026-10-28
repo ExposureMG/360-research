@@ -1,7 +1,7 @@
 # ExposureMG's Xbox 360 Research
 
-[!CAUTION]
-If you are a clean-room engineer, **DO NOT** view hypervisor/, xenon-isa/sdk-docs/, or smc/. hypervisor/ contains a "full" 17559 hypervisor decompilation, xenon-isa/sdk-docs/ has information taken directly from the Xbox 360 SDK, and smc/ has decompilations of every known Xbox 360 SMC firmware.
+> [!CAUTION]
+> If you are a clean-room engineer, **DO NOT** view hypervisor/, xenon-isa/sdk-docs/, or smc/. hypervisor/ contains a "full" 17559 hypervisor decompilation, xenon-isa/sdk-docs/ has information taken directly from the Xbox 360 SDK, and smc/ has decompilations of many Xbox 360 SMC firmwares.
 
 ## Contents
 
