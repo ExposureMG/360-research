@@ -760,7 +760,7 @@ undefined1 ir_irq_handler(undefined1 param_1)
     DAT_INTMEM_75 = sfr_ir_unk_b6;
     if ((DAT_INTMEM_75 & 0xf0) != 0x10) {
 LAB_CODE_02ec:
-      FUN_CODE_0496();
+      ir_capture_reset();
       goto LAB_CODE_02ee;
     }
   }
@@ -889,9 +889,9 @@ LAB_CODE_045d:
 }
 
 
-// ---- FUN_CODE_0496 @ CODE:0496 ----
+// ---- ir_capture_reset @ CODE:0496 ----
 
-void FUN_CODE_0496(void)
+void ir_capture_reset(void)
 
 {
   byte bVar1;
@@ -1364,11 +1364,11 @@ void start(byte param_1)
   SP = 0x7c;
   FUN_CODE_222c();
   argon_disable();
-  FUN_CODE_2234();
+  sfr_reset_to_defaults();
   FUN_CODE_2286();
   watchdog_kick();
-  FUN_CODE_080d();
-  FUN_CODE_07ea();
+  reset_runtime_state();
+  init_coldboot_state();
   _1_4 = 1;
   ext_pwr_on_read();
   g_ext_pwr_on_active = in_PSW >> 7;
@@ -1404,8 +1404,8 @@ void start(byte param_1)
     thermal_monitor_check_if_temps_available();
     thermal_monitor_do_checks();
     dbgled_sm_exec();
-    FUN_CODE_1d44();
-    FUN_CODE_114a();
+    power_up_state_machine();
+    smc_init_state_machine();
     powerup_sm_exec();
     sysreset_watchdog_statemachine_exec();
     hw_reset_statemachine_exec();
@@ -1460,8 +1460,8 @@ void mainloop(byte param_1)
     thermal_monitor_check_if_temps_available();
     thermal_monitor_do_checks();
     dbgled_sm_exec();
-    FUN_CODE_1d44();
-    FUN_CODE_114a();
+    power_up_state_machine();
+    smc_init_state_machine();
     powerup_sm_exec();
     sysreset_watchdog_statemachine_exec();
     hw_reset_statemachine_exec();
@@ -1477,14 +1477,14 @@ void mainloop(byte param_1)
 }
 
 
-// ---- FUN_CODE_07ea @ CODE:07ea ----
+// ---- init_coldboot_state @ CODE:07ea ----
 
-void FUN_CODE_07ea(void)
+void init_coldboot_state(void)
 
 {
   zero_memory_range(0xbd,5);
   zero_memory_range(0x2f,6);
-  FUN_CODE_2c49(0,8);
+  clear_bit_flag_range(0,8);
   DAT_INTMEM_bf = 0xf;
   DAT_INTMEM_c1 = 0xd;
   DAT_INTMEM_2f = 0x5c;
@@ -1493,14 +1493,14 @@ void FUN_CODE_07ea(void)
 }
 
 
-// ---- FUN_CODE_080d @ CODE:080d ----
+// ---- reset_runtime_state @ CODE:080d ----
 
-void FUN_CODE_080d(void)
+void reset_runtime_state(void)
 
 {
   zero_memory_range(0xc2,0x1f);
   zero_memory_range(0x35,0x33);
-  FUN_CODE_2c49(8,0x51);
+  clear_bit_flag_range(8,0x51);
   g_thermal_update_wait_timer = 0x10;
   g_thermal_protection_timeout = 0xfa;
   g_chassis_current_temp = 0x19;
@@ -2691,9 +2691,9 @@ void hw_reset_statemachine_exec(byte param_1)
 }
 
 
-// ---- FUN_CODE_114a @ CODE:114a ----
+// ---- smc_init_state_machine @ CODE:114a ----
 
-void FUN_CODE_114a(void)
+void smc_init_state_machine(void)
 
 {
   if (_1_4 != '\x01') {
@@ -2704,11 +2704,11 @@ void FUN_CODE_114a(void)
   switch(DAT_INTMEM_c2 * '\x03') {
   case '\0':
     argon_disable();
-    FUN_CODE_2234();
+    sfr_reset_to_defaults();
     dbgled_read();
     gpios_reset();
     if (g_smc_reset_pending != '\x01') {
-      FUN_CODE_22f9();
+      peripherals_reset();
       FUN_CODE_007c();
       ana_reset_deassert();
       FUN_CODE_2286();
@@ -3203,11 +3203,11 @@ void thermal_monitor_do_checks(void)
           if (((g_cpu_last_temp != '\0') && (g_gpu_last_temp != '\0')) &&
              (g_edram_last_temp != '\0')) {
             temperature_calc_differences(0x3f,0x47,g_cpu_target_temp);
-            FUN_CODE_1612(0xda);
+            fan_speed_from_temp_error(0xda);
             temperature_calc_differences(0x41,0x49,g_gpu_target_temp);
-            FUN_CODE_1612(0xdc);
+            fan_speed_from_temp_error(0xdc);
             temperature_calc_differences(0x43,0x4b,g_edram_target_temp);
-            FUN_CODE_1612(0xde);
+            fan_speed_from_temp_error(0xde);
             cVar5 = -0x26;
             FUN_CODE_16da(0xdc);
             FUN_CODE_16da(0xde);
@@ -3309,9 +3309,9 @@ byte temperature_calc_differences(byte *param_1,byte *param_2,char param_3)
 }
 
 
-// ---- FUN_CODE_1612 @ CODE:1612 ----
+// ---- fan_speed_from_temp_error @ CODE:1612 ----
 
-void FUN_CODE_1612(byte *param_1,byte param_2,byte param_3,byte param_4,byte param_5)
+void fan_speed_from_temp_error(byte *param_1,byte param_2,byte param_3,byte param_4,byte param_5)
 
 {
   short sVar1;
@@ -3462,7 +3462,7 @@ void argon_sm_exec(void)
   byte bVar7;
   char in_PSW;
   
-  bVar7 = FUN_CODE_2967();
+  bVar7 = argon_serial_get_response();
   if ((-1 < in_PSW) && (bVar7 != 0)) {
     if (((char)bVar7 < '\0') || ((bVar7 >> 6 & 1) == 1)) {
 LAB_CODE_1986:
@@ -3648,14 +3648,14 @@ LAB_CODE_1986:
     _7_7 = 0;
     break;
   case 3:
-    FUN_CODE_299a();
+    argon_serial_advance_tx();
     if (cVar3 < '\0') {
       DAT_INTMEM_cc = 0;
       return;
     }
     return;
   case 6:
-    bVar7 = FUN_CODE_299a();
+    bVar7 = argon_serial_advance_tx();
     if (cVar3 < '\0') {
       cVar3 = F0;
       if (cVar3 == '\x01') {
@@ -3673,7 +3673,7 @@ LAB_CODE_1986:
     }
     break;
   case 9:
-    FUN_CODE_299a();
+    argon_serial_advance_tx();
     if (cVar3 < '\0') {
       cVar3 = F0;
       if (cVar3 == '\x01') {
@@ -3686,7 +3686,7 @@ LAB_CODE_1986:
     }
     break;
   case 0xc:
-    FUN_CODE_299a();
+    argon_serial_advance_tx();
     if (cVar3 < '\0') {
       cVar3 = F0;
       if (cVar3 == '\x01') {
@@ -3699,7 +3699,7 @@ LAB_CODE_1986:
     }
     break;
   case 0xf:
-    uVar5 = FUN_CODE_299a();
+    uVar5 = argon_serial_advance_tx();
     if (-1 < cVar3) {
       return;
     }
@@ -3712,7 +3712,7 @@ LAB_CODE_191a:
     DAT_INTMEM_cc = 0;
     return;
   case 0x12:
-    bVar7 = FUN_CODE_299a();
+    bVar7 = argon_serial_advance_tx();
     if (cVar3 < '\0') {
       cVar3 = F0;
       if (cVar3 == '\x01') {
@@ -3728,7 +3728,7 @@ LAB_CODE_191a:
     }
     break;
   case 0x15:
-    bVar7 = FUN_CODE_299a();
+    bVar7 = argon_serial_advance_tx();
     if (cVar3 < '\0') {
       cVar3 = F0;
       if (cVar3 == '\x01') {
@@ -4319,9 +4319,9 @@ void ipc_outbox_sm_exec(void)
 }
 
 
-// ---- FUN_CODE_1d44 @ CODE:1d44 ----
+// ---- power_up_state_machine @ CODE:1d44 ----
 
-void FUN_CODE_1d44(void)
+void power_up_state_machine(void)
 
 {
   char cVar1;
@@ -4648,7 +4648,7 @@ LAB_CODE_1f5b:
     return;
   case 0x12:
     if (g_powerdown_sm_should_run != '\x01') {
-      FUN_CODE_080d();
+      reset_runtime_state();
       _1_4 = 1;
       DAT_INTMEM_bd = 0;
       return;
@@ -4706,9 +4706,9 @@ void thermal_monitor_check_if_temps_available(void)
 }
 
 
-// ---- FUN_CODE_1fd8 @ CODE:1fd8 ----
+// ---- tiltsw_sm_go_state_0 @ CODE:1fd8 ----
 
-void FUN_CODE_1fd8(void)
+void tiltsw_sm_go_state_0(void)
 
 {
   DAT_INTMEM_be = 0;
@@ -4716,9 +4716,9 @@ void FUN_CODE_1fd8(void)
 }
 
 
-// ---- FUN_CODE_1fdd @ CODE:1fdd ----
+// ---- tiltsw_sm_go_state_1 @ CODE:1fdd ----
 
-void FUN_CODE_1fdd(void)
+void tiltsw_sm_go_state_1(void)
 
 {
   DAT_INTMEM_be = 1;
@@ -4726,9 +4726,9 @@ void FUN_CODE_1fdd(void)
 }
 
 
-// ---- FUN_CODE_1fe2 @ CODE:1fe2 ----
+// ---- tiltsw_sm_go_state_2 @ CODE:1fe2 ----
 
-void FUN_CODE_1fe2(void)
+void tiltsw_sm_go_state_2(void)
 
 {
   DAT_INTMEM_be = 2;
@@ -4736,9 +4736,9 @@ void FUN_CODE_1fe2(void)
 }
 
 
-// ---- FUN_CODE_1fe7 @ CODE:1fe7 ----
+// ---- tiltsw_sm_go_state_3 @ CODE:1fe7 ----
 
-void FUN_CODE_1fe7(void)
+void tiltsw_sm_go_state_3(void)
 
 {
   DAT_INTMEM_be = 3;
@@ -4746,9 +4746,9 @@ void FUN_CODE_1fe7(void)
 }
 
 
-// ---- FUN_CODE_1fed @ CODE:1fed ----
+// ---- tiltsw_sm_exec_state_0 @ CODE:1fed ----
 
-void FUN_CODE_1fed(void)
+void tiltsw_sm_exec_state_0(void)
 
 {
   char in_PSW;
@@ -4756,7 +4756,7 @@ void FUN_CODE_1fed(void)
   DAT_INTMEM_64 = 4;
   tiltsw_read();
   if (in_PSW < '\0') {
-    FUN_CODE_1fdd();
+    tiltsw_sm_go_state_1();
     return;
   }
   DAT_INTMEM_be = 0;
@@ -4764,9 +4764,9 @@ void FUN_CODE_1fed(void)
 }
 
 
-// ---- FUN_CODE_1ff7 @ CODE:1ff7 ----
+// ---- tiltsw_sm_exec_state_1 @ CODE:1ff7 ----
 
-void FUN_CODE_1ff7(void)
+void tiltsw_sm_exec_state_1(void)
 
 {
   char in_PSW;
@@ -4781,7 +4781,7 @@ void FUN_CODE_1ff7(void)
     _0_5 = 1;
     g_ipc_tiltsw_event_pending = 1;
     _8_2 = 1;
-    FUN_CODE_1fe2();
+    tiltsw_sm_go_state_2();
     return;
   }
   DAT_INTMEM_be = 1;
@@ -4789,9 +4789,9 @@ void FUN_CODE_1ff7(void)
 }
 
 
-// ---- FUN_CODE_2007 @ CODE:2007 ----
+// ---- tiltsw_sm_exec_state_2 @ CODE:2007 ----
 
-void FUN_CODE_2007(void)
+void tiltsw_sm_exec_state_2(void)
 
 {
   char in_PSW;
@@ -4799,7 +4799,7 @@ void FUN_CODE_2007(void)
   DAT_INTMEM_64 = 0x19;
   tiltsw_read();
   if (-1 < in_PSW) {
-    FUN_CODE_1fe7();
+    tiltsw_sm_go_state_3();
     return;
   }
   DAT_INTMEM_be = 2;
@@ -4807,9 +4807,9 @@ void FUN_CODE_2007(void)
 }
 
 
-// ---- FUN_CODE_2011 @ CODE:2011 ----
+// ---- tiltsw_sm_exec_state_3 @ CODE:2011 ----
 
-void FUN_CODE_2011(void)
+void tiltsw_sm_exec_state_3(void)
 
 {
   char in_PSW;
@@ -4824,7 +4824,7 @@ void FUN_CODE_2011(void)
     _0_5 = 0;
     g_ipc_tiltsw_event_pending = 1;
     _8_2 = 1;
-    FUN_CODE_1fd8();
+    tiltsw_sm_go_state_0();
     return;
   }
   DAT_INTMEM_be = 3;
@@ -4840,16 +4840,16 @@ void tiltsw_sm_exec(void)
                     /* WARNING: Switch is manually overridden */
   switch(DAT_INTMEM_be * '\x03') {
   case '\0':
-    FUN_CODE_1fed();
+    tiltsw_sm_exec_state_0();
     return;
   case '\x03':
-    FUN_CODE_1ff7();
+    tiltsw_sm_exec_state_1();
     return;
   case '\x06':
-    FUN_CODE_2007();
+    tiltsw_sm_exec_state_2();
     return;
   case '\t':
-    FUN_CODE_2011();
+    tiltsw_sm_exec_state_3();
     return;
   }
 }
@@ -4865,7 +4865,7 @@ void tray_sm_exec_state_3(void)
   if ((_4_4 != '\0') && (_4_4 = '\0', g_tray_state == 0x62)) {
     DAT_INTMEM_35 = 4;
     tray_open_or_close();
-    FUN_CODE_20d6();
+    tray_sm_go_state_4();
     return;
   }
   if (g_tray_intended_state == 0x65) {
@@ -4895,12 +4895,12 @@ void tray_sm_exec_state_3(void)
   if (g_tray_intended_state == 0x62) {
     g_tray_state = 100;
     tray_update_power_led_state();
-    FUN_CODE_20db();
+    tray_sm_go_state_5();
     return;
   }
   g_tray_state = 99;
   tray_update_power_led_state();
-  FUN_CODE_20db();
+  tray_sm_go_state_5();
   return;
 }
 
@@ -4925,7 +4925,7 @@ void tray_sm_exec_state_0(void)
   }
   DAT_INTMEM_35 = 2;
   tray_open_or_close();
-  FUN_CODE_20c7();
+  tray_sm_go_state_1();
   return;
 }
 
@@ -4956,9 +4956,9 @@ void tray_sm_exec_state_1(void)
 }
 
 
-// ---- FUN_CODE_20c7 @ CODE:20c7 ----
+// ---- tray_sm_go_state_1 @ CODE:20c7 ----
 
-void FUN_CODE_20c7(void)
+void tray_sm_go_state_1(void)
 
 {
   DAT_INTMEM_d0 = 1;
@@ -4986,9 +4986,9 @@ void tray_sm_go_state_3(void)
 }
 
 
-// ---- FUN_CODE_20d6 @ CODE:20d6 ----
+// ---- tray_sm_go_state_4 @ CODE:20d6 ----
 
-void FUN_CODE_20d6(void)
+void tray_sm_go_state_4(void)
 
 {
   DAT_INTMEM_d0 = 4;
@@ -4996,9 +4996,9 @@ void FUN_CODE_20d6(void)
 }
 
 
-// ---- FUN_CODE_20db @ CODE:20db ----
+// ---- tray_sm_go_state_5 @ CODE:20db ----
 
-void FUN_CODE_20db(void)
+void tray_sm_go_state_5(void)
 
 {
   DAT_INTMEM_d0 = 5;
@@ -5222,9 +5222,9 @@ void FUN_CODE_222c(void)
 }
 
 
-// ---- FUN_CODE_2234 @ CODE:2234 ----
+// ---- sfr_reset_to_defaults @ CODE:2234 ----
 
-void FUN_CODE_2234(void)
+void sfr_reset_to_defaults(void)
 
 {
   sfr_irq_disable_all = 1;
@@ -5356,15 +5356,15 @@ void gpios_reset(void)
 }
 
 
-// ---- FUN_CODE_22f9 @ CODE:22f9 ----
+// ---- peripherals_reset @ CODE:22f9 ----
 
-void FUN_CODE_22f9(void)
+void peripherals_reset(void)
 
 {
   byte bVar1;
   
   g_ir_command_waiting = 0;
-  FUN_CODE_0496();
+  ir_capture_reset();
   i2c_reset_buses();
   _c_2 = 0;
   _c_1 = 0;
@@ -6135,7 +6135,7 @@ void i2c_command_step(void)
   case 0:
     i2c_reset_buses();
     i2c_read_bit();
-    if ((-1 < in_PSW) || (FUN_CODE_294e(), -1 < in_PSW)) {
+    if ((-1 < in_PSW) || (i2c_bus_recovery_clock(), -1 < in_PSW)) {
       gpio_smb_data = 0;
       i2c_burn_cycles();
       gpio_smb_data = 1;
@@ -6446,9 +6446,9 @@ void i2c_handover_bus(void)
 }
 
 
-// ---- FUN_CODE_294e @ CODE:294e ----
+// ---- i2c_bus_recovery_clock @ CODE:294e ----
 
-void FUN_CODE_294e(void)
+void i2c_bus_recovery_clock(void)
 
 {
   char in_PSW;
@@ -6469,9 +6469,9 @@ void FUN_CODE_294e(void)
 }
 
 
-// ---- FUN_CODE_2967 @ CODE:2967 ----
+// ---- argon_serial_get_response @ CODE:2967 ----
 
-undefined1 FUN_CODE_2967(void)
+undefined1 argon_serial_get_response(void)
 
 {
   undefined1 uVar1;
@@ -6520,9 +6520,9 @@ void argon_queue_message(byte param_1,undefined1 param_2)
 }
 
 
-// ---- FUN_CODE_299a @ CODE:299a ----
+// ---- argon_serial_advance_tx @ CODE:299a ----
 
-byte FUN_CODE_299a(byte param_1)
+byte argon_serial_advance_tx(byte param_1)
 
 {
   if (_c_2 != '\x01') {
@@ -7027,9 +7027,9 @@ void init_intmem_values(undefined1 *param_1)
 }
 
 
-// ---- FUN_CODE_2c49 @ CODE:2c49 ----
+// ---- clear_bit_flag_range @ CODE:2c49 ----
 
-void FUN_CODE_2c49(byte param_1,char param_2)
+void clear_bit_flag_range(byte param_1,char param_2)
 
 {
   char cVar1;

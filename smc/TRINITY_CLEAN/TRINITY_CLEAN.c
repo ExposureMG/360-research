@@ -591,7 +591,7 @@ undefined1 ir_irq_handler(undefined1 param_1,undefined1 param_2)
     DAT_INTMEM_77 = sfr_ir_unk_b6;
     if ((DAT_INTMEM_77 & 0xf0) != 0x10) {
 LAB_CODE_02a7:
-      FUN_CODE_0455(param_2);
+      ir_capture_reset(param_2);
       goto LAB_CODE_02a9;
     }
   }
@@ -720,9 +720,9 @@ LAB_CODE_041c:
 }
 
 
-// ---- FUN_CODE_0455 @ CODE:0455 ----
+// ---- ir_capture_reset @ CODE:0455 ----
 
-void FUN_CODE_0455(void)
+void ir_capture_reset(void)
 
 {
   byte bVar1;
@@ -1287,11 +1287,11 @@ void start(byte param_1)
   SP = 0xbf;
   FUN_CODE_2402();
   argon_disable();
-  FUN_CODE_240a();
+  sfr_reset_to_defaults();
   FUN_CODE_245c();
   watchdog_kick();
-  FUN_CODE_08a2();
-  FUN_CODE_087f();
+  reset_runtime_state();
+  init_coldboot_state();
   _1_4 = 1;
   ext_pwr_on_read();
   g_ext_pwr_on_active = in_PSW >> 7;
@@ -1330,8 +1330,8 @@ void start(byte param_1)
     thermal_monitor_check_if_temps_available();
     thermal_monitor_do_checks();
     dbgled_sm_exec();
-    FUN_CODE_1f24();
-    FUN_CODE_12c8();
+    power_up_state_machine();
+    smc_init_state_machine();
     powerup_sm_exec();
     sysreset_watchdog_statemachine_exec();
     hw_reset_statemachine_exec();
@@ -1389,8 +1389,8 @@ void mainloop(byte param_1)
     thermal_monitor_check_if_temps_available();
     thermal_monitor_do_checks();
     dbgled_sm_exec();
-    FUN_CODE_1f24();
-    FUN_CODE_12c8();
+    power_up_state_machine();
+    smc_init_state_machine();
     powerup_sm_exec();
     sysreset_watchdog_statemachine_exec();
     hw_reset_statemachine_exec();
@@ -1406,14 +1406,14 @@ void mainloop(byte param_1)
 }
 
 
-// ---- FUN_CODE_087f @ CODE:087f ----
+// ---- init_coldboot_state @ CODE:087f ----
 
-void FUN_CODE_087f(void)
+void init_coldboot_state(void)
 
 {
   zero_memory_range(0x7f,0x1d);
   zero_memory_range(0x2e,8);
-  FUN_CODE_2ed3(0,8);
+  clear_bit_flag_range(0,8);
   DAT_INTMEM_81 = 0xf;
   DAT_INTMEM_83 = 0xd;
   DAT_INTMEM_2e = 0x5c;
@@ -1422,14 +1422,14 @@ void FUN_CODE_087f(void)
 }
 
 
-// ---- FUN_CODE_08a2 @ CODE:08a2 ----
+// ---- reset_runtime_state @ CODE:08a2 ----
 
-void FUN_CODE_08a2(void)
+void reset_runtime_state(void)
 
 {
   zero_memory_range(0x9c,0x24);
   zero_memory_range(0x36,0x2f);
-  FUN_CODE_2ed3(8,0x57);
+  clear_bit_flag_range(8,0x57);
   g_thermal_update_wait_timer = 0x10;
   g_thermal_protection_timeout = 0xfa;
   g_chassis_current_temp = 0x19;
@@ -2717,9 +2717,9 @@ LAB_CODE_11ca:
 }
 
 
-// ---- FUN_CODE_12c8 @ CODE:12c8 ----
+// ---- smc_init_state_machine @ CODE:12c8 ----
 
-void FUN_CODE_12c8(void)
+void smc_init_state_machine(void)
 
 {
   if (_1_4 != '\x01') {
@@ -2730,11 +2730,11 @@ void FUN_CODE_12c8(void)
   switch(DAT_INTMEM_9c * '\x03') {
   case '\0':
     argon_disable();
-    FUN_CODE_240a();
+    sfr_reset_to_defaults();
     dbgled_read();
     gpios_reset();
     if (g_smc_reset_pending != '\x01') {
-      FUN_CODE_24cf();
+      peripherals_reset();
       FUN_CODE_0083();
       ana_reset_deassert();
       FUN_CODE_245c();
@@ -3248,19 +3248,19 @@ void thermal_monitor_do_checks(char param_1,undefined1 param_2,undefined1 param_
           bVar3 = 0;
         }
         temperature_calc_differences(0x3d,0xb8,bVar3);
-        FUN_CODE_177e(0xb2);
+        fan_speed_from_temp_error(0xb2);
         bVar3 = g_gpu_target_temp;
         if ((_a_1 != '\0') && (bVar3 = g_gpu_target_temp - 3, g_gpu_target_temp < 3)) {
           bVar3 = 0;
         }
         temperature_calc_differences(0x3f,0xba,bVar3);
-        FUN_CODE_177e(0xb4);
+        fan_speed_from_temp_error(0xb4);
         bVar3 = g_edram_target_temp;
         if ((_a_1 != '\0') && (bVar3 = g_edram_target_temp - 3, g_edram_target_temp < 3)) {
           bVar3 = 0;
         }
         temperature_calc_differences(0x41,0xbc,bVar3);
-        FUN_CODE_177e(0xb6);
+        fan_speed_from_temp_error(0xb6);
         cVar2 = -0x4e;
         FUN_CODE_1847(0xb4);
         FUN_CODE_1847(0xb6);
@@ -3338,9 +3338,9 @@ byte temperature_calc_differences(byte *param_1,byte *param_2,char param_3)
 }
 
 
-// ---- FUN_CODE_177e @ CODE:177e ----
+// ---- fan_speed_from_temp_error @ CODE:177e ----
 
-byte FUN_CODE_177e(byte *param_1,byte param_2,byte param_3,byte param_4,byte param_5)
+byte fan_speed_from_temp_error(byte *param_1,byte param_2,byte param_3,byte param_4,byte param_5)
 
 {
   short sVar1;
@@ -3491,7 +3491,7 @@ void argon_sm_exec(void)
   byte bVar7;
   char in_PSW;
   
-  bVar7 = FUN_CODE_2bf1();
+  bVar7 = argon_serial_get_response();
   if ((-1 < in_PSW) && (bVar7 != 0)) {
     if (((char)bVar7 < '\0') || ((bVar7 >> 6 & 1) == 1)) {
 LAB_CODE_1afc:
@@ -3680,14 +3680,14 @@ LAB_CODE_1afc:
     _8_3 = 0;
     break;
   case 3:
-    FUN_CODE_2c24();
+    argon_serial_advance_tx();
     if (-1 < cVar3) {
       return;
     }
     DAT_INTMEM_a6 = 0;
     return;
   case 6:
-    bVar7 = FUN_CODE_2c24();
+    bVar7 = argon_serial_advance_tx();
     if (cVar3 < '\0') {
       cVar3 = F0;
       if (cVar3 != '\x01') {
@@ -3705,7 +3705,7 @@ LAB_CODE_1afc:
     }
     break;
   case 9:
-    bVar7 = FUN_CODE_2c24();
+    bVar7 = argon_serial_advance_tx();
     if (cVar3 < '\0') {
       cVar3 = F0;
       if (cVar3 != '\x01') {
@@ -3718,7 +3718,7 @@ LAB_CODE_1afc:
     }
     break;
   case 0xc:
-    uVar5 = FUN_CODE_2c24();
+    uVar5 = argon_serial_advance_tx();
     if (-1 < cVar3) {
       return;
     }
@@ -3738,7 +3738,7 @@ LAB_CODE_1a90:
     DAT_INTMEM_a6 = 0;
     return;
   case 0xf:
-    bVar7 = FUN_CODE_2c24();
+    bVar7 = argon_serial_advance_tx();
     if (cVar3 < '\0') {
       cVar3 = F0;
       if (cVar3 != '\x01') {
@@ -3754,7 +3754,7 @@ LAB_CODE_1a90:
     }
     break;
   case 0x12:
-    bVar7 = FUN_CODE_2c24();
+    bVar7 = argon_serial_advance_tx();
     if (cVar3 < '\0') {
       cVar3 = F0;
       if (cVar3 == '\x01') {
@@ -4392,9 +4392,9 @@ void ipc_outbox_sm_exec(void)
 }
 
 
-// ---- FUN_CODE_1f24 @ CODE:1f24 ----
+// ---- power_up_state_machine @ CODE:1f24 ----
 
-void FUN_CODE_1f24(void)
+void power_up_state_machine(void)
 
 {
   char cVar1;
@@ -4690,7 +4690,7 @@ LAB_CODE_212c:
     return;
   case 0x12:
     if (g_powerdown_sm_should_run != '\x01') {
-      FUN_CODE_08a2();
+      reset_runtime_state();
       _1_4 = 1;
       DAT_INTMEM_3a = 0x80;
       DAT_INTMEM_7f = 0;
@@ -5095,9 +5095,9 @@ void FUN_CODE_2402(void)
 }
 
 
-// ---- FUN_CODE_240a @ CODE:240a ----
+// ---- sfr_reset_to_defaults @ CODE:240a ----
 
-void FUN_CODE_240a(void)
+void sfr_reset_to_defaults(void)
 
 {
   sfr_irq_disable_all = 1;
@@ -5229,15 +5229,15 @@ void gpios_reset(void)
 }
 
 
-// ---- FUN_CODE_24cf @ CODE:24cf ----
+// ---- peripherals_reset @ CODE:24cf ----
 
-void FUN_CODE_24cf(void)
+void peripherals_reset(void)
 
 {
   byte bVar1;
   
   g_ir_command_waiting = 0;
-  FUN_CODE_0455();
+  ir_capture_reset();
   i2c_reset_buses();
   _d_0 = 0;
   _c_7 = 0;
@@ -6189,7 +6189,7 @@ void i2c_command_step(void)
   case 0:
     i2c_reset_buses();
     i2c_read_bit();
-    if ((-1 < in_PSW) || (FUN_CODE_2bd8(), -1 < in_PSW)) {
+    if ((-1 < in_PSW) || (i2c_bus_recovery_clock(), -1 < in_PSW)) {
       gpio_smb_data = 0;
       i2c_burn_cycles();
       gpio_smb_data = 1;
@@ -6500,9 +6500,9 @@ void i2c_handover_bus(void)
 }
 
 
-// ---- FUN_CODE_2bd8 @ CODE:2bd8 ----
+// ---- i2c_bus_recovery_clock @ CODE:2bd8 ----
 
-void FUN_CODE_2bd8(void)
+void i2c_bus_recovery_clock(void)
 
 {
   char in_PSW;
@@ -6523,9 +6523,9 @@ void FUN_CODE_2bd8(void)
 }
 
 
-// ---- FUN_CODE_2bf1 @ CODE:2bf1 ----
+// ---- argon_serial_get_response @ CODE:2bf1 ----
 
-undefined1 FUN_CODE_2bf1(void)
+undefined1 argon_serial_get_response(void)
 
 {
   undefined1 uVar1;
@@ -6574,9 +6574,9 @@ void argon_queue_message(byte param_1,undefined1 param_2)
 }
 
 
-// ---- FUN_CODE_2c24 @ CODE:2c24 ----
+// ---- argon_serial_advance_tx @ CODE:2c24 ----
 
-byte FUN_CODE_2c24(byte param_1)
+byte argon_serial_advance_tx(byte param_1)
 
 {
   if (_d_0 != '\x01') {
@@ -7081,9 +7081,9 @@ void init_intmem_values(undefined1 *param_1)
 }
 
 
-// ---- FUN_CODE_2ed3 @ CODE:2ed3 ----
+// ---- clear_bit_flag_range @ CODE:2ed3 ----
 
-void FUN_CODE_2ed3(byte param_1,char param_2)
+void clear_bit_flag_range(byte param_1,char param_2)
 
 {
   char cVar1;
