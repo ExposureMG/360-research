@@ -2449,7 +2449,7 @@ void FUN_CODE_1242(void)
   case 3:
     break;
   case 6:
-    FUN_CODE_2640();
+    sb_reset_assert();
     i2c_burn_cycles();
     i2c_burn_cycles();
     FUN_CODE_2658();
@@ -3609,7 +3609,7 @@ void i2c_sm_exec(void)
       return;
     }
     if (g_i2c_ipc_operation_pending != '\0') {
-      FUN_CODE_295e();
+      i2c_commandlist_run_ipc_transact();
       cVar2 = F0;
       if (cVar2 != '\x01') {
         g_i2c_sm_state = 1;
@@ -3698,7 +3698,7 @@ void i2c_sm_exec(void)
         return;
       }
       g_i2c_ddc_lock_requested = 0;
-      FUN_CODE_2990();
+      i2c_commandlist_run_send_rrod_code();
       cVar2 = F0;
       if (cVar2 == '\x01') {
         g_i2c_sm_state = 0;
@@ -3708,7 +3708,7 @@ void i2c_sm_exec(void)
       g_i2c_sm_state = 10;
       return;
     }
-    FUN_CODE_298b();
+    i2c_commandlist_run_read_all_temps();
     cVar2 = F0;
     if (cVar2 != '\x01') {
       g_i2c_sm_state = 9;
@@ -5512,9 +5512,9 @@ void FUN_CODE_263a(void)
 }
 
 
-// ---- FUN_CODE_2640 @ CODE:2640 ----
+// ---- sb_reset_assert @ CODE:2640 ----
 
-void FUN_CODE_2640(void)
+void sb_reset_assert(void)
 
 {
   gpio_sb_rst_n = 0;
@@ -6158,9 +6158,9 @@ void rtc_set(undefined1 param_1,undefined1 param_2,undefined1 param_3,undefined1
 }
 
 
-// ---- FUN_CODE_295e @ CODE:295e ----
+// ---- i2c_commandlist_run_ipc_transact @ CODE:295e ----
 
-void FUN_CODE_295e(void)
+void i2c_commandlist_run_ipc_transact(void)
 
 {
   _e_5 = 0;
@@ -6249,9 +6249,9 @@ void FUN_CODE_2986(void)
 }
 
 
-// ---- FUN_CODE_298b @ CODE:298b ----
+// ---- i2c_commandlist_run_read_all_temps @ CODE:298b ----
 
-void FUN_CODE_298b(void)
+void i2c_commandlist_run_read_all_temps(void)
 
 {
   g_i2c_sm_initial_pc = 0xd6;
@@ -6260,9 +6260,9 @@ void FUN_CODE_298b(void)
 }
 
 
-// ---- FUN_CODE_2990 @ CODE:2990 ----
+// ---- i2c_commandlist_run_send_rrod_code @ CODE:2990 ----
 
-void FUN_CODE_2990(void)
+void i2c_commandlist_run_send_rrod_code(void)
 
 {
   g_i2c_sm_initial_pc = 0xe0;

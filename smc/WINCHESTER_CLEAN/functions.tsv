@@ -166,7 +166,7 @@ CODE:28b4	ext_pwr_on_debounce_counter_reset	4	y	ok	0
 CODE:28b8	ext_pwr_on_read	6	y	ok	0
 CODE:28be	rtc_read	14	y	ok	0
 CODE:28cc	rtc_set	14	y	ok	0
-CODE:28da	FUN_CODE_28da	10	n	ok	0
+CODE:28da	i2c_commandlist_run_ipc_transact	10	y	ok	0
 CODE:28e4	i2c_commandlist_run_hana_init	5	y	ok	0
 CODE:28e9	i2c_runscript_init_clock_regs	5	y	ok	0
 CODE:28ee	FUN_CODE_28ee	5	n	ok	0
@@ -174,8 +174,8 @@ CODE:28f3	FUN_CODE_28f3	5	n	ok	0
 CODE:28f8	i2c_commandlist_run_temperature_update	5	y	ok	0
 CODE:28fd	FUN_CODE_28fd	5	n	ok	0
 CODE:2902	FUN_CODE_2902	5	n	ok	0
-CODE:2907	FUN_CODE_2907	5	n	ok	0
-CODE:290c	FUN_CODE_290c	5	n	ok	0
+CODE:2907	i2c_commandlist_run_read_all_temps	5	y	ok	0
+CODE:290c	i2c_commandlist_run_send_rrod_code	5	y	ok	0
 CODE:2911	i2c_execute_with_3_retries	4	y	ok	0
 CODE:2915	FUN_CODE_2915	10	n	ok	0
 CODE:291f	i2c_try_continue_commandlist_execution	37	y	ok	0

@@ -3590,7 +3590,7 @@ void hana_i2c_sm_exec(void)
       return;
     }
     if (g_i2c_ipc_operation_pending != '\0') {
-      FUN_CODE_28da();
+      i2c_commandlist_run_ipc_transact();
       cVar2 = F0;
       if (cVar2 != '\x01') {
         DAT_INTMEM_a4 = 1;
@@ -3679,7 +3679,7 @@ void hana_i2c_sm_exec(void)
         return;
       }
       g_i2c_ddc_lock_requested = 0;
-      FUN_CODE_290c();
+      i2c_commandlist_run_send_rrod_code();
       cVar2 = F0;
       if (cVar2 == '\x01') {
         DAT_INTMEM_a4 = 0;
@@ -3689,7 +3689,7 @@ void hana_i2c_sm_exec(void)
       DAT_INTMEM_a4 = 10;
       return;
     }
-    FUN_CODE_2907();
+    i2c_commandlist_run_read_all_temps();
     cVar2 = F0;
     if (cVar2 != '\x01') {
       DAT_INTMEM_a4 = 9;
@@ -6181,9 +6181,9 @@ void rtc_set(undefined1 param_1,undefined1 param_2,undefined1 param_3,undefined1
 }
 
 
-// ---- FUN_CODE_28da @ CODE:28da ----
+// ---- i2c_commandlist_run_ipc_transact @ CODE:28da ----
 
-void FUN_CODE_28da(void)
+void i2c_commandlist_run_ipc_transact(void)
 
 {
   _e_3 = 0;
@@ -6272,9 +6272,9 @@ void FUN_CODE_2902(void)
 }
 
 
-// ---- FUN_CODE_2907 @ CODE:2907 ----
+// ---- i2c_commandlist_run_read_all_temps @ CODE:2907 ----
 
-void FUN_CODE_2907(void)
+void i2c_commandlist_run_read_all_temps(void)
 
 {
   g_i2c_command_start_pointer = 0xa5;
@@ -6283,9 +6283,9 @@ void FUN_CODE_2907(void)
 }
 
 
-// ---- FUN_CODE_290c @ CODE:290c ----
+// ---- i2c_commandlist_run_send_rrod_code @ CODE:290c ----
 
-void FUN_CODE_290c(void)
+void i2c_commandlist_run_send_rrod_code(void)
 
 {
   g_i2c_command_start_pointer = 0xaf;
