@@ -1,0 +1,4 @@
+- Name more functions in HV
+- Name more functions in SMC
+- Delete patched SMC decomps from repo
+- De-slop the protocols docs
