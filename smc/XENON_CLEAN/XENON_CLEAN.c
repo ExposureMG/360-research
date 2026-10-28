@@ -84,9 +84,9 @@ void vreg_5vp0_enable(void)
 }
 
 
-// ---- FUN_CODE_0052 @ CODE:0052 ----
+// ---- vreg_v5p0_sel_clear @ CODE:0052 ----
 
-void FUN_CODE_0052(void)
+void vreg_v5p0_sel_clear(void)
 
 {
   gpio_vreg_v5p0_sel = 0;
@@ -94,9 +94,9 @@ void FUN_CODE_0052(void)
 }
 
 
-// ---- FUN_CODE_0055 @ CODE:0055 ----
+// ---- vreg_v5p0_sel_set @ CODE:0055 ----
 
-void FUN_CODE_0055(void)
+void vreg_v5p0_sel_set(void)
 
 {
   gpio_vreg_v5p0_sel = 1;
@@ -164,9 +164,9 @@ void gpu_power_kill(void)
 }
 
 
-// ---- FUN_CODE_006a @ CODE:006a ----
+// ---- vreg_gpu_pwrgd_check @ CODE:006a ----
 
-void FUN_CODE_006a(void)
+void vreg_gpu_pwrgd_check(void)
 
 {
   undefined1 uVar1;
@@ -217,9 +217,9 @@ void gpu_reset_done_read(void)
 }
 
 
-// ---- FUN_CODE_0086 @ CODE:0086 ----
+// ---- vreg_cpu_enable @ CODE:0086 ----
 
-void FUN_CODE_0086(void)
+void vreg_cpu_enable(void)
 
 {
   gpio_vreg_cpu_en = 1;
@@ -227,9 +227,9 @@ void FUN_CODE_0086(void)
 }
 
 
-// ---- FUN_CODE_0089 @ CODE:0089 ----
+// ---- vreg_cpu_kill @ CODE:0089 ----
 
-void FUN_CODE_0089(void)
+void vreg_cpu_kill(void)
 
 {
   gpio_vreg_cpu_en = 0;
@@ -501,9 +501,9 @@ void halt_execution(void)
 }
 
 
-// ---- FUN_CODE_013a @ CODE:013a ----
+// ---- timer_irq @ CODE:013a ----
 
-undefined1 FUN_CODE_013a(undefined1 param_1)
+undefined1 timer_irq(undefined1 param_1)
 
 {
   byte bVar1;
@@ -757,9 +757,9 @@ void i2c_reset_buses(void)
 }
 
 
-// ---- FUN_CODE_02fe @ CODE:02fe ----
+// ---- ir_irq @ CODE:02fe ----
 
-undefined1 FUN_CODE_02fe(undefined1 param_1)
+undefined1 ir_irq(undefined1 param_1)
 
 {
   byte bVar1;
@@ -1382,7 +1382,7 @@ void start(byte param_1)
   FUN_CODE_21c6();
   argon_disable();
   FUN_CODE_21ce();
-  FUN_CODE_2220();
+  millisecond_timer_start();
   watchdog_kick();
   FUN_CODE_0801();
   FUN_CODE_07de();
@@ -2311,11 +2311,11 @@ void powerdown_sm_exec(void)
     return;
   case '\x06':
     g_v1p8_regulator_enabled = 0;
-    FUN_CODE_0089();
+    vreg_cpu_kill();
     DAT_INTMEM_c6 = 3;
     return;
   case '\t':
-    FUN_CODE_0055();
+    vreg_v5p0_sel_set();
     vreg_3v3_kill();
     DAT_INTMEM_c6 = 4;
     return;
@@ -2459,7 +2459,7 @@ void powerup_sm_exec(void)
     DAT_INTMEM_c3 = 3;
     return;
   case 9:
-    FUN_CODE_006a();
+    vreg_gpu_pwrgd_check();
     if (cVar1 < '\0') {
       g_vgpu_regulator_enabled = 1;
       DAT_INTMEM_c3 = 4;
@@ -2487,7 +2487,7 @@ void powerup_sm_exec(void)
     DAT_INTMEM_c3 = 6;
     return;
   case 0x12:
-    FUN_CODE_0052();
+    vreg_v5p0_sel_clear();
     _4_2 = 1;
     _5_5 = 1;
     DAT_INTMEM_c3 = 7;
@@ -2500,7 +2500,7 @@ void powerup_sm_exec(void)
     DAT_INTMEM_c3 = 8;
     return;
   case 0x18:
-    FUN_CODE_0086();
+    vreg_cpu_enable();
     DAT_INTMEM_c3 = 9;
     return;
   case 0x1b:
@@ -2639,7 +2639,7 @@ void FUN_CODE_1064(void)
     if (g_smc_reset_pending != '\x01') {
       FUN_CODE_22f5();
       FUN_CODE_00b0();
-      FUN_CODE_2220();
+      millisecond_timer_start();
       argon_enable();
       smcconfig_init_defaults_and_read_page();
       DAT_INTMEM_c2 = 1;
@@ -3198,7 +3198,7 @@ void thermal_monitor_do_checks(void)
       }
       if (g_rrod_thermal_tripped != '\x01') {
         if (g_thermal_overheat_protection_tripped == '\0') {
-          FUN_CODE_14e6(cVar5);
+          fan1_target_speed_from_chassis_temp(cVar5);
           if (((g_cpu_last_temp != '\0') && (g_gpu_last_temp != '\0')) &&
              (g_edram_last_temp != '\0')) {
             temperature_calc_differences(0x3f,0x47,g_cpu_target_temp);
@@ -3253,9 +3253,9 @@ void thermal_monitor_do_checks(void)
 }
 
 
-// ---- FUN_CODE_14e6 @ CODE:14e6 ----
+// ---- fan1_target_speed_from_chassis_temp @ CODE:14e6 ----
 
-void FUN_CODE_14e6(void)
+void fan1_target_speed_from_chassis_temp(void)
 
 {
   char cVar1;
@@ -3770,7 +3770,7 @@ void hana_i2c_sm_exec(void)
       return;
     }
     if (g_i2c_ipc_operation_pending != '\0') {
-      FUN_CODE_2542();
+      i2c_commandlist_run_ipc_transaction();
       cVar1 = F0;
       if (cVar1 != '\x01') {
         DAT_INTMEM_cd = 1;
@@ -3830,7 +3830,7 @@ void hana_i2c_sm_exec(void)
         if (g_i2c_error_handler_operation_pending == '\0') {
           return;
         }
-        FUN_CODE_257f();
+        i2c_commandlist_run_error_handler();
         cVar1 = F0;
         if (cVar1 == '\x01') {
           DAT_INTMEM_cd = 0;
@@ -4258,7 +4258,7 @@ void vreg_monitor_statuses(void)
     }
   }
   if (g_vgpu_regulator_enabled != '\0') {
-    FUN_CODE_006a();
+    vreg_gpu_pwrgd_check();
     if (-1 < in_PSW) {
       g_rrod_power_problem = 1;
       g_rrod_errordisplay_code_a = 3;
@@ -5075,9 +5075,9 @@ void FUN_CODE_21ce(void)
 }
 
 
-// ---- FUN_CODE_2220 @ CODE:2220 ----
+// ---- millisecond_timer_start @ CODE:2220 ----
 
-void FUN_CODE_2220(void)
+void millisecond_timer_start(void)
 
 {
   byte bVar1;
@@ -5798,9 +5798,9 @@ void rtc_set(undefined1 param_1,undefined1 param_2,undefined1 param_3,undefined1
 }
 
 
-// ---- FUN_CODE_2542 @ CODE:2542 ----
+// ---- i2c_commandlist_run_ipc_transaction @ CODE:2542 ----
 
-void FUN_CODE_2542(void)
+void i2c_commandlist_run_ipc_transaction(void)
 
 {
   byte bVar1;
@@ -5895,9 +5895,9 @@ void FUN_CODE_257a(void)
 }
 
 
-// ---- FUN_CODE_257f @ CODE:257f ----
+// ---- i2c_commandlist_run_error_handler @ CODE:257f ----
 
-void FUN_CODE_257f(void)
+void i2c_commandlist_run_error_handler(void)
 
 {
   g_i2c_command_start_pointer = 0x62;
@@ -6007,7 +6007,7 @@ void i2c_command_step(void)
     i2c_opcode_done();
     return;
   case 6:
-    FUN_CODE_27cd();
+    i2c_opcode_ipc_transact();
     return;
   case 8:
     i2c_opcode_hana_write();
@@ -6016,31 +6016,31 @@ void i2c_command_step(void)
     i2c_opcode_hana_read();
     return;
   case 0xe:
-    FUN_CODE_2692();
+    i2c_opcode_update_temp_edram_gpu();
     return;
   case 0x11:
-    FUN_CODE_26df();
+    i2c_opcode_update_temp_cpu();
     return;
   case 0x14:
-    FUN_CODE_2708();
+    i2c_opcode_update_temp_chassis();
     return;
   case 0x17:
     i2c_backupclockgen_write();
     return;
   case 0x1a:
-    FUN_CODE_2752();
+    i2c_backupclockgen_read();
     return;
   case 0x1d:
-    FUN_CODE_2775();
+    i2c_opcode_branch_on_clockgen_status();
     return;
   case 0x20:
-    FUN_CODE_278e();
+    i2c_opcode_read_dev48_status();
     return;
   case 0x23:
-    FUN_CODE_27a7();
+    i2c_opcode_store_dev48_status();
     return;
   case 0x26:
-    FUN_CODE_27b7();
+    i2c_opcode_send_rrod_code_dev30();
     return;
   }
 }
@@ -6198,9 +6198,9 @@ void i2c_opcode_hana_read(void)
 }
 
 
-// ---- FUN_CODE_2692 @ CODE:2692 ----
+// ---- i2c_opcode_update_temp_edram_gpu @ CODE:2692 ----
 
-void FUN_CODE_2692(void)
+void i2c_opcode_update_temp_edram_gpu(void)
 
 {
   if (BANK3_R0 != '\0' || BANK2_R7 != '\0') {
@@ -6229,9 +6229,9 @@ void FUN_CODE_2692(void)
 }
 
 
-// ---- FUN_CODE_26df @ CODE:26df ----
+// ---- i2c_opcode_update_temp_cpu @ CODE:26df ----
 
-void FUN_CODE_26df(void)
+void i2c_opcode_update_temp_cpu(void)
 
 {
   if (BANK3_R0 != '\0' || BANK2_R7 != '\0') {
@@ -6250,9 +6250,9 @@ void FUN_CODE_26df(void)
 }
 
 
-// ---- FUN_CODE_2708 @ CODE:2708 ----
+// ---- i2c_opcode_update_temp_chassis @ CODE:2708 ----
 
-void FUN_CODE_2708(void)
+void i2c_opcode_update_temp_chassis(void)
 
 {
   if (BANK3_R0 != '\0' || BANK2_R7 != '\0') {
@@ -6294,9 +6294,9 @@ void i2c_backupclockgen_write(void)
 }
 
 
-// ---- FUN_CODE_2752 @ CODE:2752 ----
+// ---- i2c_backupclockgen_read @ CODE:2752 ----
 
-void FUN_CODE_2752(void)
+void i2c_backupclockgen_read(void)
 
 {
   char cVar1;
@@ -6318,9 +6318,9 @@ void FUN_CODE_2752(void)
 }
 
 
-// ---- FUN_CODE_2775 @ CODE:2775 ----
+// ---- i2c_opcode_branch_on_clockgen_status @ CODE:2775 ----
 
-void FUN_CODE_2775(void)
+void i2c_opcode_branch_on_clockgen_status(void)
 
 {
   if ((BANK2_R5 & 0xf) == 1) {
@@ -6346,9 +6346,9 @@ void FUN_CODE_2775(void)
 }
 
 
-// ---- FUN_CODE_278e @ CODE:278e ----
+// ---- i2c_opcode_read_dev48_status @ CODE:278e ----
 
-void FUN_CODE_278e(void)
+void i2c_opcode_read_dev48_status(void)
 
 {
   g_i2c_operation_pending = 1;
@@ -6365,9 +6365,9 @@ void FUN_CODE_278e(void)
 }
 
 
-// ---- FUN_CODE_27a7 @ CODE:27a7 ----
+// ---- i2c_opcode_store_dev48_status @ CODE:27a7 ----
 
-void FUN_CODE_27a7(void)
+void i2c_opcode_store_dev48_status(void)
 
 {
   DAT_INTMEM_e0 = BANK3_R0;
@@ -6378,9 +6378,9 @@ void FUN_CODE_27a7(void)
 }
 
 
-// ---- FUN_CODE_27b7 @ CODE:27b7 ----
+// ---- i2c_opcode_send_rrod_code_dev30 @ CODE:27b7 ----
 
-void FUN_CODE_27b7(void)
+void i2c_opcode_send_rrod_code_dev30(void)
 
 {
   g_i2c_operation_pending = 1;
@@ -6396,9 +6396,9 @@ void FUN_CODE_27b7(void)
 }
 
 
-// ---- FUN_CODE_27cd @ CODE:27cd ----
+// ---- i2c_opcode_ipc_transact @ CODE:27cd ----
 
-void FUN_CODE_27cd(void)
+void i2c_opcode_ipc_transact(void)
 
 {
   byte bVar1;
