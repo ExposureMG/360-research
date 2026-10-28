@@ -62,9 +62,9 @@ void vreg_cpu_disable(void)
 }
 
 
-// ---- FUN_CODE_003f @ CODE:003f ----
+// ---- cpu_core_pwrgd_check @ CODE:003f ----
 
-void FUN_CODE_003f(void)
+void cpu_core_pwrgd_check(void)
 
 {
   undefined1 uVar1;
@@ -233,9 +233,9 @@ void smcconfig_init_defaults_and_read_page(void)
 }
 
 
-// ---- FUN_CODE_00d3 @ CODE:00d3 ----
+// ---- timer_tick_isr @ CODE:00d3 ----
 
-undefined1 FUN_CODE_00d3(undefined1 param_1,undefined1 param_2)
+undefined1 timer_tick_isr(undefined1 param_1,undefined1 param_2)
 
 {
   byte bVar1;
@@ -476,9 +476,9 @@ void i2c_reset_buses(void)
 }
 
 
-// ---- FUN_CODE_02bb @ CODE:02bb ----
+// ---- ir_decode_isr @ CODE:02bb ----
 
-undefined1 FUN_CODE_02bb(undefined1 param_1,undefined1 param_2)
+undefined1 ir_decode_isr(undefined1 param_1,undefined1 param_2)
 
 {
   byte bVar1;
@@ -496,7 +496,7 @@ undefined1 FUN_CODE_02bb(undefined1 param_1,undefined1 param_2)
     DAT_INTMEM_76 = sfr_ir_unk_b6;
     if ((DAT_INTMEM_76 & 0xf0) != 0x10) {
 LAB_CODE_02a7:
-      FUN_CODE_0455(param_2);
+      ir_irq_init(param_2);
       goto LAB_CODE_02a9;
     }
   }
@@ -625,9 +625,9 @@ LAB_CODE_041c:
 }
 
 
-// ---- FUN_CODE_0455 @ CODE:0455 ----
+// ---- ir_irq_init @ CODE:0455 ----
 
-void FUN_CODE_0455(void)
+void ir_irq_init(void)
 
 {
   byte bVar1;
@@ -1191,10 +1191,10 @@ void start(void)
   SP = 0xbe;
   FUN_CODE_24a5();
   argon_disable();
-  FUN_CODE_24ad();
+  sfr_reset_to_defaults();
   FUN_CODE_24ff();
   watchdog_kick();
-  FUN_CODE_0874();
+  reset_runtime_state();
   FUN_CODE_0851();
   _1_5 = 1;
   ext_pwr_on_read();
@@ -1203,7 +1203,7 @@ void start(void)
     SP = 0xbe;
     FUN_CODE_24a5();
     FUN_CODE_1df2();
-    FUN_CODE_1ee3();
+    power_fault_monitor();
     ext_pwr_on_sm_exec();
     powerejectsw_sm_exec();
     bindsw_sm_exec();
@@ -1214,11 +1214,11 @@ void start(void)
     thermal_monitor_check_if_temps_available();
     thermal_monitor_do_checks();
     dbgled_sm();
-    FUN_CODE_1fc0();
-    FUN_CODE_12c3();
-    FUN_CODE_116d();
+    power_up_state_machine();
+    smc_init_state_machine();
+    powerup_sequence_sm_exec();
     resetwatchdog_sm_exec();
-    FUN_CODE_1242();
+    hwreset_sm_exec();
     powerdown_sm_exec();
     do {
       i2c_sm_exec();
@@ -1247,9 +1247,9 @@ void FUN_CODE_0851(void)
 }
 
 
-// ---- FUN_CODE_0874 @ CODE:0874 ----
+// ---- reset_runtime_state @ CODE:0874 ----
 
-void FUN_CODE_0874(void)
+void reset_runtime_state(void)
 
 {
   zero_memory_range(0x9a,0x25);
@@ -2294,9 +2294,9 @@ void powerdown_sm_exec(void)
 }
 
 
-// ---- FUN_CODE_116d @ CODE:116d ----
+// ---- powerup_sequence_sm_exec @ CODE:116d ----
 
-void FUN_CODE_116d(void)
+void powerup_sequence_sm_exec(void)
 
 {
   char cVar1;
@@ -2407,9 +2407,9 @@ void FUN_CODE_116d(void)
       DAT_INTMEM_9b = 8;
       return;
     case 0x18:
-      FUN_CODE_003f();
+      cpu_core_pwrgd_check();
       if (cVar1 < '\0') {
-        FUN_CODE_003f();
+        cpu_core_pwrgd_check();
         g_cpu_powered_on = 1;
       }
       else {
@@ -2427,9 +2427,9 @@ void FUN_CODE_116d(void)
 }
 
 
-// ---- FUN_CODE_1242 @ CODE:1242 ----
+// ---- hwreset_sm_exec @ CODE:1242 ----
 
-void FUN_CODE_1242(void)
+void hwreset_sm_exec(void)
 
 {
   char cVar1;
@@ -2518,9 +2518,9 @@ LAB_CODE_11be:
 }
 
 
-// ---- FUN_CODE_12c3 @ CODE:12c3 ----
+// ---- smc_init_state_machine @ CODE:12c3 ----
 
-void FUN_CODE_12c3(void)
+void smc_init_state_machine(void)
 
 {
   if (_1_5 != '\x01') {
@@ -2531,11 +2531,11 @@ void FUN_CODE_12c3(void)
   switch(DAT_INTMEM_9a * '\x03') {
   case '\0':
     argon_disable();
-    FUN_CODE_24ad();
+    sfr_reset_to_defaults();
     dbgled_read();
     gpios_reset();
     if (g_smc_reset_pending != '\x01') {
-      FUN_CODE_2579();
+      reset_peripherals();
       FUN_CODE_24ff();
       ana_reset_deassert();
       FUN_CODE_2720();
@@ -3045,26 +3045,26 @@ void thermal_monitor_do_checks(char param_1,undefined1 param_2,undefined1 param_
           goto LAB_CODE_16bc;
         }
       }
-      FUN_CODE_16dd();
+      fan_target_from_chassis_temp();
       if (((DAT_INTMEM_b6 != '\0') && (DAT_INTMEM_b8 != '\0')) && (DAT_INTMEM_ba != '\0')) {
         bVar3 = g_cpu_target_temp;
         if ((_a_5 != '\0') && (bVar3 = g_cpu_target_temp - 3, g_cpu_target_temp < 3)) {
           bVar3 = 0;
         }
         temperature_calc_differences(0x3e,0xb5,bVar3);
-        FUN_CODE_1783(0xaf);
+        fan_regulator_step(0xaf);
         bVar3 = g_gpu_target_temp;
         if ((_a_5 != '\0') && (bVar3 = g_gpu_target_temp - 3, g_gpu_target_temp < 3)) {
           bVar3 = 0;
         }
         temperature_calc_differences(0x40,0xb7,bVar3);
-        FUN_CODE_1783(0xb1);
+        fan_regulator_step(0xb1);
         bVar3 = g_edram_target_temp;
         if ((_a_5 != '\0') && (bVar3 = g_edram_target_temp - 3, g_edram_target_temp < 3)) {
           bVar3 = 0;
         }
         temperature_calc_differences(0x42,0xb9,bVar3);
-        FUN_CODE_1783(0xb3);
+        fan_regulator_step(0xb3);
         cVar2 = -0x51;
         FUN_CODE_184c(0xb1);
         FUN_CODE_184c(0xb3);
@@ -3088,9 +3088,9 @@ LAB_CODE_16d8:
 }
 
 
-// ---- FUN_CODE_16dd @ CODE:16dd ----
+// ---- fan_target_from_chassis_temp @ CODE:16dd ----
 
-void FUN_CODE_16dd(void)
+void fan_target_from_chassis_temp(void)
 
 {
   char cVar1;
@@ -3142,9 +3142,9 @@ byte temperature_calc_differences(byte *param_1,byte *param_2,char param_3)
 }
 
 
-// ---- FUN_CODE_1783 @ CODE:1783 ----
+// ---- fan_regulator_step @ CODE:1783 ----
 
-byte FUN_CODE_1783(byte *param_1,byte param_2,byte param_3,byte param_4,byte param_5)
+byte fan_regulator_step(byte *param_1,byte param_2,byte param_3,byte param_4,byte param_5)
 
 {
   short sVar1;
@@ -4125,9 +4125,9 @@ void powerejectsw_sm_exec(void)
 }
 
 
-// ---- FUN_CODE_1ee3 @ CODE:1ee3 ----
+// ---- power_fault_monitor @ CODE:1ee3 ----
 
-void FUN_CODE_1ee3(void)
+void power_fault_monitor(void)
 
 {
   char in_PSW;
@@ -4177,7 +4177,7 @@ void FUN_CODE_1ee3(void)
     }
   }
   if (g_cpu_powered_on != '\0') {
-    FUN_CODE_003f();
+    cpu_core_pwrgd_check();
     if (-1 < in_PSW) {
       g_force_rrod_power = 1;
       g_rrod_errordisplay_a = 2;
@@ -4244,7 +4244,7 @@ void vreg_monitor_statuses(void)
     }
   }
   if (g_cpu_powered_on != '\0') {
-    FUN_CODE_003f();
+    cpu_core_pwrgd_check();
     if (-1 < in_PSW) {
       g_force_rrod_power = 1;
       g_rrod_errordisplay_a = 2;
@@ -4331,9 +4331,9 @@ void ipc_outbox_sm_exec(void)
 }
 
 
-// ---- FUN_CODE_1fc0 @ CODE:1fc0 ----
+// ---- power_up_state_machine @ CODE:1fc0 ----
 
-void FUN_CODE_1fc0(void)
+void power_up_state_machine(void)
 
 {
   char cVar1;
@@ -4630,7 +4630,7 @@ LAB_CODE_21cc:
     return;
   case 0x12:
     if (g_powerdown_sm_should_run != '\x01') {
-      FUN_CODE_0874();
+      reset_runtime_state();
       _1_5 = 1;
       g_dbgled_blinkpattern_andmask = 0x80;
       DAT_INTMEM_7d = 0;
@@ -5035,9 +5035,9 @@ void FUN_CODE_24a5(void)
 }
 
 
-// ---- FUN_CODE_24ad @ CODE:24ad ----
+// ---- sfr_reset_to_defaults @ CODE:24ad ----
 
-void FUN_CODE_24ad(void)
+void sfr_reset_to_defaults(void)
 
 {
   sfr_irq_disable_all = 1;
@@ -5173,15 +5173,15 @@ void gpios_reset(void)
 }
 
 
-// ---- FUN_CODE_2579 @ CODE:2579 ----
+// ---- reset_peripherals @ CODE:2579 ----
 
-void FUN_CODE_2579(void)
+void reset_peripherals(void)
 
 {
   byte bVar1;
   
   g_ir_command_waiting = 0;
-  FUN_CODE_0455();
+  ir_irq_init();
   i2c_reset_buses();
   _d_5 = 0;
   _d_4 = 0;
