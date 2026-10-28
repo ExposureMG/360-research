@@ -565,8 +565,8 @@ LABEL_27:
 }
 
 
-/* ========== [0x364] sub_364 (16 bytes) ========== */
-__int64 sub_364()
+/* ========== [0x364] HvpPowerOnInitialize (16 bytes) ========== */
+__int64 HvpPowerOnInitialize()
 {
   __int64 v0; // r3
 
@@ -756,10 +756,10 @@ LABEL_26:
   }
   v11 = v8 >> 28;
   if ( v11 == 8 )
-    return sub_12BC();
+    return HvpInstructionStorageRegion8();
   if ( v13 != 9 )
     goto LABEL_26;
-  return sub_10C4();
+  return HvpInstructionStorageRegion9();
 }
 
 
@@ -1608,8 +1608,8 @@ void sub_1070()
 }
 
 
-/* ========== [0x10c4] sub_10C4 (388 bytes) ========== */
-void __fastcall sub_10C4(unsigned __int64 a1)
+/* ========== [0x10c4] HvpInstructionStorageRegion9 (388 bytes) ========== */
+void __fastcall HvpInstructionStorageRegion9(unsigned __int64 a1)
 {
   unsigned __int64 v1; // r13
   unsigned __int64 v2; // r4
@@ -1675,8 +1675,8 @@ void __fastcall sub_1248(unsigned __int64 a1)
 }
 
 
-/* ========== [0x12bc] sub_12BC (52 bytes) ========== */
-void __fastcall sub_12BC(unsigned __int64 a1)
+/* ========== [0x12bc] HvpInstructionStorageRegion8 (52 bytes) ========== */
+void __fastcall HvpInstructionStorageRegion8(unsigned __int64 a1)
 {
   if ( (*(_DWORD *)(((a1 >> 14) & 0x7FFC) + 0x6801F50000LL) & 0xFu) >= 8 )
     JUMPOUT(0x1188);
@@ -1859,7 +1859,7 @@ void HvPowerOnReset()
   *(_BYTE *)(v5 + 128) = v0;
   __mtspr(0x131u, v5);
   if ( (_DWORD)v0 == 0 )
-    sub_364();
+    HvpPowerOnInitialize();
   v6 = 0;
   __asm { slbia     0 }
   do
@@ -3094,8 +3094,8 @@ __int64 __fastcall sub_38D8(__int64 a1, __int64 a2, int *a3)
 }
 
 
-/* ========== [0x3980] sub_3980 (128 bytes) ========== */
-__int64 __fastcall sub_3980(
+/* ========== [0x3980] HvpKeysSetKey16 (128 bytes) ========== */
+__int64 __fastcall HvpKeysSetKey16(
         __int64 a1,
         __int64 a2,
         __int64 a3,
@@ -3121,8 +3121,8 @@ __int64 __fastcall sub_3980(
 }
 
 
-/* ========== [0x3a00] sub_3A00 (272 bytes) ========== */
-__int64 __fastcall sub_3A00(__int64 a1, int a2, __int64 a3, __int64 a4, __int64 a5, __int64 a6, __int64 a7)
+/* ========== [0x3a00] HvpKeysSetKeyRsa (272 bytes) ========== */
+__int64 __fastcall HvpKeysSetKeyRsa(__int64 a1, int a2, __int64 a3, __int64 a4, __int64 a5, __int64 a6, __int64 a7)
 {
   __int64 v7; // r2
   __int64 v8; // lr
@@ -3162,8 +3162,8 @@ __int64 __fastcall sub_3A00(__int64 a1, int a2, __int64 a3, __int64 a4, __int64 
 }
 
 
-/* ========== [0x3b10] sub_3B10 (320 bytes) ========== */
-__int64 __fastcall sub_3B10(
+/* ========== [0x3b10] HvpKeysSetKeyDerived (320 bytes) ========== */
+__int64 __fastcall HvpKeysSetKeyDerived(
         __int64 a1,
         __int64 a2,
         __int64 a3,
@@ -3215,8 +3215,8 @@ __int64 __fastcall sub_3B10(
 }
 
 
-/* ========== [0x3c50] sub_3C50 (556 bytes) ========== */
-__int64 __fastcall sub_3C50(unsigned int a1, int a2)
+/* ========== [0x3c50] HvpKeysSetKeySignedPage (556 bytes) ========== */
+__int64 __fastcall HvpKeysSetKeySignedPage(unsigned int a1, int a2)
 {
   __int64 v2; // r2
   _DWORD *v4; // r29
@@ -3631,8 +3631,8 @@ LABEL_7:
 }
 
 
-/* ========== [0x5348] sub_5348 (460 bytes) ========== */
-__int64 __fastcall sub_5348(unsigned int a1, int a2, __int64 a3, __int64 a4, __int64 a5, __int64 a6, __int64 a7)
+/* ========== [0x5348] HvpKeysResolveKeyMaterial (460 bytes) ========== */
+__int64 __fastcall HvpKeysResolveKeyMaterial(unsigned int a1, int a2, __int64 a3, __int64 a4, __int64 a5, __int64 a6, __int64 a7)
 {
   __int64 v7; // r2
   __int64 v8; // lr
@@ -3723,7 +3723,7 @@ __int64 __fastcall HvxKeysHmacSha(__int64 a1, __int64 a2, __int64 a3, __int64 a4
   v11 = a2;
   LODWORD(a2) = 0x800000;
   v30 = *(_DWORD *)(v7 + 0x10000);
-  v14 = sub_5348(a1, a2, v11, a3, v29);
+  v14 = HvpKeysResolveKeyMaterial(a1, a2, v11, a3, v29);
   if ( (_DWORD)v14 == 0 )
   {
     if ( (unsigned int)a7 > 0x14 )
@@ -3781,7 +3781,7 @@ __int64 __fastcall HvxKeysAesCbc(
   v11 = HIDWORD(a1);
   v13 = a1;
   v39 = *(_DWORD *)(v8 + 0x10000);
-  v16 = sub_5348(HIDWORD(a1), 0x400000, a2, a3, v38);
+  v16 = HvpKeysResolveKeyMaterial(HIDWORD(a1), 0x400000, a2, a3, v38);
   if ( (_DWORD)v16 == 0 )
   {
     if ( v11 == 27 && (unsigned int)sub_B100(8) == 0 )
@@ -3888,7 +3888,7 @@ __int64 __fastcall HvxKeysDes2Cbc(
   v11 = HIDWORD(a1);
   v13 = a1;
   v48 = *(_DWORD *)(v8 + 0x10000);
-  v16 = sub_5348(HIDWORD(a1), 0x400000, a2, a3, v47);
+  v16 = HvpKeysResolveKeyMaterial(HIDWORD(a1), 0x400000, a2, a3, v47);
   if ( (_DWORD)v16 == 0 )
   {
     if ( v11 == 27 && (unsigned int)sub_B100(8) == 0 )
@@ -3984,7 +3984,7 @@ __int64 __fastcall HvxKeysDesCbc(
 
   v46 = *(_DWORD *)(v8 + 0x10000);
   v14 = a1;
-  v15 = sub_5348(HIDWORD(a1), 0x4000000, a2, a3, v45);
+  v15 = HvpKeysResolveKeyMaterial(HIDWORD(a1), 0x4000000, a2, a3, v45);
   if ( (_DWORD)v15 == 0 )
   {
     if ( (a5 & 7) != 0 )
@@ -4699,9 +4699,9 @@ __int64 __fastcall HvxSetProtectedFlag(unsigned int a1, int a2)
 }
 
 
-/* ========== [0x6e68] sub_6E68 (1192 bytes) ========== */
+/* ========== [0x6e68] HvpKeysInitializeFromFlash (1192 bytes) ========== */
 // write access to const memory has been detected, the output may be wrong!
-__int64 __fastcall sub_6E68(__int64 a1)
+__int64 __fastcall HvpKeysInitializeFromFlash(__int64 a1)
 {
   __int64 v1; // r2
   __int64 v3; // r31
@@ -4959,8 +4959,8 @@ __int64 __fastcall sub_7498(__int64 a1)
 }
 
 
-/* ========== [0x7500] sub_7500 (180 bytes) ========== */
-_DWORD *__fastcall sub_7500(__int64 a1, __int64 a2)
+/* ========== [0x7500] HvpKeysGetKeyFromSoc (180 bytes) ========== */
+_DWORD *__fastcall HvpKeysGetKeyFromSoc(__int64 a1, __int64 a2)
 {
   __int64 SocMMIORegs; // r3
   __int64 v5; // r2
@@ -5013,7 +5013,7 @@ __int64 __fastcall HvxKeysInitialize(unsigned int a1)
   v3 = (_DWORD *)(v1 + 92824);
   HvpAquireSpinLock((_DWORD *)(v1 + 92824));
   v4 = (__int64 *)HvpRelocatePhysicalToProtected(a1, 0x10000u, 58);
-  sub_6E68();
+  HvpKeysInitializeFromFlash();
   HvpZeroCacheLines((__int64)v4, 512);
   HvpRelocatePhysicalToEncryptedStrict(v4, 0x10000u, 58);
   LODWORD(v5) = 0;
@@ -5097,12 +5097,12 @@ __int64 __fastcall HvxKeysSetKey(__int64 a1, __int64 a2, __int64 a3)
   {
     case 'F':
       LODWORD(a2) = a3;
-      return sub_3C50(a1, a2);
+      return HvpKeysSetKeySignedPage(a1, a2);
     case 'G':
-      return sub_3980(v3 + 91648, a2, a3);
+      return HvpKeysSetKey16(v3 + 91648, a2, a3);
     case 'M':
       LODWORD(a2) = a3;
-      return sub_3A00(a1, a2);
+      return HvpKeysSetKeyRsa(a1, a2);
     default:
       if ( (unsigned int)(v4 - 224) > 7 )
       {
@@ -5122,7 +5122,7 @@ __int64 __fastcall HvxKeysSetKey(__int64 a1, __int64 a2, __int64 a3)
       }
       else
       {
-        return sub_3B10(16LL * (unsigned int)(v4 - 224) + *(_QWORD *)(v3 + 91696), a2, a3);
+        return HvpKeysSetKeyDerived(16LL * (unsigned int)(v4 - 224) + *(_QWORD *)(v3 + 91696), a2, a3);
       }
   }
 }
@@ -5265,7 +5265,7 @@ LABEL_38:
       goto LABEL_39;
     case 'E':
       LODWORD(a2) = 20;
-      sub_7500(v47, a2);
+      HvpKeysGetKeyFromSoc(v47, a2);
       v13 = v47;
 LABEL_37:
       v14 = 16842752;
@@ -9429,8 +9429,8 @@ void sub_10494()
 }
 
 
-/* ========== [0x20000] sub_20000 (64 bytes) ========== */
-__int64 __fastcall sub_20000(unsigned int a1)
+/* ========== [0x20000] HvpBnScratchAcquire (64 bytes) ========== */
+__int64 __fastcall HvpBnScratchAcquire(unsigned int a1)
 {
   __int64 v1; // r2
   __int64 v2; // r2
@@ -9442,8 +9442,8 @@ __int64 __fastcall sub_20000(unsigned int a1)
 }
 
 
-/* ========== [0x20040] sub_20040 (28 bytes) ========== */
-_DWORD *__fastcall sub_20040(_DWORD *result)
+/* ========== [0x20040] HvpBnScratchRelease (28 bytes) ========== */
+_DWORD *__fastcall HvpBnScratchRelease(_DWORD *result)
 {
   __int64 v1; // r2
 
@@ -9895,8 +9895,8 @@ char *__fastcall sub_206F0(_QWORD *a1, unsigned __int64 *a2, char *a3, __int64 a
 }
 
 
-/* ========== [0x20860] sub_20860 (84 bytes) ========== */
-char *__fastcall sub_20860(__int64 a1, char *a2, __int64 a3)
+/* ========== [0x20860] XeCryptBnQwNeMontSqr (84 bytes) ========== */
+char *__fastcall XeCryptBnQwNeMontSqr(__int64 a1, char *a2, __int64 a3)
 {
   char *v4; // r30
   __int64 v5; // r6
@@ -9909,8 +9909,8 @@ char *__fastcall sub_20860(__int64 a1, char *a2, __int64 a3)
 }
 
 
-/* ========== [0x208b8] sub_208B8 (88 bytes) ========== */
-char *__fastcall sub_208B8(unsigned int *a1, char *a2, __int64 a3, __int64 a4)
+/* ========== [0x208b8] XeCryptBnQwNeMontMul (88 bytes) ========== */
+char *__fastcall XeCryptBnQwNeMontMul(unsigned int *a1, char *a2, __int64 a3, __int64 a4)
 {
   __int64 v6; // r6
 
@@ -10002,7 +10002,7 @@ __int64 __fastcall XeCryptBnQwNeModExp(_QWORD *a1, __int64 a2, __int64 a3, __int
   LODWORD(v11) = a5;
   v16 = 8 * v12;
   v17 = v15 + 8;
-  v19 = sub_245B0(a3, v11);
+  v19 = XeCryptBnQwBitLen(a3, v11);
   v20 = v19;
   if ( (_DWORD)v19 == 0 )
   {
@@ -10044,7 +10044,7 @@ __int64 __fastcall XeCryptBnQwNeModExp(_QWORD *a1, __int64 a2, __int64 a3, __int
     v22 = 1;
   }
   v23 = (v22 + 4) * v16 + v17;
-  v26 = sub_20000(((int)v22 + 4) * (__int64)v16 + v17);
+  v26 = HvpBnScratchAcquire(((int)v22 + 4) * (__int64)v16 + v17);
   v27 = v26;
   if ( v26 == 0 )
     return 0;
@@ -10099,7 +10099,7 @@ __int64 __fastcall XeCryptBnQwNeModExp(_QWORD *a1, __int64 a2, __int64 a3, __int
       {
         LODWORD(v53) = v8;
         LODWORD(v54) = v27;
-        sub_20860(&v69, v54, v53);
+        XeCryptBnQwNeMontSqr(&v69, v54, v53);
         v56 = v13;
         v57 = 0;
         v58 = v22 - 1;
@@ -10108,7 +10108,7 @@ __int64 __fastcall XeCryptBnQwNeModExp(_QWORD *a1, __int64 a2, __int64 a3, __int
           LODWORD(v52) = v27;
           LODWORD(v53) = 8 * v57 + v35;
           LODWORD(v54) = 8 * v56 + v35;
-          HIDWORD(v55) = (unsigned __int64)sub_208B8(&v69, v54, v53, v52) >> 32;
+          HIDWORD(v55) = (unsigned __int64)XeCryptBnQwNeMontMul(&v69, v54, v53, v52) >> 32;
           --v58;
           v56 += v13;
           v57 += v13;
@@ -10156,14 +10156,14 @@ __int64 __fastcall XeCryptBnQwNeModExp(_QWORD *a1, __int64 a2, __int64 a3, __int
                 LODWORD(v53) = v27;
                 LODWORD(v54) = v27;
                 --v66;
-                HIDWORD(v55) = (unsigned __int64)sub_20860(&v69, v54, v53) >> 32;
+                HIDWORD(v55) = (unsigned __int64)XeCryptBnQwNeMontSqr(&v69, v54, v53) >> 32;
               }
               if ( v59 != 0 )
               {
                 LODWORD(v53) = v27;
                 LODWORD(v54) = v27;
                 LODWORD(v52) = 8 * ((v59 - 1) * (int)v13 / 2) + v35;
-                HIDWORD(v55) = (unsigned __int64)sub_208B8(&v69, v54, v53, v52) >> 32;
+                HIDWORD(v55) = (unsigned __int64)XeCryptBnQwNeMontMul(&v69, v54, v53, v52) >> 32;
               }
             }
             while ( v67 != 0 )
@@ -10171,7 +10171,7 @@ __int64 __fastcall XeCryptBnQwNeModExp(_QWORD *a1, __int64 a2, __int64 a3, __int
               LODWORD(v53) = v27;
               LODWORD(v54) = v27;
               --v67;
-              HIDWORD(v55) = (unsigned __int64)sub_20860(&v69, v54, v53) >> 32;
+              HIDWORD(v55) = (unsigned __int64)XeCryptBnQwNeMontSqr(&v69, v54, v53) >> 32;
             }
             v59 = 0;
           }
@@ -10196,7 +10196,7 @@ __int64 __fastcall XeCryptBnQwNeModExp(_QWORD *a1, __int64 a2, __int64 a3, __int
     }
   }
   LODWORD(v26) = v27;
-  sub_20040(v26);
+  HvpBnScratchRelease(v26);
   return v10;
 }
 
@@ -12705,8 +12705,8 @@ __int64 __fastcall XeCryptBnQwNeMul(__int64 a1, __int64 a2)
 }
 
 
-/* ========== [0x245b0] sub_245B0 (80 bytes) ========== */
-unsigned __int64 __fastcall sub_245B0(__int64 a1, __int64 a2)
+/* ========== [0x245b0] XeCryptBnQwBitLen (80 bytes) ========== */
+unsigned __int64 __fastcall XeCryptBnQwBitLen(__int64 a1, __int64 a2)
 {
   unsigned __int64 *v2; // r11
   unsigned __int64 v3; // r10
@@ -13260,8 +13260,8 @@ __int64 __fastcall sub_24DD8(_BYTE *a1, int a2)
 }
 
 
-/* ========== [0x24e50] sub_24E50 (268 bytes) ========== */
-__int64 __fastcall sub_24E50(uint8_t *a1)
+/* ========== [0x24e50] HvpDvdAuthBuildNVPageV1 (268 bytes) ========== */
+__int64 __fastcall HvpDvdAuthBuildNVPageV1(uint8_t *a1)
 {
   __int64 v1; // r2
   uint8_t v3; // r11
@@ -13301,8 +13301,8 @@ __int64 __fastcall sub_24E50(uint8_t *a1)
 }
 
 
-/* ========== [0x24f60] sub_24F60 (340 bytes) ========== */
-__int64 __fastcall sub_24F60(uint8_t *a1)
+/* ========== [0x24f60] HvpDvdAuthBuildNVPageV2 (340 bytes) ========== */
+__int64 __fastcall HvpDvdAuthBuildNVPageV2(uint8_t *a1)
 {
   __int64 v1; // r2
   __int64 v3; // r7
@@ -13374,16 +13374,16 @@ __int64 __fastcall HvxDvdAuthBuildNVPage(__int64 a1)
   v10 = HvpPhysicalToReal(a1, 74, v9, v8, v7, v6, v5, v4);
   LODWORD(v10) = v10 + 8;
   if ( (*(_WORD *)(*(_QWORD *)(v11 + 90832) + 1540LL) & 0x200) == 0x200 )
-    sub_24F60(v10);
+    HvpDvdAuthBuildNVPageV2(v10);
   else
-    sub_24E50(v10);
+    HvpDvdAuthBuildNVPageV1(v10);
   HvpReleaseSpinLock(v3);
   return 0;
 }
 
 
-/* ========== [0x25138] sub_25138 (124 bytes) ========== */
-__int64 __fastcall sub_25138(int a1, int a2)
+/* ========== [0x25138] HvpDvdAuthResetState (124 bytes) ========== */
+__int64 __fastcall HvpDvdAuthResetState(int a1, int a2)
 {
   __int64 v2; // r2
   __int64 result; // r3
@@ -13419,7 +13419,7 @@ __int64 __fastcall HvxDvdAuthClearDiscAuthInfo(int a1)
   HvpAquireSpinLock((_DWORD *)(v1 + 93776));
   LODWORD(v4) = 0;
   LODWORD(v5) = a1;
-  sub_25138(v5, v4);
+  HvpDvdAuthResetState(v5, v4);
   HvpReleaseSpinLock(v3);
   return 0;
 }
@@ -13451,8 +13451,8 @@ __int64 sub_25210()
 }
 
 
-/* ========== [0x25298] sub_25298 (528 bytes) ========== */
-__int64 __fastcall sub_25298(__int64 a1, __int64 a2, __int64 a3, __int64 a4, __int64 a5)
+/* ========== [0x25298] HvpDvdAuthVerifyLBAHeader (528 bytes) ========== */
+__int64 __fastcall HvpDvdAuthVerifyLBAHeader(__int64 a1, __int64 a2, __int64 a3, __int64 a4, __int64 a5)
 {
   __int64 v5; // r2
   __int64 v7; // r31
@@ -13575,8 +13575,8 @@ void sub_254A8()
 }
 
 
-/* ========== [0x25530] sub_25530 (208 bytes) ========== */
-__int64 __fastcall sub_25530(const uint8_t *a1, __int64 a2, __int64 a3, __int64 a4, __int64 a5)
+/* ========== [0x25530] HvpDvdAuthVerifyLBATable (208 bytes) ========== */
+__int64 __fastcall HvpDvdAuthVerifyLBATable(const uint8_t *a1, __int64 a2, __int64 a3, __int64 a4, __int64 a5)
 {
   __int64 v5; // r2
   __int64 v7; // r31
@@ -13610,8 +13610,8 @@ __int64 __fastcall sub_25530(const uint8_t *a1, __int64 a2, __int64 a3, __int64 
 }
 
 
-/* ========== [0x25600] sub_25600 (264 bytes) ========== */
-__int64 __fastcall sub_25600(const uint8_t *a1, _DWORD *a2)
+/* ========== [0x25600] HvpDvdAuthVerifyLBASector (264 bytes) ========== */
+__int64 __fastcall HvpDvdAuthVerifyLBASector(const uint8_t *a1, _DWORD *a2)
 {
   __int64 v3; // r2
   _DWORD *v4; // r31
@@ -13764,8 +13764,8 @@ __int64 __fastcall HvxDvdAuthSetDiscAuthResult(
 }
 
 
-/* ========== [0x25970] sub_25970 (168 bytes) ========== */
-__int64 __fastcall sub_25970(int a1)
+/* ========== [0x25970] HvpDvdAuthBeginOperation (168 bytes) ========== */
+__int64 __fastcall HvpDvdAuthBeginOperation(int a1)
 {
   __int64 v1; // r2
   _DWORD *v3; // r30
@@ -13784,7 +13784,7 @@ __int64 __fastcall sub_25970(int a1)
   v6 = (_DWORD *)(v4 + 93736);
   for ( i = 10; i != 0; --i )
     *v6++ = *v5++;
-  sub_25138(1, 1);
+  HvpDvdAuthResetState(1, 1);
   HvpReleaseSpinLock(v3);
   return 0;
 }
@@ -14168,8 +14168,8 @@ __int64 HvxDvdAuthFwcr()
 }
 
 
-/* ========== [0x26420] sub_26420 (512 bytes) ========== */
-__int64 __fastcall sub_26420(__int64 a1, __int64 a2, __int64 a3, __int64 a4, __int64 a5)
+/* ========== [0x26420] HvpDvdAuthFcrtLoad (512 bytes) ========== */
+__int64 __fastcall HvpDvdAuthFcrtLoad(__int64 a1, __int64 a2, __int64 a3, __int64 a4, __int64 a5)
 {
   __int64 v5; // r2
   __int64 v6; // r27
@@ -14265,7 +14265,7 @@ __int64 __fastcall HvxDvdAuthFcrt(
     return -939523961;
   LODWORD(v9) = HvpPhysicalToReal(a2, 0x4000, a3, a4, a5, a6, a7, a8);
   if ( a1 == 0 )
-    return sub_26420(v9);
+    return HvpDvdAuthFcrtLoad(v9);
   if ( a1 == 1 )
     return sub_26620(v9);
   else
@@ -14287,7 +14287,7 @@ __int64 sub_26828()
   sub_3830(0, 2048);
   *(_DWORD *)(v3 + 93728) = 0;
   *(_DWORD *)(v3 + 93736) = 0;
-  return sub_25138(1, 1);
+  return HvpDvdAuthResetState(1, 1);
 }
 
 
@@ -14393,7 +14393,7 @@ __int64 __fastcall HvxDvdAuthRecordAuthenticationPage(__int64 a1)
   v2 = a1;
   LODWORD(a1) = 1;
   v21 = *(_DWORD *)(v1 + 0x10000);
-  if ( (unsigned int)sub_25970(a1) != 0 )
+  if ( (unsigned int)HvpDvdAuthBeginOperation(a1) != 0 )
   {
     v10 = HvpPhysicalToReal(v2, 42, v8, v7, v6, v5, v4, v3);
     XeCryptAesKey(&v19, (const uint8_t *)(v11 + 65568), v12);
@@ -14531,7 +14531,7 @@ __int64 __fastcall HvxDvdAuthRecordXControl(__int64 a1, __int64 a2)
   v4 = 0;
   v6 = 0;
   v111 = *(_DWORD *)(v2 + 0x10000);
-  if ( (unsigned int)sub_25970(2) == 0 )
+  if ( (unsigned int)HvpDvdAuthBeginOperation(2) == 0 )
   {
     v_MACHINE_CHECK_filter(v111);
     return -939523962;
@@ -14881,7 +14881,7 @@ __int64 __fastcall HvxDvdAuthVerifyAuthPage(__int64 a1, int a2, __int64 a3, unsi
   v9 = 0;
   v10 = 0;
   v71 = *(_DWORD *)(v4 + 0x10000);
-  if ( (unsigned int)sub_25970(4) == 0 )
+  if ( (unsigned int)HvpDvdAuthBeginOperation(4) == 0 )
   {
     v_MACHINE_CHECK_filter(v71);
     return -939523962;
@@ -15189,7 +15189,7 @@ __int64 __fastcall HvxDvdAuthGetNextLBAIndex(__int64 a1)
   _DWORD v20[10]; // [sp+50h] [-40h] BYREF
 
   v2 = 0;
-  if ( (unsigned int)sub_25970(5) == 0 )
+  if ( (unsigned int)HvpDvdAuthBeginOperation(5) == 0 )
     return -939523962;
   v10 = (_DWORD *)HvpPhysicalToReal(a1, 4, v8, v7, v6, v5, v4, v3);
   if ( *(_BYTE *)(v11 + 93712) != 0 )
@@ -15286,7 +15286,7 @@ __int64 __fastcall HvxDvdAuthVerifyLBA(__int64 a1, int a2, __int64 a3)
   int v48; // [sp+84h] [-3Ch]
 
   v3 = 0;
-  if ( (unsigned int)sub_25970(6) == 0 )
+  if ( (unsigned int)HvpDvdAuthBeginOperation(6) == 0 )
     return -939523962;
   LODWORD(v20) = HvpPhysicalToReal(a1, 0x8000, v12, v11, v10, v9, v8, v7);
   v22 = v21 + 93728;
@@ -15335,7 +15335,7 @@ __int64 __fastcall HvxDvdAuthVerifyLBA(__int64 a1, int a2, __int64 a3)
     {
       if ( v24 == 2 )
       {
-        v28 = sub_25600(v20, v38);
+        v28 = HvpDvdAuthVerifyLBASector(v20, v38);
         v3 = v38[0];
         v27 = v28;
       }
@@ -15346,11 +15346,11 @@ __int64 __fastcall HvxDvdAuthVerifyLBA(__int64 a1, int a2, __int64 a3)
       }
       goto LABEL_12;
     }
-    v26 = sub_25530(v20);
+    v26 = HvpDvdAuthVerifyLBATable(v20);
   }
   else
   {
-    v26 = sub_25298(v20);
+    v26 = HvpDvdAuthVerifyLBAHeader(v20);
   }
   v27 = v26;
 LABEL_12:
@@ -15458,7 +15458,7 @@ __int64 __fastcall HvxDvdAuthGetAuthPage(__int64 a1)
   int v37; // [sp+220h] [-20h]
 
   v37 = *(_DWORD *)(v1 + 0x10000);
-  if ( (unsigned int)sub_25970(3) != 0 )
+  if ( (unsigned int)HvpDvdAuthBeginOperation(3) != 0 )
   {
     v4 = HvpDvdAuthGetAuthPage();
     v6 = v4;
@@ -16461,8 +16461,8 @@ LABEL_7:
 }
 
 
-/* ========== [0x29390] sub_29390 (76 bytes) ========== */
-__int64 __fastcall sub_29390(int a1, __int64 a2)
+/* ========== [0x29390] HvpDvdAuthExCall (76 bytes) ========== */
+__int64 __fastcall HvpDvdAuthExCall(int a1, __int64 a2)
 {
   __int64 v2; // r2
   _DWORD *v4; // r31
@@ -16479,8 +16479,8 @@ __int64 __fastcall sub_29390(int a1, __int64 a2)
 }
 
 
-/* ========== [0x293e0] sub_293E0 (324 bytes) ========== */
-__int64 __fastcall sub_293E0(
+/* ========== [0x293e0] HvpDvdAuthExCallBuffered (324 bytes) ========== */
+__int64 __fastcall HvpDvdAuthExCallBuffered(
         __int64 a1,
         unsigned __int64 a2,
         __int64 a3,
@@ -16579,41 +16579,41 @@ __int64 __fastcall HvxDvdAuthEx(int a1, __int64 a2, __int64 a3, __int64 a4, __in
       LODWORD(a5) = 1;
       LODWORD(a4) = v6 + 165896;
       LODWORD(a2) = v7;
-      return sub_293E0(v8, a2, a3, a4, a5, a6);
+      return HvpDvdAuthExCallBuffered(v8, a2, a3, a4, a5, a6);
     case 1:
       LODWORD(a6) = 0;
       LODWORD(a5) = 1;
       LODWORD(a4) = v6 + 166304;
       LODWORD(a2) = v7;
-      return sub_293E0(v8, a2, a3, a4, a5, a6);
+      return HvpDvdAuthExCallBuffered(v8, a2, a3, a4, a5, a6);
     case 2:
       LODWORD(a6) = 1;
       LODWORD(a5) = 1;
       LODWORD(a4) = v6 + 166520;
       LODWORD(a3) = 0;
       LODWORD(a2) = v7;
-      return sub_293E0(v8, a2, a3, a4, a5, a6);
+      return HvpDvdAuthExCallBuffered(v8, a2, a3, a4, a5, a6);
     case 3:
-      return sub_29390(v6 + 166856, a2, a3);
+      return HvpDvdAuthExCall(v6 + 166856, a2, a3);
     case 4:
       LODWORD(a2) = 0;
-      return sub_29390(v6 + 166976, a2, a3);
+      return HvpDvdAuthExCall(v6 + 166976, a2, a3);
     case 5:
       LODWORD(a6) = 0;
       LODWORD(a5) = 0;
       LODWORD(a4) = v6 + 167832;
       LODWORD(a3) = 0;
       LODWORD(a2) = v7;
-      return sub_293E0(v8, a2, a3, a4, a5, a6);
+      return HvpDvdAuthExCallBuffered(v8, a2, a3, a4, a5, a6);
     case 6:
       LODWORD(a6) = 0;
       LODWORD(a5) = 0;
       LODWORD(a4) = v6 + 168352;
       LODWORD(a2) = v7;
-      return sub_293E0(v8, a2, a3, a4, a5, a6);
+      return HvpDvdAuthExCallBuffered(v8, a2, a3, a4, a5, a6);
     case 7:
       LODWORD(a2) = 0;
-      return sub_29390(v6 + 168728, a2, a3);
+      return HvpDvdAuthExCall(v6 + 168728, a2, a3);
     default:
       return -939523952;
   }
@@ -18508,8 +18508,8 @@ _QWORD *__fastcall sub_2BB48(int a1)
 }
 
 
-/* ========== [0x2bb98] sub_2BB98 (76 bytes) ========== */
-__int64 sub_2BB98()
+/* ========== [0x2bb98] HvpImageShimClearAll (76 bytes) ========== */
+__int64 HvpImageShimClearAll()
 {
   __int64 v0; // r2
   __int64 v1; // r9
@@ -18531,8 +18531,8 @@ __int64 sub_2BB98()
 }
 
 
-/* ========== [0x2bbe8] sub_2BBE8 (92 bytes) ========== */
-__int64 __fastcall sub_2BBE8(unsigned int a1)
+/* ========== [0x2bbe8] HvpImageShimEnable (92 bytes) ========== */
+__int64 __fastcall HvpImageShimEnable(unsigned int a1)
 {
   _QWORD *v2; // r11
 
@@ -18546,8 +18546,8 @@ __int64 __fastcall sub_2BBE8(unsigned int a1)
 }
 
 
-/* ========== [0x2bc48] sub_2BC48 (92 bytes) ========== */
-__int64 __fastcall sub_2BC48(unsigned int a1)
+/* ========== [0x2bc48] HvpImageShimDisable (92 bytes) ========== */
+__int64 __fastcall HvpImageShimDisable(unsigned int a1)
 {
   _QWORD *v2; // r11
 
@@ -18561,8 +18561,8 @@ __int64 __fastcall sub_2BC48(unsigned int a1)
 }
 
 
-/* ========== [0x2bca8] sub_2BCA8 (440 bytes) ========== */
-__int64 __fastcall sub_2BCA8(unsigned __int64 a1, unsigned int a2, __int64 a3, __int64 a4)
+/* ========== [0x2bca8] HvpImageShimInstall (440 bytes) ========== */
+__int64 __fastcall HvpImageShimInstall(unsigned __int64 a1, unsigned int a2, __int64 a3, __int64 a4)
 {
   __int64 v4; // r2
   __int64 v6; // r31
@@ -18638,7 +18638,7 @@ __int64 __fastcall HvxImageShim(int a1, unsigned int a2, int a3, int a4, int a5)
   switch ( a1 )
   {
     case 0:
-      v17 = sub_2BB98(v15);
+      v17 = HvpImageShimClearAll(v15);
 LABEL_16:
       v20 = v17;
       goto LABEL_18;
@@ -18661,16 +18661,16 @@ LABEL_7:
     switch ( a1 )
     {
       case 4:
-        v17 = sub_2BBE8(a2);
+        v17 = HvpImageShimEnable(a2);
         break;
       case 5:
-        v17 = sub_2BC48(a2);
+        v17 = HvpImageShimDisable(a2);
         break;
       case 6:
         LODWORD(v12) = a5;
         LODWORD(v13) = a4;
         LODWORD(v14) = a3;
-        v17 = sub_2BCA8(a2, v14, v13, v12);
+        v17 = HvpImageShimInstall(a2, v14, v13, v12);
         break;
       default:
         v20 = -939507711;
